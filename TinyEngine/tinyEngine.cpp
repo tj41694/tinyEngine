@@ -91,7 +91,7 @@ namespace TEngine {
 	extern "C" int glMain(GLContext * glContext) {
 		glContext->userData = malloc(sizeof(UserData));
 
-		if (!glCreateWindow(glContext, "Hello GL", 1920, 0, 1280, 800)) {
+		if (!glCreateWindow(glContext, "Hello GL", 0, 0, 1280, 800)) {
 			return -1;
 		}
 		if (!Init(glContext)) { return GL_FALSE; }
