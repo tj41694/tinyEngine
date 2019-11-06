@@ -74,7 +74,7 @@ LRESULT WINAPI ESWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
 		}
 
 
-		ValidateRect(esContext->eglNativeWindow, NULL);
+		ValidateRect(esContext->glNativeWindow, NULL);
 	}
 	break;
 
@@ -145,7 +145,7 @@ GLboolean WinCreate(ESContext *esContext, const char *title) {
 
 
 
-	esContext->eglNativeWindow = CreateWindow(
+	esContext->glNativeWindow = CreateWindow(
 		"opengles3.0",
 		title,
 		wStyle,
@@ -164,15 +164,15 @@ GLboolean WinCreate(ESContext *esContext, const char *title) {
    //In LLP64 LONG is stll 32bit.
 	SetWindowLongPtr(esContext->eglNativeWindow, GWL_USERDATA, (LONGLONG)(LONG_PTR)esContext);
 #else
-	SetWindowLongPtr(esContext->eglNativeWindow, GWL_USERDATA, (LONG)(LONG_PTR)esContext);
+	SetWindowLongPtr(esContext->glNativeWindow, GWL_USERDATA, (LONG)(LONG_PTR)esContext);
 #endif
 
 
-	if (esContext->eglNativeWindow == NULL) {
+	if (esContext->glNativeWindow == NULL) {
 		return GL_FALSE;
 	}
 
-	ShowWindow(esContext->eglNativeWindow, TRUE);
+	ShowWindow(esContext->glNativeWindow, TRUE);
 
 	return GL_TRUE;
 }
@@ -185,11 +185,11 @@ GLboolean WinCreate(ESContext *esContext, const char *title) {
 void WinLoop(ESContext *esContext) {
 	MSG msg = { 0 };
 	int done = 0;
-	DWORD lastTime = GetTickCount64();
+	DWORD lastTime = (DWORD)GetTickCount64();
 
 	while (!done) {
 		int gotMsg = (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) != 0);
-		DWORD curTime = GetTickCount64();
+		DWORD curTime = (DWORD)GetTickCount64();
 		float deltaTime = (float)(curTime - lastTime) / 1000.0f;
 		lastTime = curTime;
 
@@ -201,7 +201,7 @@ void WinLoop(ESContext *esContext) {
 				DispatchMessage(&msg);
 			}
 		} else {
-			SendMessage(esContext->eglNativeWindow, WM_PAINT, 0, 0);
+			SendMessage(esContext->glNativeWindow, WM_PAINT, 0, 0);
 		}
 
 		// Call update function if registered

@@ -24,26 +24,20 @@ namespace TEngine {
 				aiString str;
 				scene->mMaterials[i]->GetTexture(aiTextureType_DIFFUSE, 0, &str);
 				mat->diffuseMap = new Texture();
-				for (unsigned int j = 0; j < str.length; j++) {
-					mat->diffuseMap->path.push_back(str.C_Str()[j]);
-				}
+				mat->diffuseMap->path.assign(str.C_Str());
 				mat->diffuseMap->path = path + mat->diffuseMap->path;
 			} else if (opac) {
 				aiString str;
 				scene->mMaterials[i]->GetTexture(aiTextureType_OPACITY, 0, &str);
 				mat->diffuseMap = new Texture();
-				for (unsigned int j = 0; j < str.length; j++) {
-					mat->diffuseMap->path.push_back(str.C_Str()[j]);
-				}
+				mat->diffuseMap->path.assign(str.C_Str());
 				mat->diffuseMap->path = path + mat->diffuseMap->path;
 			}
 			if (norm) {
 				aiString str;
 				scene->mMaterials[i]->GetTexture(aiTextureType_NORMALS, 0, &str);
 				mat->normalMap = new Texture();
-				for (unsigned int j = 0; j < str.length; j++) {
-					mat->normalMap->path.push_back(str.C_Str()[j]);
-				}
+				mat->normalMap->path.assign(str.C_Str());
 				mat->normalMap->path = path + mat->normalMap->path;
 			}
 			materials.push_back(mat);
@@ -51,7 +45,5 @@ namespace TEngine {
 	}
 
 	Render::~Render() {
-		//for (unsigned int i = 0; i < materials.size(); i++) 
-		//	delete materials[i];
 	}
 }

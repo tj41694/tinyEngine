@@ -122,7 +122,7 @@ struct ESContext
    EGLNativeDisplayType eglNativeDisplay;
 
    /// Window handle
-   EGLNativeWindowType  eglNativeWindow;
+   EGLNativeWindowType  glNativeWindow;
 
    /// EGL display
    EGLDisplay  eglDisplay;

@@ -1,6 +1,6 @@
 #pragma once
-#include "Standard.h"
 #include "Object.h"
+#include "Standard.h"
 #include "FileSystem.h"
 #include "Camera.h"
 #include "Texture.h"
@@ -9,9 +9,12 @@
 
 namespace TEngine {
 	Standard::Standard() : Material("./resources/shaders/Standard.vs", "./resources/shaders/Standard.fs") {
+		depTest = true;
 		skybox = Global::skyboxTexture;
-		mat_view = glGetUniformLocation(shaderId, "view");
-		mat_projection = glGetUniformLocation(shaderId, "projection");
+		specularTexLoc = glGetUniformLocation(shaderId, "specularTex");
+		normalTexLoc = glGetUniformLocation(shaderId, "normalTex");
+		tskyboxTexLoc = glGetUniformLocation(shaderId, "skyboxTex");
+		diffuseTexLoc = glGetUniformLocation(shaderId, "diffuseTex");
 		diffuseMap = nullptr;
 		diffuseColor = vec3(0.9f);
 		specularMap = nullptr;
@@ -21,28 +24,22 @@ namespace TEngine {
 		selfLuminous = vec3(0.0f);
 	}
 
-	void Standard::Use(Camera* camera, Object* obj, Mesh* mesh) {
+	void Standard::Use(Camera* camera, Object* obj, DrawCmd* mesh) {
 		glUseProgram(shaderId);
 		SetFloat("smoothness", smoothness);
-		SetMatrix(obj->LocalToWorldMarix(), Model);
-		SetMatrix(camera->GetViewMatrix(), View);
-		SetMatrix(camera->GetProjectionMatrix(), Projection);
+		SetMatrix("model", obj->LocalToWorldMarix());
+		SetMatrix("view", camera->GetViewMatrix());
+		SetMatrix("projection", camera->GetProjectionMatrix());
 		SetVector("sunPos", vec3(-3000, 20000, 6000));
-		SetVector("sunColor", vec3(1.0f, 0.889f, 0.675f) * 0.5f);
+		SetVector("sunColor", vec3(1.0f, 0.889f, 0.675f) * 0.4f);
 		SetVector("diffuseColor", diffuseColor);
 		SetVector("specularColor", specularColor);
 		SetVector("ambientLighting", vec3(0.4191f, 0.6332f, 0.8980f) * 0.7f);
 		SetVector("camPos", camera->obj->WorldPos());
 		SetVector("selfLuminousColor", selfLuminous);
-		GLuint diffuseTexLoc = glGetUniformLocation(shaderId, "diffuseTex");
-		glUniform1i(diffuseTexLoc, 0);
-		GLuint specularTexLoc = glGetUniformLocation(shaderId, "specularTex");
 		glUniform1i(specularTexLoc, 1);
-		GLuint normalTexLoc = glGetUniformLocation(shaderId, "normalTex");
-		glUniform1i(normalTexLoc, 2);
-		GLuint tskyboxTexLoc = glGetUniformLocation(shaderId, "skyboxTex");
-		glUniform1i(tskyboxTexLoc, 3);
 		if (diffuseMap) {
+			glUniform1i(diffuseTexLoc, 0);
 			if (diffuseMap->id == 0) {
 				glGenTextures(1, &diffuseMap->id);
 				int width, height, nrComponents;
@@ -72,10 +69,11 @@ namespace TEngine {
 			glBindTexture(GL_TEXTURE_2D, diffuseMap->id);
 		}
 		else {
-			glActiveTexture(GL_TEXTURE0); // 在绑定纹理之前先激活对应纹理单元
+			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 		if (normalMap) {
+			glUniform1i(normalTexLoc, 2);
 			if (normalMap->id == 0) {
 				glGenTextures(1, &normalMap->id);
 				int width, height, nrComponents;
@@ -108,8 +106,15 @@ namespace TEngine {
 			glActiveTexture(GL_TEXTURE2); // 在绑定纹理之前先激活对应纹理单元
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
+		glUniform1i(tskyboxTexLoc, 3);
 		glActiveTexture(GL_TEXTURE3);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, skybox);
+		if (depTest) {
+			glEnable(GL_DEPTH_TEST);
+		}
+		else {
+			glDisable(GL_DEPTH_TEST);
+		}
 		mesh->Draw();
 	}
 

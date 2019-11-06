@@ -1,23 +1,28 @@
 #pragma once
-#include "esUtil.h"
+#include "OpenglUtil.h"
 #include "glm/glm.hpp"
 
 namespace TEngine {
 	using namespace glm;
 	class Input {
 	private:
-		static ivec2 lasPos;
-		static long Vertical;
-		static long Horizontal;
+		static dvec2 lasPos;
+		static double Vertical;
+		static double Horizontal;
 
 	public:
-		static ivec2 mousePosition;
+		static dvec2 mousePosition;
 		static bool mouseMoving;
 		static double deltaTime;
-		static void Update(ESContext *esContext, const float deltaTime);
+	public:
+		static void Initial(glContext* window);
+		static void OnCursorEnterCallback(GLFWwindow* window, int val);
+		static void Update(double deltaTime);
+		static void OnMouseMove(GLFWwindow*, double x, double y);
 		static bool GetKey(int vKey);
 		static bool GetKeyDown(int vKey);
-		static long GetAxisX();
-		static long GetAxisY();
+		static int  GetMouseButton(int button);
+		static double GetAxisX();
+		static double GetAxisY();
 	};
 }

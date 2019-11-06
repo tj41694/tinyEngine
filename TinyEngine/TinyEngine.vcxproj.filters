@@ -48,6 +48,15 @@
     <Filter Include="TEngine\源文件\ToolSets">
       <UniqueIdentifier>{94def6b8-42e7-4ed9-95d1-4e240c8f852c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tool">
+      <UniqueIdentifier>{bc655cdb-5e7f-4776-b687-63b0269c42c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEngine\头文件\DrawCommand">
+      <UniqueIdentifier>{482f663d-3076-42bd-bc8e-d4ccd6955c28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEngine\源文件\DrawCommand">
+      <UniqueIdentifier>{1361bc00-5ea0-418a-bec5-57ce931460c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Material.cpp">
@@ -107,9 +116,6 @@
     <ClCompile Include="Input.cpp">
       <Filter>TEngine\源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>TEngine\源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>TEngine\源文件</Filter>
     </ClCompile>
@@ -124,6 +130,24 @@
     </ClCompile>
     <ClCompile Include="Terrain.cpp">
       <Filter>TEngine\源文件\ToolSets</Filter>
+    </ClCompile>
+    <ClCompile Include="BeltStrip.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Polygon.cpp">
+      <Filter>Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="BeltStripMat.cpp">
+      <Filter>TEngine\源文件\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>TEngine\源文件\DrawCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawCmd.cpp">
+      <Filter>TEngine\源文件\DrawCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawCmdBelt.cpp">
+      <Filter>TEngine\源文件\DrawCommand</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,9 +211,6 @@
     <ClInclude Include="Input.h">
       <Filter>TEngine\头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>TEngine\头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>TEngine\头文件</Filter>
     </ClInclude>
@@ -204,6 +225,27 @@
     </ClInclude>
     <ClInclude Include="Terrain.h">
       <Filter>TEngine\头文件\ToolSets</Filter>
+    </ClInclude>
+    <ClInclude Include="BeltStrip.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Polygon.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenglUtil.h">
+      <Filter>TEngine\头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BeltStripMat.h">
+      <Filter>TEngine\头文件\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>TEngine\头文件\DrawCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawCmd.h">
+      <Filter>TEngine\头文件\DrawCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawCmdBelt.h">
+      <Filter>TEngine\头文件\DrawCommand</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -42,9 +42,9 @@ namespace TEngine {
 	}
 
 	void Text::SetText(const double&& str_) {
-		stringstream strStream;
-		strStream << str_;
-		SetText(strStream.str());
+		char string[64];
+		sprintf(string, "%.1f", str_);
+		SetText(string);
 	}
 
 	void Text::SetText(const int&& str_) {

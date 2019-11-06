@@ -1,68 +1,68 @@
 #pragma once
+#include "Object.h"
 #include "Input.h"
-#include "Debug.h"
-#include <windows.h>
 
 namespace TEngine {
-	ivec2		Input::mousePosition(0, 0);
-	ivec2		Input::lasPos(0, 0);
+	dvec2		Input::mousePosition(0, 0);
+	dvec2		Input::lasPos(0, 0);
 	bool		Input::mouseMoving = false;
-	long	    Input::Vertical = 0;
-	long		Input::Horizontal = 0;
+	double	    Input::Vertical = 0;
+	double		Input::Horizontal = 0;
 	double	    Input::deltaTime = 0;
 
-	bool first = true;
-	void Input::Update(ESContext *esContext_, const float deltaTime_) {
-		HWND hWnd = GetActiveWindow();
-		if (hWnd == esContext_->eglNativeWindow) {
-			//UINT dwSize = 40;
-			//static BYTE lpb[40];
-
-			//GetRawInputData(0, RID_INPUT,
-			//	lpb, &dwSize, sizeof(RAWINPUTHEADER));
-
-			//RAWINPUT* raw = (RAWINPUT*)lpb;
-
-			//if (raw->header.dwType == RIM_TYPEMOUSE) {
-			//	int xPosRelative = raw->data.mouse.lLastX;
-			//	int yPosRelative = raw->data.mouse.lLastY;
-			//}
-
-			if (esContext_->eglContext)
-				deltaTime = deltaTime_;
-			POINT      point;
-			GetPhysicalCursorPos(&point);
-			if (first) {
-				mousePosition.x = point.x;
-				mousePosition.y = point.y;
-				lasPos.x = mousePosition.x;
-				lasPos.y = mousePosition.y;
-				first = false;
-			}
-			Vertical = lasPos.y - mousePosition.y;
-			Horizontal = lasPos.x - mousePosition.x;
-			lasPos.x = mousePosition.x;
-			lasPos.y = mousePosition.y;
-			mousePosition.x = point.x;
-			mousePosition.y = point.y;
-			mouseMoving = (lasPos != mousePosition);
-		}
+	void Input::Initial(glContext* glContext) {
+		if (glContext == nullptr || glContext->glNativeWindow == nullptr) { return; }
+		glfwSetCursorPosCallback(glContext->glNativeWindow, OnMouseMove);
+		glfwSetCursorEnterCallback(glContext->glNativeWindow, OnCursorEnterCallback);
 	}
 
+	bool first = true;
+	void Input::OnCursorEnterCallback(GLFWwindow* window, int val) {
+		first = true;
+	}
+
+	void Input::Update(double deltaTime_) {
+		deltaTime = deltaTime_;
+		if (GetKeyDown(GLFW_KEY_ESCAPE))
+			glfwSetWindowShouldClose(Object::context->glNativeWindow, true);
+		double x, y;
+		glfwGetCursorPos(Object::context->glNativeWindow, &x, &y);
+
+		if (first) {
+			mousePosition.x = x;
+			mousePosition.y = y;
+			lasPos.x = mousePosition.x;
+			lasPos.y = mousePosition.y;
+			first = false;
+		}
+		Vertical = lasPos.y - mousePosition.y;
+		Horizontal = lasPos.x - mousePosition.x;
+		lasPos.x = mousePosition.x;
+		lasPos.y = mousePosition.y;
+		mousePosition.x = x;
+		mousePosition.y = y;
+		mouseMoving = (lasPos != mousePosition);
+	}
+
+	void Input::OnMouseMove(GLFWwindow* window, double x, double y) {}
+
 	bool Input::GetKey(int vKey) {
-		return GetAsyncKeyState(vKey);
+		return glfwGetKey(Object::context->glNativeWindow, vKey) == GLFW_PRESS;
 	}
 
 	bool Input::GetKeyDown(int vKey) {
-		return GetAsyncKeyState(vKey) == -32767;
+		return glfwGetKey(Object::context->glNativeWindow, vKey) == GLFW_PRESS;
 	}
 
-	long Input::GetAxisX() {
+	int Input::GetMouseButton(int button) {
+		return glfwGetMouseButton(Object::context->glNativeWindow, button);
+	}
+
+	double Input::GetAxisX() {
 		return Horizontal;
 	}
 
-	long Input::GetAxisY() {
+	double Input::GetAxisY() {
 		return Vertical;
 	}
-
 }

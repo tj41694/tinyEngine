@@ -224,7 +224,7 @@ GLboolean ESUTIL_API esCreateWindow(ESContext *esContext, const char *title, GLi
 
 	// Create a surface
 	esContext->eglSurface = eglCreateWindowSurface(esContext->eglDisplay, config,
-		esContext->eglNativeWindow, NULL);
+		esContext->glNativeWindow, NULL);
 
 	if (esContext->eglSurface == EGL_NO_SURFACE)
 	{

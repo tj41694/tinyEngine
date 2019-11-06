@@ -1,28 +1,25 @@
 #pragma once
+#include "Object.h"
 #include "Material.h"
 #include "Camera.h"
-#include "Object.h"
 #include "FileSystem.h"
 #include "glm/gtc/type_ptr.hpp"
 #include "Mesh.h"
 
-
 namespace TEngine {
 	using namespace glm;
 
-	Material::Material(const  std::string& vShader, const std::string& fShader) :
-		shaderId(esLoadProgram(FileSystem::ReadFile(vShader.c_str()).c_str(), FileSystem::ReadFile(fShader.c_str()).c_str())) {
-		mat_model = glGetUniformLocation(shaderId, "model");
-		mat_view = glGetUniformLocation(shaderId, "view");
-		mat_projection = glGetUniformLocation(shaderId, "projection");
-	}
+	Material::Material(const char* vShader, const char* fShader) :
+		shaderId(esLoadProgram(FileSystem::ReadFile(vShader).c_str(), FileSystem::ReadFile(fShader).c_str())) {}
 
-	//Ðéº¯Êý
-	void Material::Use(Camera* camera, Object* obj, Mesh* mesh) {
+	Material::Material(const char* vShader, const char* gShader, const char* fShader) :
+		shaderId(esLoadProgram(FileSystem::ReadFile(vShader).c_str(), FileSystem::ReadFile(gShader).c_str(), FileSystem::ReadFile(fShader).c_str())) {}
+
+	void Material::Use(Camera* camera, Object* obj, DrawCmd* mesh) {
 		glUseProgram(shaderId);
-		SetMatrix(obj->LocalToWorldMarix(), Model);
-		SetMatrix(camera->GetViewMatrix(), View);
-		SetMatrix(camera->GetProjectionMatrix(), Projection);
+		SetMatrix("model", obj->LocalToWorldMarix());
+		SetMatrix("view", camera->GetViewMatrix());
+		SetMatrix("projection", camera->GetProjectionMatrix());
 		mesh->Draw();
 	}
 
@@ -34,50 +31,33 @@ namespace TEngine {
 	}
 
 	void Material::SetFloat(const char* name, const float& value) {
-		static char contrast[64] = { 0 };
-		static GLuint id = -1;
-		if (strcmp(name, contrast) != 0) {
-
-			strcpy(contrast, name);
-			id = glGetUniformLocation(shaderId, name);
+		auto it = uniformLocationsMap.find(name);
+		if (it != uniformLocationsMap.end()) {
+			glUniform1f((*it).second, value);
 		}
-		glUniform1f(id, value);
+		else {
+			uniformLocationsMap[name] = glGetUniformLocation(shaderId, name);
+		}
 	}
 
-	void Material::SetMatrix(const mat4& mat4, MatrixType type) {
-		switch (type) {
-		case MatrixType::Model:
-			glUniformMatrix4fv(mat_model, 1, GL_FALSE, value_ptr(mat4));
-			break;
-		case MatrixType::View:
-			glUniformMatrix4fv(mat_view, 1, GL_FALSE, value_ptr(mat4));
-			break;
-		case MatrixType::Projection:
-			glUniformMatrix4fv(mat_projection, 1, GL_FALSE, value_ptr(mat4));
-			break;
+	void Material::SetMatrix(const char* name, const mat4& mat4) {
+		auto it = uniformLocationsMap.find(name);
+		if (it != uniformLocationsMap.end()) {
+			glUniformMatrix4fv((*it).second, 1, GL_FALSE, value_ptr(mat4));
+		}
+		else {
+			uniformLocationsMap[name] = glGetUniformLocation(shaderId, name);
 		}
 	}
 
 	void Material::SetVector(const char* name, const vec3& vec3) {
-		static char contrast[64] = { 0 };
-		static GLuint id = -1;
-		if (strcmp(name, contrast) != 0) {
-
-			strcpy(contrast, name);
-			id = glGetUniformLocation(shaderId, name);
+		auto it = uniformLocationsMap.find(name);
+		if (it != uniformLocationsMap.end()) {
+			glUniform3fv((*it).second, 1, &vec3[0]);
 		}
-		glUniform3fv(id, 1, &vec3[0]);
-	}
-
-	void Material::SetMatrix(const char* name, const mat4& mat4) {
-		static char contrast[64] = { 0 };
-		static GLuint id = -1;
-		if (strcmp(name, contrast) != 0) {
-
-			strcpy(contrast, name);
-			id = glGetUniformLocation(shaderId, name);
+		else {
+			uniformLocationsMap[name] = glGetUniformLocation(shaderId, name);
 		}
-		glUniformMatrix4fv(id, 1, GL_FALSE, value_ptr(mat4));
 	}
 
 	Material::~Material() {}

@@ -15,28 +15,87 @@
 #include "MyTif.h"
 #include "Terrain.h"
 #include "MeshFilter.h"
+#include "BeltStrip.h"
 
+using namespace std;
 CameraCtr::CameraCtr(Object* obj) :Script(obj) {
 	camera_ = nullptr;
 	spheremirror = nullptr;
 }
 
-void CameraCtr::Start() {
-	camera_ = obj->GetComponent<Camera>();
-	obj->MoveTo(0, 800, 0);
-
+void CameraCtr::GenTerrain() {
+	printf("加载地形\n");
 	MyTif myTif("resources\\textures\\out2.tif");
 	Object* terrain = Terrain::Create(myTif);
 	Standard* matTerrain = new Standard();
 	matTerrain->diffuseMap = new Texture();
-	matTerrain->diffuseMap->path.assign("textures\\www.jpg");
+	matTerrain->diffuseMap->path.assign("textures\\terrian.jpg");
 	matTerrain->diffuseColor = vec3(0.8f);
 	terrain->GetComponent<Render>()->materials.push_back(matTerrain);
 	terrain->MoveTo(-15000.0f, 0, -1000.0f);
-#pragma region old
-	//Object* terrain = Object::LoadModel("./resources/models/terrain/", "terrain.obj");
-	//terrain->scale = vec3(0.05f);
-	//terrain->MoveTo(0, -20, 100);
+}
+
+void CameraCtr::Start() {
+	camera_ = obj->GetComponent<Camera>();
+	obj->MoveTo(0, 800, 0);
+#pragma region 画各种物体
+	if (1) {
+		//地面
+		Standard* matGround = new Standard();
+		matGround->diffuseMap = new Texture();
+		matGround->diffuseMap->path.assign("textures\\terrian.jpg");
+		matGround->diffuseColor = vec3(0.8f);
+		Object* ground = Object::CreateShape(Shape::plane, 20000);
+		ground->GetComponent<Render>()->materials.push_back(matGround);
+	}
+	else {
+		//地形
+		GenTerrain();
+	}
+	//画带
+	//BeltStrip* strip1 = new BeltStrip();
+	//float x = 1000.0f;
+	//float z = 1500.0f;
+	//vector<glm::vec3> polygon;
+	//{
+	//	vec3(-x, 0, -z),
+	//	vec3(x,  0, -z),
+	//	vec3(x,  0,  z),
+	//	vec3(-x, 0,  z)
+	//};
+	//MyTif myTif("resources\\textures\\out4.tif");
+	//Terrain::GetSeqPoint(myTif, polygon);
+	//strip1->Set(polygon, 2.5, vec2(2.5, 9));
+
+
+	BeltStrip* strip2 = new BeltStrip();
+	float x = 1000.0f;
+	float z = 1500.0f;
+	vector<glm::vec3> polygon2
+	{
+		vec3(-x, 0, -z),
+		vec3(0, 0, -1.5 * z),
+		vec3(x, 0, -z),
+		vec3(1.5 * x, 0, 0),
+		vec3(x, 0, z),
+		vec3(0, 0, 1.5 * z),
+		vec3(-x, 0, z),
+		vec3(-x, 0, -z)
+	};
+	strip2->DrawBeltStrip_Mesh(polygon2, 100, vec2(100, 360));
+
+
+	//Object* cube1 = Object::CreateShape(Shape::sphere, 600);
+	//cube1->MoveTo(1000, 600.0f, 2500.0f);
+	//cube1->Rotate(vec3(20, -10, 50));
+	//cube1->AddComponent<SelfRot>()->speed = 0.1f;
+	////cube1->SetParent(sphere, false);
+	//Standard* mat2 = new Standard();
+	//mat2->diffuseMap = new Texture();
+	//mat2->specularColor = vec3(0.5);
+	//mat2->diffuseMap->path.assign("textures\\www.jpg");
+	//auto render2 = cube1->GetComponent<Render>();
+	//render2->materials.push_back(mat2);
 
 	//Object* sphere = Object::CreateShape(Shape::sphere);
 	////sphere->scale = vec3(4.0f);
@@ -48,16 +107,6 @@ void CameraCtr::Start() {
 	//mat->selfLuminous *= 1.2f;
 	//render->materials.push_back(mat);
 
-	Object* cube1 = Object::CreateShape(Shape::sphere, 600);
-	cube1->MoveTo(1000, 600.0f, 2500.0f);
-	cube1->Rotate(vec3(20, -10, 50));
-	cube1->AddComponent<SelfRot>()->speed = 0.1f;
-	//cube1->SetParent(sphere, false);
-	Standard* mat2 = new Standard();
-	mat2->diffuseMap = new Texture();
-	mat2->diffuseMap->path.assign("textures\\www.jpg");
-	auto render2 = cube1->GetComponent<Render>();
-	render2->materials.push_back(mat2);
 	//cube1->GetComponent<MeshFilter>()->meshes[0]->RecalculateNormals();
 
 	//Object* cube2 = Object::CreateShape(Shape::cube);
@@ -76,9 +125,10 @@ void CameraCtr::Start() {
 	//auto render4 = cube3->GetComponent<Render>();
 	//render4->materials.push_back(mat2);
 
-	//Object* nanosuit = Object::LoadModel("./resources/models/nanosuit/", "nanosuit.obj");
-	//nanosuit->AddComponent<SelfRot>()->speed = 0.5f;
-	//nanosuit->MoveTo(glm::vec3(15.0f, -8.0f, 0.0f));
+	Object* nanosuit = Object::LoadModel("models/bakeTest/", "bakeTest.obj");
+	nanosuit->AddComponent<SelfRot>()->speed = 0.2f;
+	nanosuit->MoveTo(glm::vec3(600.0f, 790.0f, 300.0f));
+	nanosuit->scale = glm::vec3(10, 10, 10);
 
 	//Object* board1 = Object::LoadModel("./resources/models/board/", "board.obj");
 	//board1->MoveTo(glm::vec3(-15.0f, 18.0f, 0.0f));
@@ -112,13 +162,6 @@ void CameraCtr::Start() {
 	//board7->MoveTo(glm::vec3(6.0f, 10.0f, 8.0));
 	//board7->AddComponent<BoardCtr>();
 
-	//创建地面
-	//Standard* matGround = new Standard();
-	//matGround->diffuseMap = new Texture();
-	//matGround->diffuseMap->path.assign("textures\\container.jpg");
-	//matGround->diffuseColor = vec3(0.8f);
-	//Object* ground = Object::CreateShape(Shape::plane, 5000);
-	//ground->GetComponent<Render>()->materials.push_back(matGround);
 	////创建反射球
 	//Standard* mirrormat = new Standard();
 	//mirrormat->specularColor = vec3(0.9f);
@@ -126,12 +169,11 @@ void CameraCtr::Start() {
 	//auto mirrorrender = spheremirror->GetComponent<Render>();
 	//mirrorrender->materials.push_back(mirrormat);
 	//spheremirror->MoveTo(0, 1, 0);
-#pragma endregion old
+#pragma endregion 
 }
 
 void CameraCtr::Update() {
 	static double moveSpeed = 500;
-	if (Input::GetKeyDown(VK_ESCAPE)) SendMessage(Object::context->eglNativeWindow, WM_CLOSE, 0, 0); //press ESC Exit Program
 	if (Input::GetKey('W'))
 		obj->Move(obj->Forwward() * (float)(Input::deltaTime * moveSpeed));
 	if (Input::GetKey('S'))
@@ -141,19 +183,22 @@ void CameraCtr::Update() {
 	if (Input::GetKey('D'))
 		obj->Move(-obj->Right() * (float)(Input::deltaTime * moveSpeed));
 
-	if (Input::GetKey(VK_F1))
-		obj->MoveTo(0, 0, 0);
+	//if (Input::GetKey(VK_F1))
+	//	obj->MoveTo(0, 0, 0);
 
-	if (Input::GetKeyDown(VK_F2)) {
-		ReflectProb* refectProb = spheremirror->GetComponent<ReflectProb>();
-		if (!refectProb)
-			spheremirror->AddComponent<ReflectProb>();
-		else
-			spheremirror->DestroyComponent<ReflectProb>();
+	//if (Input::GetKeyDown(VK_F2)) {
+	//	ReflectProb* refectProb = spheremirror->GetComponent<ReflectProb>();
+	//	if (!refectProb)
+	//		spheremirror->AddComponent<ReflectProb>();
+	//	else
+	//		spheremirror->DestroyComponent<ReflectProb>();
+	//}
+	if (Input::GetMouseButton(1) == GLFW_PRESS ||
+		Input::GetMouseButton(0) == GLFW_PRESS
+		) {
+		obj->Rotate(vec3(0, 1, 0), (float)(Input::GetAxisX() * Input::deltaTime / 2));
+		obj->Rotate(obj->Right(), -(float)(Input::GetAxisY() * Input::deltaTime / 2));
 	}
-
-	obj->Rotate(vec3(0, 1, 0), Input::GetAxisX() * 0.01f);
-	obj->Rotate(obj->Right(), Input::GetAxisY() * -0.01f);
 }
 
 CameraCtr::~CameraCtr() {}

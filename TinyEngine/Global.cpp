@@ -1,8 +1,7 @@
 #pragma once
+#include "Object.h"
 #include "Global.h"
 #include "FileSystem.h"
-#include "esUtil.h"
-#include "Object.h"
 #include "Render.h"
 #include "MatSkyBox.h"
 

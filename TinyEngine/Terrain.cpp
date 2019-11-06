@@ -57,8 +57,22 @@ namespace TEngine {
 			}
 		}
 		//mesh->RecalculateNormals();
-		meshFilter->meshes.push_back(mesh);
+		meshFilter->drawCmds.push_back(mesh);
 		tif.ClearRasterData();
 		return obj;
+	}
+
+	void Terrain::GetSeqPoint(MyTif& tif, std::vector<glm::vec3>& out_points) {
+		const unsigned short* raster = tif.GetRasterData();
+		const unsigned short* valPtr = raster;
+		for (int i = 0; i < tif.height; i++) {
+			unsigned short value = 0;
+			float zPos = mapUnit * (tif.height - i - 1);
+			for (int j = 0; j < tif.width; j++) {
+				float xPos = mapUnit * j;
+				value = *(valPtr++);
+				out_points.emplace_back(glm::vec3(xPos * displayScale, value * displayScale, zPos * displayScale));
+			}
+		}
 	}
 }

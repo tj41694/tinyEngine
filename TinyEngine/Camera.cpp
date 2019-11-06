@@ -1,6 +1,6 @@
 #pragma once
-#include "Camera.h"
 #include "Object.h"
+#include "Camera.h"
 #include "DataDef.h"
 #include "MeshFilter.h"
 #include "Global.h"
@@ -24,26 +24,27 @@ namespace TEngine {
 		height = 512;
 	}
 
-	void Camera::RenderAll(ESContext* esContext) {
+	void Camera::RenderAll(glContext* esContext) {
 		for (auto& cam : cameras) {
 			cam.second->Rend(esContext);
 		}
 	}
 
-	void Camera::Rend(ESContext* esContext) {
+	void Camera::Rend(glContext* esContext) {
 		UserData* userData = (UserData*)esContext->userData;
-		glViewport(0, 0, width, height);  //Set the viewport
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		static GLuint width_, height_;
+		if (width_ != width && height_ != height) {
+			glViewport(0, 0, width, height);
+			width_ = width; height_ = height;
+		}
 		glBindFramebuffer(GL_FRAMEBUFFER, renderTarget);   //äÖÈ¾µ½Ä¬ÈÏÖ¡»º³å
-		glBindFramebuffer(GL_FRAMEBUFFER, Global::twoImageFramebuffer);   //äÖÈ¾µ½Ô¤ÉèÆÁÄ»Ö¡»º³å
-		GLuint attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
-		glDrawBuffers(2, attachments);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the color buffer
-		glEnable(GL_DEPTH_TEST);
+		//glBindFramebuffer(GL_FRAMEBUFFER, Global::twoImageFramebuffer);   //äÖÈ¾µ½Ô¤ÉèÆÁÄ»Ö¡»º³å
+		//GLuint attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+		//glDrawBuffers(2, attachments);
 		for (auto it = userData->objs->begin(); it != userData->objs->end(); it++) {
 			MeshFilter* meshFilter = it._Ptr->_Myval.second->GetComponent<MeshFilter>();
 			if (meshFilter != nullptr) {
-				meshFilter->Draw(this);
+				meshFilter->DrawMeshes(this);
 			}
 		}
 
@@ -89,7 +90,7 @@ namespace TEngine {
 	}
 
 	glm::mat4 Camera::GetProjectionMatrix() {
-		//glm::mat4 projection = glm::ortho(-2.0f, 2.0f, -1.8f, 1.8f, 0.1f, 100.0f);
+		//return  glm::ortho(-2.0f, 2.0f, -1.8f, 1.8f, nearPlan, farPlan);
 		return glm::perspective(glm::radians(Zoom), width / (float)height, nearPlan, farPlan);
 	}
 

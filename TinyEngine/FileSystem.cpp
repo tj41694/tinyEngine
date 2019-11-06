@@ -7,10 +7,10 @@
 #include <sstream>
 
 namespace TEngine {
-	unsigned char* FileSystem::LoadTexture(const std::string& filename, int* x, int* y, int* comp, int req_comp) {
+	unsigned char* FileSystem::LoadTexture(const char* filename, int* x, int* y, int* comp, int req_comp) {
 		static char path[128] = { 0 };
 		strcpy(path, "resources/");
-		strcat(path, filename.c_str());
+		strcat(path, filename);
 		return stbi_load(path, x, y, comp, req_comp);
 	}
 	void FileSystem::FreeTextur(unsigned char* tex) {

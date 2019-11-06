@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(SolutionDir)External\lib\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)Common\Include\;$(SolutionDir)External\Include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)External\x86\Debug\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Common\Include\;$(SolutionDir)External\Include\;$(SolutionDir)GLFW_GL44\Include\;$(IncludePath)</IncludePath>
     <IntDir>$(SolutionDir)$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -91,12 +91,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\MyProject\glReview\External\Include;D:\MyProject\glReview\Common\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\MyProject\glReview\External\Include;D:\MyProject\glReview\Common\Include;D:\Projects\tiny\External\Include\GDAL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>libGLESv2.lib;libEGL.lib;assimp-vc140-mt.lib;freetype.lib;tiff.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libEGL.lib;assimp-vc140-mt.lib;freetype.lib;tiff.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/NODEFAULTLIB:msvcrt.lib %(AdditionalOptions)</AdditionalOptions>
       <Profile>true</Profile>
     </Link>
@@ -107,7 +109,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>freetype.lib;libjpeg.lib;libpng.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -144,11 +145,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BeltStrip.cpp" />
+    <ClCompile Include="BeltStripMat.cpp" />
     <ClCompile Include="BoardCtr.cpp" />
     <ClCompile Include="CameraCtr.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DrawCmdBelt.cpp" />
+    <ClCompile Include="DrawCmd.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Global.cpp" />
@@ -159,6 +164,7 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshFilter.cpp" />
+    <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="ReflectProb.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Script.cpp" />
@@ -171,17 +177,16 @@
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.vcxproj">
-      <Project>{685f032a-e2a0-481b-9ab8-0517ceaefea7}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="BeltStrip.h" />
+    <ClInclude Include="BeltStripMat.h" />
     <ClInclude Include="BoardCtr.h" />
     <ClInclude Include="CameraCtr.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DataDef.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DrawCmdBelt.h" />
+    <ClInclude Include="DrawCmd.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Global.h" />
@@ -192,6 +197,8 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshFilter.h" />
+    <ClInclude Include="OpenglUtil.h" />
+    <ClInclude Include="Polygon.h" />
     <ClInclude Include="ReflectProb.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="resource.h" />
@@ -205,6 +212,11 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TinyEngine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GLFW_GL44\GLFW_GL44.vcxproj">
+      <Project>{ba209bc4-ed54-4b6d-84e9-04671cca7582}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

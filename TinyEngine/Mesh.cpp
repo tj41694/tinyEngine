@@ -1,7 +1,7 @@
 #pragma once
 #include "Mesh.h"
 #include "Debug.h"
-#include "esUtil.h"
+#include "OpenglUtil.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -49,6 +49,7 @@ namespace TEngine {
 	}
 
 	bool Mesh::TransToGL() {
+		if (vertices.data == nullptr) { return false; }
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(3, vboIDs);
 		glGenBuffers(1, &eboID);
@@ -72,25 +73,31 @@ namespace TEngine {
 		return true;
 	}
 
+	void Mesh::Clear() {
+		glDeleteVertexArrays(1, &VAO);
+		glDeleteBuffers(3, vboIDs);
+		glDeleteBuffers(1, &eboID);
+		VAO = 0;
+		memset(vboIDs, 0, sizeof(vboIDs));
+		eboID = 0;
+		FreeDatas();
+	}
+
 	void Mesh::FreeDatas() {
 		if (vertices.data) {
-			free(vertices.data);
+			delete[] vertices.data;
 			vertices.data = nullptr;
 		}
 		if (normals.data) {
-			free(normals.data);
+			delete[] normals.data;
 			normals.data = nullptr;
 		}
-		if (colors.data) {
-			free(colors.data);
-			colors.data = nullptr;
-		}
 		if (uv0.data) {
-			free(uv0.data);
+			delete[]uv0.data;
 			uv0.data = nullptr;
 		}
 		if (triangles.data) {
-			free(triangles.data);
+			delete[] triangles.data;
 			triangles.data = nullptr;
 		}
 	}
@@ -107,9 +114,6 @@ namespace TEngine {
 	}
 
 	Mesh::~Mesh() {
-		glDeleteVertexArrays(1, &VAO);
-		glDeleteBuffers(3, vboIDs);
-		glDeleteBuffers(1, &eboID);
-		FreeDatas();
+		Clear();
 	}
 }

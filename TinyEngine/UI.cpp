@@ -13,11 +13,9 @@ namespace TEngine {
 	}
 
 	void UI::DrawAll() {
-		glEnable(GL_BLEND);      //开启混合
 		for (auto &ui : UIs) {
 			ui.second->Draw();
 		}
-		glDisable(GL_BLEND);      //关闭混合(透明)
 	}
 
 	void UI::Draw() {

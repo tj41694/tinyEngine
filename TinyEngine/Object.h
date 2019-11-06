@@ -1,8 +1,8 @@
 #pragma once
+#include "OpenglUtil.h"
 #include <vector>
 #include <string>
 #include <unordered_set>
-#include "esUtil.h"
 #include "Debug.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -32,7 +32,7 @@ namespace TEngine {
 	public:
 		std::string name;
 		vec3 scale;
-		static ESContext *context;
+		static glContext* context;
 
 		Object();
 		Object(const char* name_);
@@ -64,12 +64,11 @@ namespace TEngine {
 			for (unsigned int i = 0; i < compenents.size(); i++) {
 				T* result = dynamic_cast<T*>(compenents[i]);
 				if (result != nullptr) {
-					Debug::Log("添加组件失败(该物体已经存在相同组件):");
+					Debug::Log("添加组件失败(存在相同组件):");
 					Debug::Log(typeid(T));
 					return nullptr;
 				}
 			}
-			Debug::Log("添加组件: "); Debug::Log(typeid(T));
 			T* component = new T(this);
 			compenents.push_back(component);
 			return component;
@@ -94,7 +93,6 @@ namespace TEngine {
 				result = dynamic_cast<T*>(*it);
 				if (result != nullptr) {
 					compenents.erase(it);
-					Debug::Log("删除组件: "); Debug::Log(typeid(T));
 					delete result;
 					break;
 				} else {
@@ -106,6 +104,9 @@ namespace TEngine {
 		unsigned int GetInstanceID();
 		static Object* CreateShape(Shape shape, float size = 1.0f, bool flip = false);
 		static Object* LoadModel(std::string path, std::string name);
+		static int GenSphere(int numSlices, float radius, GLfloat** vertices, GLfloat** normals, GLfloat** texCoords, GLuint** indices);
+		static int GenCube(float scale, GLfloat** vertices, GLfloat** normals, GLfloat** texCoords, GLuint** indices);
+		static int GenSquareGrid(int size, GLfloat** vertices, GLuint** indices);
 
 		mat4 LocalToWorldMarix();
 		quat RotationBetweenVectors(vec3 start, vec3 dest);

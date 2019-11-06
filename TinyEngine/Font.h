@@ -1,6 +1,6 @@
 #pragma once
+#include "OpenglUtil.h"
 #include <string>
-#include "esUtil.h"
 #include <unordered_map>
 #include "glm/glm.hpp"
 // FreeType

@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "Common\Common.vcxproj", "{685F032A-E2A0-481B-9AB8-0517CEAEFEA7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EGL_es30", "Common\Common.vcxproj", "{685F032A-E2A0-481B-9AB8-0517CEAEFEA7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyEngine", "TinyEngine\TinyEngine.vcxproj", "{BB39CFDE-A4CA-448E-A3D9-9C1E30A45BC9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW_GL44", "GLFW_GL44\GLFW_GL44.vcxproj", "{BA209BC4-ED54-4B6D-84E9-04671CCA7582}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{BB39CFDE-A4CA-448E-A3D9-9C1E30A45BC9}.Release|x64.Build.0 = Release|x64
 		{BB39CFDE-A4CA-448E-A3D9-9C1E30A45BC9}.Release|x86.ActiveCfg = Release|Win32
 		{BB39CFDE-A4CA-448E-A3D9-9C1E30A45BC9}.Release|x86.Build.0 = Release|Win32
+		{BA209BC4-ED54-4B6D-84E9-04671CCA7582}.Debug|x64.ActiveCfg = Debug|x64
+		{BA209BC4-ED54-4B6D-84E9-04671CCA7582}.Debug|x64.Build.0 = Debug|x64
+		{BA209BC4-ED54-4B6D-84E9-04671CCA7582}.Debug|x86.ActiveCfg = Debug|Win32
+		{BA209BC4-ED54-4B6D-84E9-04671CCA7582}.Debug|x86.Build.0 = Debug|Win32
+		{BA209BC4-ED54-4B6D-84E9-04671CCA7582}.Release|x64.ActiveCfg = Release|x64
+		{BA209BC4-ED54-4B6D-84E9-04671CCA7582}.Release|x64.Build.0 = Release|x64
+		{BA209BC4-ED54-4B6D-84E9-04671CCA7582}.Release|x86.ActiveCfg = Release|Win32
+		{BA209BC4-ED54-4B6D-84E9-04671CCA7582}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
