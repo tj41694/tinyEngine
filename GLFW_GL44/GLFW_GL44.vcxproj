@@ -79,7 +79,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(SolutionDir)$(Configuration)\$(ProjectName)\</IntDir>
     <IncludePath>$(ProjectDir)Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)External\x86\Debug\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)External\x86Debug\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectDir)Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
