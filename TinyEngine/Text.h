@@ -3,19 +3,18 @@
 
 namespace TEngine {
 	class Font;
-	using namespace std;
 	class Text : public UI {
 	private:
 		Font* font;
-		wstring text;
+		std::wstring text;
 		void Draw();
 	public:
 		glm::vec3 color;
 		Text();
-		Text(const wstring& str_);
-		Text(const string& str_);
-		void SetText(const wstring& str_);
-		void SetText(const string& str_);
+		Text(const std::wstring& str_);
+		Text(const std::string& str_);
+		void SetText(const std::wstring& str_);
+		void SetText(const std::string& str_);
 		void SetText(const float&& str_);
 		void SetText(const double&& str_);
 		void SetText(const int&& str_);

@@ -5,20 +5,24 @@
 #include <map>
 
 namespace TEngine {
-	using namespace glm;
 	class Camera : public Component {
+	public:
+
+		static Camera* main;
+
+		GLuint renderTarget		= 0;
+		float exposure			= 1.0f;
+		float Zoom				= 45.0f;
+		float nearPlan			= 1.0f;
+		float farPlan			= 1000000.0f;
+		unsigned int width		= 512;
+		unsigned int height		= 512;
+
 	private:
 		static std::map<unsigned int, Camera*> cameras;
-		void Rend(glContext*esContext);
+		void Rend(glContext* esContext);
+
 	public:
-		static Camera* main;
-		GLuint renderTarget;
-		float exposure;
-		float Zoom;
-		float nearPlan;
-		float farPlan;
-		unsigned int width;
-		unsigned int height;
 		Camera(Object* obj_);
 		static void RenderAll(glContext*esContext);
 		glm::mat4 GetViewMatrix();

@@ -7,6 +7,7 @@ namespace TEngine {
 	GLuint UI::textShader = 0;
 	GLuint UI::UIVBO = 0;
 	GLuint UI::UIVAO = 0;
+
 	UI::UI() {
 		UI::LoadUIVAO();
 		UIs.insert(std::pair<unsigned int, UI*>(GetInstanceID(), this));

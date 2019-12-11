@@ -6,6 +6,7 @@
 #include "UI.h"
 
 namespace TEngine {
+	using namespace std;
 
 	unordered_map<string, Font*> Font::fonts;
 
@@ -75,7 +76,7 @@ namespace TEngine {
 
 		for (unsigned int i = 0; i < text.size(); i++) {
 			if (characters.find(text[i]) != characters.end()) {
-				Character ch = characters[text[i]];
+				const Character & ch = characters[text[i]];
 
 				GLfloat xpos = x + ch.Bearing.x * scale;
 				GLfloat ypos = y - (ch.Size.y - ch.Bearing.y) * scale;

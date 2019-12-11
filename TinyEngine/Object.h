@@ -19,21 +19,25 @@ namespace TEngine {
 	};
 
 	class Object {
+	public:
+		static glContext* context;
+
+		std::string name;
+		vec3 scale;
+
 	private:
 		static unsigned int instanceid;
-		unsigned int id;
+
+		unsigned int id = 0;
+		unsigned int parent = 0;
 		std::vector<Component*> compenents;
-		unsigned int parent;
 		std::vector<unsigned int> childs;
 	protected:
 		vec3 localPositon;
 		quat rotation;
 		vec3 eulerAngles;
-	public:
-		std::string name;
-		vec3 scale;
-		static glContext* context;
 
+	public:
 		Object();
 		Object(const char* name_);
 		vec3 WorldPos();

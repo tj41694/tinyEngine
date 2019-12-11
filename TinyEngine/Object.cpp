@@ -19,13 +19,11 @@ namespace TEngine {
 	glContext* Object::context;
 
 	Object::Object() {
-		id = 0;
 		((UserData*)context->userData)->objs->insert(std::pair<unsigned int, Object*>(GetInstanceID(), this));
 		localPositon = vec3(0.0f);
 		scale = vec3(1.0f);
 		rotation = quat();
 		eulerAngles = vec3(0.0f);
-		parent = 0;
 	}
 
 	Object::Object(const char* name_) {
@@ -151,8 +149,9 @@ namespace TEngine {
 	}
 
 	Object* Object::Child(unsigned int index) {
-		if (childs.size() > index)
-			((UserData*)context->userData)->objs->at(childs[index]);
+		if (childs.size() > index) {
+			return ((UserData*)context->userData)->objs->at(childs[index]);
+		}
 		return nullptr;
 	}
 

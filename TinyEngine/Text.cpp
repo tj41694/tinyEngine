@@ -5,6 +5,7 @@
 
 
 namespace TEngine {
+	using namespace std;
 
 	class chs_codecvt : public std::codecvt_byname<wchar_t, char, std::mbstate_t> {
 	public:

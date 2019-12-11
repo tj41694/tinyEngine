@@ -15,13 +15,6 @@ namespace TEngine {
 
 	Camera::Camera(Object* obj_) : Component(obj_) {
 		cameras.insert(std::pair<unsigned int, Camera*>(obj_->GetInstanceID(), this));
-		Zoom = 45.0f;
-		exposure = 1.0f;
-		renderTarget = 0;
-		nearPlan = 1.0f;
-		farPlan = 1000000.0f;
-		width = 512;
-		height = 512;
 	}
 
 	void Camera::RenderAll(glContext* esContext) {
@@ -30,13 +23,17 @@ namespace TEngine {
 		}
 	}
 
-	void Camera::Rend(glContext* esContext) {
-		UserData* userData = (UserData*)esContext->userData;
+	static void CameraSetGLViewPort(GLuint w, GLuint h) {
 		static GLuint width_, height_;
-		if (width_ != width && height_ != height) {
-			glViewport(0, 0, width, height);
-			width_ = width; height_ = height;
+		if (width_ != w || height_ != h) {
+			width_ = w; height_ = h;
+			glViewport(0, 0, w, h);
 		}
+	}
+
+	void Camera::Rend(glContext* esContext) {
+		CameraSetGLViewPort(width, height);
+		UserData* userData = (UserData*)esContext->userData;
 		glBindFramebuffer(GL_FRAMEBUFFER, renderTarget);   //‰÷»æµΩƒ¨»œ÷°ª∫≥Â
 		//glBindFramebuffer(GL_FRAMEBUFFER, Global::twoImageFramebuffer);   //‰÷»æµΩ‘§…Ë∆¡ƒª÷°ª∫≥Â
 		//GLuint attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
