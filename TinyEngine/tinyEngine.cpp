@@ -16,7 +16,7 @@ namespace TEngine {
 		//ShowCursor(FALSE);
 
 		Object::context = glContext;
-		((UserData*)glContext->userData)->objs = new std::unordered_map<unsigned int, Object*>();
+		((UserData*)glContext->userData)->allObjects = new std::unordered_map<unsigned int, Object*>();
 		Input::Initial(glContext);
 		Global::Initial();
 		//Text* text = new Text("你好GL。!>?#@_");
@@ -58,7 +58,7 @@ namespace TEngine {
 			FPSText->SetText(1.0 / deltaTime);
 		}
 		UserData* userData = (UserData*)esContext->userData;
-		for (auto it = userData->objs->begin(); it != userData->objs->end(); it++) {
+		for (auto it = userData->allObjects->begin(); it != userData->allObjects->end(); it++) {
 			Script* script = (*it).second->GetComponent<Script>();
 			if (script) {
 				if (script->notStarted) {

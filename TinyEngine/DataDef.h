@@ -4,6 +4,6 @@
 namespace TEngine {
 	class Object;
 	struct UserData {
-		std::unordered_map<unsigned int, Object*>* objs;
+		std::unordered_map<unsigned int, Object*>* allObjects;
 	};
 }

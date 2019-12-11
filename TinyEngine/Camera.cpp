@@ -33,12 +33,12 @@ namespace TEngine {
 
 	void Camera::Rend(glContext* esContext) {
 		CameraSetGLViewPort(width, height);
-		UserData* userData = (UserData*)esContext->userData;
+		std::unordered_map<unsigned int, Object*>* objs = ((UserData*)esContext->userData)->allObjects;
 		glBindFramebuffer(GL_FRAMEBUFFER, renderTarget);   //äÖÈ¾µ½Ä¬ÈÏÖ¡»º³å
 		//glBindFramebuffer(GL_FRAMEBUFFER, Global::twoImageFramebuffer);   //äÖÈ¾µ½Ô¤ÉèÆÁÄ»Ö¡»º³å
 		//GLuint attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 		//glDrawBuffers(2, attachments);
-		for (auto it = userData->objs->begin(); it != userData->objs->end(); it++) {
+		for (auto it = objs->begin(); it != objs->end(); it++) {
 			MeshFilter* meshFilter = it._Ptr->_Myval.second->GetComponent<MeshFilter>();
 			if (meshFilter != nullptr) {
 				meshFilter->DrawMeshes(this);

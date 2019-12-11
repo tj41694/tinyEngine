@@ -19,7 +19,7 @@ namespace TEngine {
 	glContext* Object::context;
 
 	Object::Object() {
-		((UserData*)context->userData)->objs->insert(std::pair<unsigned int, Object*>(GetInstanceID(), this));
+		((UserData*)context->userData)->allObjects->insert(std::pair<unsigned int, Object*>(GetInstanceID(), this));
 		localPositon = vec3(0.0f);
 		scale = vec3(1.0f);
 		rotation = quat();
@@ -28,7 +28,7 @@ namespace TEngine {
 
 	Object::Object(const char* name_) {
 		id = 0;
-		((UserData*)context->userData)->objs->insert(std::pair<int, Object*>(GetInstanceID(), this));
+		((UserData*)context->userData)->allObjects->insert(std::pair<int, Object*>(GetInstanceID(), this));
 		localPositon = vec3(0.0f);
 		scale = vec3(1.0f);
 		rotation = quat();
@@ -133,7 +133,7 @@ namespace TEngine {
 
 	Object* Object::Parent() const {
 		if (parent == 0) return nullptr;
-		return ((UserData*)context->userData)->objs->at(parent);
+		return ((UserData*)context->userData)->allObjects->at(parent);
 	}
 
 	void Object::SetParent(Object* obj_, bool worldPositionStays) {
@@ -150,7 +150,7 @@ namespace TEngine {
 
 	Object* Object::Child(unsigned int index) {
 		if (childs.size() > index) {
-			return ((UserData*)context->userData)->objs->at(childs[index]);
+			return ((UserData*)context->userData)->allObjects->at(childs[index]);
 		}
 		return nullptr;
 	}
@@ -628,7 +628,7 @@ namespace TEngine {
 	}
 
 	Object::~Object() {
-		((UserData*)context->userData)->objs->erase(GetInstanceID());
+		((UserData*)context->userData)->allObjects->erase(GetInstanceID());
 		for (unsigned int i = 0; i < compenents.size(); i++)
 			delete compenents[i];
 		Debug::Log("~Object\n");
