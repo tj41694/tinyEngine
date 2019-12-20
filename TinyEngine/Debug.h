@@ -2,23 +2,27 @@
 #include <iostream>
 #include <string>
 #include "glm/gtc/matrix_transform.hpp"
+#include <stdio.h>
 
 namespace TEngine {
-	class Debug {
-	public:
-		static void Log(const std::string& obj);
-		static void Log(const std::wstring& obj);
-		static void Log(const char * chars);
-		static void Log(short obj);
-		static void Log(int obj);
-		static void Log(unsigned int obj);
-		static void Log(unsigned long obj);
-		static void Log(unsigned long long obj);
-		static void Log(float obj);
-		static void Log(double obj);
-		static void Log(bool obj);
-		static void Log(const type_info & type);
-		static void Log(const glm::vec3 & vec3);
-		static void Log(const void* & ptr);
-	};
+	void Log(const char* file, int line, const std::string& obj);
+	void Log(const char* file, int line, const std::wstring& obj);
+	void Log(const char* file, int line, const char* chars);
+	void Log(const char* file, int line, short obj);
+	void Log(const char* file, int line, int obj);
+	void Log(const char* file, int line, unsigned int obj);
+	void Log(const char* file, int line, unsigned long obj);
+	void Log(const char* file, int line, unsigned long long obj);
+	void Log(const char* file, int line, float obj);
+	void Log(const char* file, int line, double obj);
+	void Log(const char* file, int line, bool obj);
+	void Log(const char* file, int line, const type_info& type);
+	void Log(const char* file, int line, const glm::vec3& vec3);
+	void Log(const char* file, int line, const void*& ptr);
+
+#ifdef _DEBUG
+#define DEBUGLOG(info) Log(__FILE__, __LINE__, info)
+#else
+#define DEBUGLOG(info)
+#endif
 }

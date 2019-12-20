@@ -45,9 +45,6 @@
     <ClCompile Include="Polygon.cpp">
       <Filter>Tool</Filter>
     </ClCompile>
-    <ClCompile Include="Debug.cpp">
-      <Filter>TEngine</Filter>
-    </ClCompile>
     <ClCompile Include="FileSystem.cpp">
       <Filter>TEngine</Filter>
     </ClCompile>
@@ -115,6 +112,9 @@
       <Filter>TEngine\UI</Filter>
     </ClCompile>
     <ClCompile Include="Terrain.cpp">
+      <Filter>Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
       <Filter>Tool</Filter>
     </ClCompile>
   </ItemGroup>
@@ -188,9 +188,6 @@
     <ClInclude Include="DataDef.h">
       <Filter>TEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Debug.h">
-      <Filter>TEngine</Filter>
-    </ClInclude>
     <ClInclude Include="FileSystem.h">
       <Filter>TEngine</Filter>
     </ClInclude>
@@ -213,6 +210,9 @@
       <Filter>TEngine</Filter>
     </ClInclude>
     <ClInclude Include="Terrain.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
       <Filter>Tool</Filter>
     </ClInclude>
   </ItemGroup>

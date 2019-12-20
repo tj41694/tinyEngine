@@ -76,7 +76,7 @@ namespace TEngine {
 		if (font)
 			font->RenderText(textShader, text, WorldPos().x, WorldPos().y, scale.x, color);
 		else {
-			Debug::Log(font);
+			DEBUGLOG(font);
 		}
 	}
 

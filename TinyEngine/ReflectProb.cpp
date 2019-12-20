@@ -98,7 +98,7 @@ namespace TEngine {
 		cameras[5]->width = texSize;
 		cameras[5]->height = texSize;
 
-		Debug::Log("intial ReflectProb.. \n");
+		DEBUGLOG("intial ReflectProb.. \n");
 
 		Render* render = obj->GetComponent<Render>();
 		for (unsigned int i = 0; i < render->materials.size(); i++) {
@@ -109,7 +109,7 @@ namespace TEngine {
 				mat->skybox = cubeMap;
 			}
 			else {
-				Debug::Log("null mat \n");
+				DEBUGLOG("null mat \n");
 			}
 		}
 	}

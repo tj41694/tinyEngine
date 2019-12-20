@@ -29,7 +29,7 @@ namespace TEngine {
 			return shaderCode;
 		}
 		catch (std::ifstream::failure e) {
-			Debug::Log("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ\n");
+			DEBUGLOG("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ\n");
 		}
 		return nullptr;
 	}

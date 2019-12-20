@@ -1,19 +1,18 @@
 #pragma once
-#include "OpenglUtil.h"
 #include <vector>
 #include <string>
-#include <unordered_set>
+#include <unordered_map>
+#include "OpenglUtil.h"
 #include "Debug.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtx/quaternion.hpp"
-#include <unordered_map>
-#include "Script.h"
 
 namespace TEngine {
 	using namespace glm;
 
 	class Component;
+	class Script;
 	enum class Shape {
 		cube,
 		plane,
@@ -89,11 +88,11 @@ namespace TEngine {
 					return instance;
 				}
 				else {
-					Debug::Log("存在相同组件 添加失败\n");
+					DEBUGLOG("存在相同组件 添加失败");
 				}
 			}
 			else {
-				Debug::Log("非Component类型 添加组件失败\n");
+				DEBUGLOG("非Component类型 添加组件失败");
 			}
 			delete instance;
 			return nullptr;

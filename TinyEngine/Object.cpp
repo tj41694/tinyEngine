@@ -30,7 +30,7 @@ namespace TEngine {
 		eulerAngles = vec3(0.0f);
 		parent = 0;
 		name.assign(name_);
-		Debug::Log("Create Object:" + name);
+		//DEBUGLOG("Create Object:" + name);
 	}
 
 	const mat4 Object::LocalToWorldMarix() {
@@ -633,6 +633,6 @@ namespace TEngine {
 		}
 		//for (unsigned int i = 0; i < compenents.size(); i++)
 		//	delete compenents[i];
-		Debug::Log("~Object\n");
+		DEBUGLOG("~Object");
 	}
 }

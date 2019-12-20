@@ -16,7 +16,7 @@ namespace TEngine {
 	bool Font::LoadCharacter(unsigned long characer) {
 		GLuint glyph_index = FT_Get_Char_Index(face, characer);
 		if (FT_Load_Glyph(face, glyph_index, FT_LOAD_RENDER)) {
-			Debug::Log("ERROR::FREETYTPE: Failed to load Glyph");
+			DEBUGLOG("ERROR::FREETYTPE: Failed to load Glyph");
 			return false;
 		}
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

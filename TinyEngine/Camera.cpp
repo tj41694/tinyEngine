@@ -97,6 +97,6 @@ namespace TEngine {
 
 	Camera::~Camera() {
 		cameras.erase(obj->GetInstanceID());
-		Debug::Log("~Camera\n");
+		DEBUGLOG("~Camera");
 	}
 }
