@@ -20,11 +20,14 @@ namespace TEngine {
 
 	private:
 		static std::map<unsigned int, Camera*> cameras;
+
 		void Rend(glContext* esContext);
 
 	public:
-		Camera(Object* obj_);
-		static void RenderAll(glContext*esContext);
+		static void RenderAll(glContext* esContext);
+
+		Camera();
+		void Start() override;
 		glm::mat4 GetViewMatrix();
 		glm::mat4 GetProjectionMatrix();
 		virtual ~Camera();

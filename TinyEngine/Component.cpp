@@ -5,12 +5,11 @@
 namespace TEngine {
 	using namespace std;
 
-	Component::Component(Object* obj) : obj(obj) {
-	}
-
-	void Component::CreateVtable() {
+	Component::Component() : obj(nullptr) {
 	}
 
 	Component::~Component() {
 	}
+	void Component::Start() {}
+	void Component::Update() {}
 }

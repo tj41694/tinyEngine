@@ -6,7 +6,7 @@
 #include "Global.h"
 
 namespace TEngine {
-	ReflectProb::ReflectProb(Object* obj_) : Component(obj_) {
+	ReflectProb::ReflectProb() : Component() {
 		texSize = 1024;
 		/*创建一个天空盒，并将其6个面的纹理附加到6个帧缓冲*/
 		glGenTextures(1, &cubeMap);
@@ -38,6 +38,9 @@ namespace TEngine {
 		}
 
 		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+	}
+
+	void ReflectProb::Start() {
 
 		float fov = 90.0f;
 
@@ -104,7 +107,8 @@ namespace TEngine {
 				mat->diffuseColor = vec3(0.0f);
 				mat->specularColor = vec3(0.8f);
 				mat->skybox = cubeMap;
-			} else {
+			}
+			else {
 				Debug::Log("null mat \n");
 			}
 		}

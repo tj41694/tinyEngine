@@ -9,7 +9,7 @@
 
 namespace TEngine {
 
-	Render::Render(Object* obj) : Component(obj) {
+	Render::Render() : Component() {
 	}
 
 	void Render::LoadModelMat(const aiScene * scene, std::string path) {

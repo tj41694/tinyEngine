@@ -52,27 +52,26 @@ namespace TEngine {
 	}
 
 	void Update(glContext* esContext, double deltaTime) {
-		Input::Update(deltaTime);
 		static unsigned int ct = 0;
+		Input::Update(deltaTime);
 		if (deltaTime != 0.0 && ct++ % 10 == 0) {
 			FPSText->SetText(1.0 / deltaTime);
 		}
 		UserData* userData = (UserData*)esContext->userData;
 		for (auto it = userData->allObjects->begin(); it != userData->allObjects->end(); it++) {
-			Script* script = (*it).second->GetComponent<Script>();
-			if (script) {
-				if (script->notStarted) {
-					script->notStarted = false;
-					script->Start();
+			auto components = it->second->Components();
+			for (auto& cp : components) {
+				Script* script = dynamic_cast<Script*>(cp.second);
+				if (script) {
+					script->Update();
 				}
-				script->Update();
 			}
 		}
 	}
 
 	void ResizeWindowCallback(GLContext* context, int width, int height) {
-		Camera::main->width = width;
-		Camera::main->height = height;
+		context->width = Camera::main->width = width;
+		context->height = Camera::main->height = height;
 	}
 
 #ifdef __GLES__
@@ -91,7 +90,7 @@ namespace TEngine {
 	extern "C" int glMain(GLContext * glContext) {
 		glContext->userData = malloc(sizeof(UserData));
 
-		if (!glCreateWindow(glContext, "Hello GL", 0, 0, 1280, 800)) {
+		if (!glCreateWindow(glContext, "Hello GL", 1920, 0, 768, 1024)) {
 			return -1;
 		}
 		if (!Init(glContext)) { return GL_FALSE; }

@@ -1,12 +1,12 @@
 #pragma once
 #include "Component.h"
-	class Script : public Component {
-	private:
-	public:
-		bool notStarted;
 
-		Script(Object* obj);
-		virtual void Start();
-		virtual void Update();
+namespace TEngine {
+	class Script : public Component {
+	public:
+		Script();
 		virtual ~Script();
+		virtual void Start() override;
+		virtual void Update() override;
 	};
+}

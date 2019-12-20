@@ -5,7 +5,7 @@ namespace TEngine {
 	class Camera;
 	class CameraCtr : public Script {
 	public:
-		CameraCtr(Object* obj);
+		CameraCtr();
 		void Start();
 		void Update();
 		virtual ~CameraCtr();

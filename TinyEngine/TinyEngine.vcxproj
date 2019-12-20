@@ -211,9 +211,6 @@
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TinyEngine.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\GLFW_GL44\GLFW_GL44.vcxproj">
       <Project>{ba209bc4-ed54-4b6d-84e9-04671cca7582}</Project>
     </ProjectReference>

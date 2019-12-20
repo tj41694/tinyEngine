@@ -7,7 +7,7 @@
 
 
 namespace TEngine {
-	MeshFilter::MeshFilter(Object* obj) : Component(obj) {}
+	MeshFilter::MeshFilter() : Component() {}
 
 	void MeshFilter::LoadModel(const aiScene* scene) {
 		if (scene == nullptr) return;

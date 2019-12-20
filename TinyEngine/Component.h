@@ -2,13 +2,13 @@
 namespace TEngine {
 	class Object;
 	class Component {
-	private:
-	protected:
-		virtual void CreateVtable();
 	public:
 		Object* obj;
-		Component(Object* obj);
+	public:
+		Component();
 		virtual ~Component();
+		virtual void Start();
+		virtual void Update();
+	private:
 	};
 }
-using namespace TEngine;

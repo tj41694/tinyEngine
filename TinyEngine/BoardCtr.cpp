@@ -4,7 +4,7 @@
 #include "Standard.h"
 #include "Camera.h"
 
-BoardCtr::BoardCtr(Object* obj) : Script(obj)
+BoardCtr::BoardCtr() : Script()
 {
 }
 

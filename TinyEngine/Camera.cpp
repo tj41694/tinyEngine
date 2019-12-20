@@ -13,8 +13,12 @@ namespace TEngine {
 	Camera* Camera::main = nullptr;
 	std::map<unsigned int, Camera*> Camera::cameras;
 
-	Camera::Camera(Object* obj_) : Component(obj_) {
-		cameras.insert(std::pair<unsigned int, Camera*>(obj_->GetInstanceID(), this));
+
+	Camera::Camera() : Component() {
+	}
+
+	void Camera::Start() {
+		cameras.insert(std::pair<unsigned int, Camera*>(obj->GetInstanceID(), this));
 	}
 
 	void Camera::RenderAll(glContext* esContext) {

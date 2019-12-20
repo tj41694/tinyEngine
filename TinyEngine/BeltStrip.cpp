@@ -9,6 +9,7 @@
 #include "DrawCmdBelt.h"
 
 using namespace std;
+using namespace TEngine;
 BeltStrip::BeltStrip() {
 	obj = new Object("beltStrip_0");
 	MeshFilter* meshFilter = obj->AddComponent<MeshFilter>();

@@ -1,13 +1,13 @@
 #include "Script.h"
 
-	Script::Script(Object* obj) :Component(obj), notStarted(true) {
-	}
+namespace TEngine {
 
-	void Script::Start() {
-	}
+	Script::Script() :Component() {}
 
-	void Script::Update() {
-	}
+	void Script::Start() {}
 
-	Script::~Script() {
-	}
+	void Script::Update() {}
+
+	Script::~Script() {}
+
+}

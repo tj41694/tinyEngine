@@ -3,7 +3,7 @@
 #include "Input.h"
 #include "Debug.h"
 
-SelfRot::SelfRot(Object* obj) :Script(obj)
+SelfRot::SelfRot() :Script()
 {
 	speed = 1.0f;
 }

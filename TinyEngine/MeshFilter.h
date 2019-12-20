@@ -16,7 +16,7 @@ namespace TEngine {
 		Mesh* processMesh(aiMesh *mesh_, const aiScene *scene);
 	public:
 		std::vector<DrawCmd*> drawCmds;
-		MeshFilter(Object* obj);
+		MeshFilter();
 		void LoadModel(const aiScene *scene);
 		void DrawMeshes(Camera* camera);
 		virtual ~MeshFilter();

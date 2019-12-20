@@ -10,8 +10,10 @@ namespace TEngine {
 	class Render : public Component {
 	public:
 		std::vector<Material*> materials;
-		void LoadModelMat(const aiScene *scene, std::string path);
-		Render(Object* obj);
+
+	public:
+		Render();
 		virtual ~Render();
+		void LoadModelMat(const aiScene* scene, std::string path);
 	};
 }

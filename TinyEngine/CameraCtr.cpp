@@ -18,7 +18,7 @@
 #include "BeltStrip.h"
 
 using namespace std;
-CameraCtr::CameraCtr(Object* obj) :Script(obj) {
+CameraCtr::CameraCtr() :Script() {
 	camera_ = nullptr;
 	spheremirror = nullptr;
 }
@@ -37,9 +37,9 @@ void CameraCtr::GenTerrain() {
 
 void CameraCtr::Start() {
 	camera_ = obj->GetComponent<Camera>();
-	obj->MoveTo(0, 800, 0);
+	obj->MoveTo(0, 500, 2000);
 #pragma region 画各种物体
-	if (1) {
+	if (0) {
 		//地面
 		Standard* matGround = new Standard();
 		matGround->diffuseMap = new Texture();
@@ -82,7 +82,8 @@ void CameraCtr::Start() {
 		vec3(-x, 0, z),
 		vec3(-x, 0, -z)
 	};
-	strip2->DrawBeltStrip_Mesh(polygon2, 100, vec2(100, 360));
+	strip2->DrawBeltStrip_Mesh(polygon2, 10, vec2(100, 360));
+	strip2->obj->Move(0, 0, 6000);
 
 
 	//Object* cube1 = Object::CreateShape(Shape::sphere, 600);
@@ -127,8 +128,8 @@ void CameraCtr::Start() {
 
 	Object* nanosuit = Object::LoadModel("models/bakeTest/", "bakeTest.obj");
 	nanosuit->AddComponent<SelfRot>()->speed = 0.2f;
-	nanosuit->MoveTo(glm::vec3(600.0f, 790.0f, 300.0f));
-	nanosuit->scale = glm::vec3(10, 10, 10);
+	nanosuit->MoveTo(glm::vec3(0, 80, 4000));
+	nanosuit->scale = glm::vec3(3, 3, 3);
 
 	//Object* board1 = Object::LoadModel("./resources/models/board/", "board.obj");
 	//board1->MoveTo(glm::vec3(-15.0f, 18.0f, 0.0f));

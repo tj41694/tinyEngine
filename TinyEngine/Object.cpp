@@ -6,11 +6,6 @@
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
-//#include "glm/glm.hpp"
-//#include "glm/gtc/matrix_transform.hpp"
-//#include "glm/gtc/type_ptr.hpp"
-//#include "glm/gtc/quaternion.hpp"
-//#include "glm/gtx/quaternion.hpp"
 
 namespace TEngine {
 	using namespace glm;
@@ -38,7 +33,7 @@ namespace TEngine {
 		Debug::Log("Create Object:" + name);
 	}
 
-	mat4 Object::LocalToWorldMarix() {
+	const mat4 Object::LocalToWorldMarix() {
 		mat4 unit(1.0f);
 		mat4 molel = translate(unit, localPositon) * mat4_cast(rotation) * glm::scale(unit, scale);
 		if (parent == 0) {
@@ -50,42 +45,46 @@ namespace TEngine {
 	}
 
 	//世界坐标
-	vec3 Object::WorldPos() {
+	const vec3 Object::WorldPos() const {
 		if (parent == 0)
 			return localPositon;
 		else
 			return Parent()->WorldPos() + (Parent()->rotation * localPositon) * Parent()->scale;
 	}
 
-	vec3 Object::LocalPos() const {
+	const vec3& Object::LocalPos() const {
 		return localPositon;
 	}
 
-	quat Object::Rotation() const {
+	const quat Object::Rotation() const {
 		if (parent == 0)
 			return rotation;
 		else
 			return Parent()->Rotation() * rotation;
 	}
 
-	quat Object::LocalRotation() {
+	const quat& Object::LocalRotation() const {
 		return rotation;
 	}
 
-	vec3 Object::EulerAngles() {
+	const vec3& Object::EulerAngles() const {
 		return eulerAngles;
 	}
 
-	vec3 Object::Forwward() const {
+	const vec3 Object::Forwward() const {
 		return Rotation() * vec3(0, 0, 1.0f);
 	}
 
-	vec3 Object::Right() const {
+	const vec3 Object::Right() const {
 		return Rotation() * vec3(1.0f, 0, 0);
 	}
 
-	vec3 Object::Up() const {
+	const vec3 Object::Up() const {
 		return Rotation() * vec3(0, 1.0f, 0);
+	}
+
+	const std::unordered_map<size_t, Component*>& Object::Components() const {
+		return compenents;
 	}
 
 	void Object::MoveTo(const float& x, const float& y, const float& z) {
@@ -239,7 +238,7 @@ namespace TEngine {
 		return obj;
 	}
 
-	quat Object::RotationBetweenVectors(vec3 start, vec3 dest) {
+	const quat Object::RotationBetweenVectors(vec3 start, vec3 dest) {
 		start = normalize(start);
 		dest = normalize(dest);
 
@@ -275,7 +274,7 @@ namespace TEngine {
 
 	}
 
-	quat Object::LookAt(vec3 direction, vec3 desiredUp) {
+	const quat Object::LookAt(vec3 direction, vec3 desiredUp) {
 		if (length2(direction) < 0.0001f)
 			return rotation;
 		//重新计算目标方向
@@ -293,7 +292,7 @@ namespace TEngine {
 	}
 
 
-	quat Object::RotateTowards(quat q1, quat q2, float maxAngle) {
+	const quat Object::RotateTowards(quat q1, quat q2, float maxAngle) {
 
 		if (maxAngle < 0.001f) {
 			// No rotation allowed. Prevent dividing by 0 later.
@@ -629,8 +628,11 @@ namespace TEngine {
 
 	Object::~Object() {
 		((UserData*)context->userData)->allObjects->erase(GetInstanceID());
-		for (unsigned int i = 0; i < compenents.size(); i++)
-			delete compenents[i];
+		for (auto& it : compenents) {
+			delete it.second;
+		}
+		//for (unsigned int i = 0; i < compenents.size(); i++)
+		//	delete compenents[i];
 		Debug::Log("~Object\n");
 	}
 }
