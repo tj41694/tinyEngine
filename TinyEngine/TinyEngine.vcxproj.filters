@@ -117,6 +117,9 @@
     <ClCompile Include="Debug.cpp">
       <Filter>Tool</Filter>
     </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>TEngine\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Standard.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="Debug.h">
       <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>TEngine\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

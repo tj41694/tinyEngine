@@ -13,7 +13,7 @@ namespace TEngine {
 	unsigned int Object::instanceid = 1;
 	glContext* Object::context;
 
-	Object::Object() {
+	Object::Object() :id(instanceid++) {
 		((UserData*)context->userData)->allObjects->insert(std::pair<unsigned int, Object*>(GetInstanceID(), this));
 		localPositon = vec3(0.0f);
 		scale = vec3(1.0f);
@@ -21,8 +21,7 @@ namespace TEngine {
 		eulerAngles = vec3(0.0f);
 	}
 
-	Object::Object(const char* name_) {
-		id = 0;
+	Object::Object(const char* name_) :id(instanceid++) {
 		((UserData*)context->userData)->allObjects->insert(std::pair<int, Object*>(GetInstanceID(), this));
 		localPositon = vec3(0.0f);
 		scale = vec3(1.0f);
@@ -155,7 +154,6 @@ namespace TEngine {
 	}
 
 	unsigned int Object::GetInstanceID() {
-		if (id == 0) id = instanceid++;
 		return id;
 	}
 
