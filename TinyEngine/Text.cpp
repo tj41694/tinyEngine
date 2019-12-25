@@ -2,6 +2,7 @@
 #include "Font.h"
 #include <codecvt>
 #include <sstream>
+#include "Transform.h"
 
 
 namespace TEngine {
@@ -74,7 +75,7 @@ namespace TEngine {
 
 	void Text::Draw() {
 		if (font)
-			font->RenderText(textShader, text, WorldPos().x, WorldPos().y, scale.x, color);
+			font->RenderText(textShader, text, transform->Positon().x, transform->Positon().y, transform->LocalScale().x, color);
 		else {
 			DEBUGLOG(font);
 		}

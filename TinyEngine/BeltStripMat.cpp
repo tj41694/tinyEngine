@@ -4,6 +4,7 @@
 #include "FileSystem.h"
 #include "Mesh.h"
 #include "Camera.h"
+#include "Transform.h"
 
 namespace TEngine {
 	BeltStripMat::BeltStripMat() :Material("./resources/shaders/beltStrip/beltStrip.vs", "./resources/shaders/beltStrip/beltStrip.fs") {
@@ -16,7 +17,7 @@ namespace TEngine {
 		glUseProgram(shaderId);
 		SetFloat("beltWidth", beltWidth);
 		SetVector("diffuseColor", diffuseColor);
-		SetMatrix("MVP", camera->GetProjectionMatrix() * camera->GetViewMatrix() * obj->LocalToWorldMarix());
+		SetMatrix("MVP", camera->GetProjectionMatrix() * camera->GetViewMatrix() * obj->Trans()->LocalToWorldMarix());
 
 		if (diffuseMap) {
 			GLuint diffuseTexLoc = glGetUniformLocation(shaderId, "diffuseTex");

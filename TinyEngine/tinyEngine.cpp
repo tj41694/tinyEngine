@@ -7,6 +7,7 @@
 #include "CameraCtr.h"
 #include "Text.h"
 #include "OpenglUtil.h"
+#include "Transform.h"
 
 namespace TEngine {
 	static Text* FPSText;
@@ -23,12 +24,12 @@ namespace TEngine {
 		//text->color = vec3(0.3, 0.3, 0.8);
 		//text->Move(300, 500, 0);
 		FPSText = new Text();
-		FPSText->scale = vec3(0.5f);
-		FPSText->Move(80, glContext->height - 30.0f, 0);
+		FPSText->Trans()->LocalScale() = vec3(0.5f);
+		FPSText->Trans()->Move(80, glContext->height - 30.0f, 0);
 		FPSText->color = vec3(0.1, 0.9, 0.5);
 		FPSText1 = new Text("FPS:");
-		FPSText1->scale = vec3(0.5f);
-		FPSText1->Move(10, glContext->height - 30.0f, 0);
+		FPSText1->Trans()->LocalScale() = vec3(0.5f);
+		FPSText1->Trans()->Move(10, glContext->height - 30.0f, 0);
 		FPSText1->color = vec3(0.1, 0.9, 0.5);
 		Object* camObj = new Object("Camera");  //创建摄像机物体（载体）
 		Camera::main = camObj->AddComponent<Camera>(); //添加摄像机组件

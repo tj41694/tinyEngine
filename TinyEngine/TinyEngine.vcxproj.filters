@@ -33,9 +33,6 @@
     <ClCompile Include="CameraCtr.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="Script.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="SelfRot.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
@@ -120,6 +117,9 @@
     <ClCompile Include="Transform.cpp">
       <Filter>TEngine\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Script.cpp">
+      <Filter>TEngine\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Standard.h">
@@ -159,9 +159,6 @@
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="CameraCtr.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Script.h">
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="SelfRot.h">
@@ -219,6 +216,9 @@
       <Filter>Tool</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
+      <Filter>TEngine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Script.h">
       <Filter>TEngine\Components</Filter>
     </ClInclude>
   </ItemGroup>

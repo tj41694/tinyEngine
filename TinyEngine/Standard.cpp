@@ -6,6 +6,7 @@
 #include "Texture.h"
 #include "Mesh.h"
 #include "Global.h"
+#include "Transform.h"
 
 namespace TEngine {
 	Standard::Standard() : Material("./resources/shaders/Standard.vs", "./resources/shaders/Standard.fs") {
@@ -27,7 +28,7 @@ namespace TEngine {
 	void Standard::Use(Camera* camera, Object* obj, DrawCmd* mesh) {
 		glUseProgram(shaderId);
 		SetFloat("smoothness", smoothness);
-		SetMatrix("model", obj->LocalToWorldMarix());
+		SetMatrix("model", obj->Trans()->LocalToWorldMarix());
 		SetMatrix("view", camera->GetViewMatrix());
 		SetMatrix("projection", camera->GetProjectionMatrix());
 		SetVector("sunPos", vec3(-3000, 20000, 6000));
@@ -35,7 +36,7 @@ namespace TEngine {
 		SetVector("diffuseColor", diffuseColor);
 		SetVector("specularColor", specularColor);
 		SetVector("ambientLighting", vec3(0.4191f, 0.6332f, 0.8980f) * 0.7f);
-		SetVector("camPos", camera->obj->WorldPos());
+		SetVector("camPos", camera->obj->Trans()->Positon());
 		SetVector("selfLuminousColor", selfLuminous);
 		glUniform1i(specularTexLoc, 1);
 		if (diffuseMap) {

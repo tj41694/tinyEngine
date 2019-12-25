@@ -4,6 +4,7 @@
 #include "Standard.h"
 #include "Render.h"
 #include "Global.h"
+#include "Transform.h"
 
 namespace TEngine {
 	ReflectProb::ReflectProb() : Component() {
@@ -45,8 +46,8 @@ namespace TEngine {
 		float fov = 90.0f;
 
 		Object* camObj0 = new Object("right");
-		camObj0->SetParent(obj, false);
-		camObj0->RotateTo(0, -glm::pi<float>() / 2, glm::pi<float>());
+		camObj0->Trans()->SetParent(obj->Trans(), false);
+		camObj0->Trans()->RotateTo(0, -glm::pi<float>() / 2, glm::pi<float>());
 		cameras[0] = camObj0->AddComponent<Camera>();
 		cameras[0]->renderTarget = framebuffer[0];
 		cameras[0]->Zoom = fov;
@@ -54,8 +55,8 @@ namespace TEngine {
 		cameras[0]->height = texSize;
 
 		Object* camObj1 = new Object("left");
-		camObj1->SetParent(obj, false);
-		camObj1->RotateTo(0, glm::pi<float>() / 2, glm::pi<float>());
+		camObj1->Trans()->SetParent(obj->Trans(), false);
+		camObj1->Trans()->RotateTo(0, glm::pi<float>() / 2, glm::pi<float>());
 		cameras[1] = camObj1->AddComponent<Camera>();
 		cameras[1]->renderTarget = framebuffer[1];
 		cameras[1]->Zoom = fov;
@@ -63,8 +64,8 @@ namespace TEngine {
 		cameras[1]->height = texSize;
 
 		Object* camObj2 = new Object("top");
-		camObj2->RotateTo(glm::pi<float>() / 2, 0, glm::pi<float>());
-		camObj2->SetParent(obj, false);
+		camObj2->Trans()->RotateTo(glm::pi<float>() / 2, 0, glm::pi<float>());
+		camObj2->Trans()->SetParent(obj->Trans(), false);
 		cameras[2] = camObj2->AddComponent<Camera>();
 		cameras[2]->renderTarget = framebuffer[2];
 		cameras[2]->Zoom = fov;
@@ -72,8 +73,8 @@ namespace TEngine {
 		cameras[2]->height = texSize;
 
 		Object* camObj3 = new Object("bottom");
-		camObj3->RotateTo(-glm::pi<float>() / 2, 0, glm::pi<float>());
-		camObj3->SetParent(obj, false);
+		camObj3->Trans()->RotateTo(-glm::pi<float>() / 2, 0, glm::pi<float>());
+		camObj3->Trans()->SetParent(obj->Trans(), false);
 		cameras[3] = camObj3->AddComponent<Camera>();
 		cameras[3]->renderTarget = framebuffer[3];
 		cameras[3]->Zoom = fov;
@@ -81,8 +82,8 @@ namespace TEngine {
 		cameras[3]->height = texSize;
 
 		Object* camObj4 = new Object("front");
-		camObj4->SetParent(obj, false);
-		camObj4->RotateTo(0, 0, glm::pi<float>());
+		camObj4->Trans()->SetParent(obj->Trans(), false);
+		camObj4->Trans()->RotateTo(0, 0, glm::pi<float>());
 		cameras[4] = camObj4->AddComponent<Camera>();
 		cameras[4]->renderTarget = framebuffer[4];
 		cameras[4]->Zoom = fov;
@@ -90,8 +91,8 @@ namespace TEngine {
 		cameras[4]->height = texSize;
 
 		Object* camObj5 = new Object("back");
-		camObj5->SetParent(obj, false);
-		camObj5->RotateTo(0, glm::pi<float>(), glm::pi<float>());
+		camObj5->Trans()->SetParent(obj->Trans(), false);
+		camObj5->Trans()->RotateTo(0, glm::pi<float>(), glm::pi<float>());
 		cameras[5] = camObj5->AddComponent<Camera>();
 		cameras[5]->renderTarget = framebuffer[5];
 		cameras[5]->Zoom = fov;

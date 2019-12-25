@@ -16,6 +16,7 @@
 #include "Terrain.h"
 #include "MeshFilter.h"
 #include "BeltStrip.h"
+#include "Transform.h"
 
 using namespace std;
 CameraCtr::CameraCtr() :Script() {
@@ -32,12 +33,12 @@ void CameraCtr::GenTerrain() {
 	matTerrain->diffuseMap->path.assign("textures\\terrian.jpg");
 	matTerrain->diffuseColor = vec3(0.8f);
 	terrain->GetComponent<Render>()->materials.push_back(matTerrain);
-	terrain->MoveTo(-15000.0f, 0, -1000.0f);
+	terrain->Trans()->MoveTo(-15000.0f, 0, -1000.0f);
 }
 
 void CameraCtr::Start() {
 	camera_ = obj->GetComponent<Camera>();
-	obj->MoveTo(0, 500, 2000);
+	obj->Trans()->MoveTo(0, 500, 2000);
 #pragma region 画各种物体
 	if (0) {
 		//地面
@@ -83,7 +84,7 @@ void CameraCtr::Start() {
 		vec3(-x, 0, -z)
 	};
 	strip2->DrawBeltStrip_Mesh(polygon2, 10, vec2(100, 360));
-	strip2->obj->Move(0, 0, 6000);
+	strip2->obj->Trans()->Move(0, 0, 6000);
 
 
 	//Object* cube1 = Object::CreateShape(Shape::sphere, 600);
@@ -128,8 +129,8 @@ void CameraCtr::Start() {
 
 	Object* nanosuit = Object::LoadModel("models/bakeTest/", "bakeTest.obj");
 	nanosuit->AddComponent<SelfRot>()->speed = 0.2f;
-	nanosuit->MoveTo(glm::vec3(0, 80, 4000));
-	nanosuit->scale = glm::vec3(3, 3, 3);
+	nanosuit->Trans()->MoveTo(glm::vec3(0, 80, 4000));
+	nanosuit->Trans()->LocalScale() = glm::vec3(3, 3, 3);
 
 	//Object* board1 = Object::LoadModel("./resources/models/board/", "board.obj");
 	//board1->MoveTo(glm::vec3(-15.0f, 18.0f, 0.0f));
@@ -176,13 +177,13 @@ void CameraCtr::Start() {
 void CameraCtr::Update() {
 	static double moveSpeed = 500;
 	if (Input::GetKey('W'))
-		obj->Move(obj->Forwward() * (float)(Input::deltaTime * moveSpeed));
+		obj->Trans()->Move(obj->Trans()->Forwward() * (float)(Input::deltaTime * moveSpeed));
 	if (Input::GetKey('S'))
-		obj->Move(-obj->Forwward() * (float)(Input::deltaTime * moveSpeed));
+		obj->Trans()->Move(-obj->Trans()->Forwward() * (float)(Input::deltaTime * moveSpeed));
 	if (Input::GetKey('A'))
-		obj->Move(obj->Right() * (float)(Input::deltaTime * moveSpeed));
+		obj->Trans()->Move(obj->Trans()->Right() * (float)(Input::deltaTime * moveSpeed));
 	if (Input::GetKey('D'))
-		obj->Move(-obj->Right() * (float)(Input::deltaTime * moveSpeed));
+		obj->Trans()->Move(-obj->Trans()->Right() * (float)(Input::deltaTime * moveSpeed));
 
 	//if (Input::GetKey(VK_F1))
 	//	obj->MoveTo(0, 0, 0);
@@ -197,8 +198,8 @@ void CameraCtr::Update() {
 	if (Input::GetMouseButton(1) == GLFW_PRESS ||
 		Input::GetMouseButton(0) == GLFW_PRESS
 		) {
-		obj->Rotate(vec3(0, 1, 0), (float)(Input::GetAxisX() * Input::deltaTime / 2));
-		obj->Rotate(obj->Right(), -(float)(Input::GetAxisY() * Input::deltaTime / 2));
+		obj->Trans()->Rotate(vec3(0, 1, 0), (float)(Input::GetAxisX() * Input::deltaTime / 2));
+		obj->Trans()->Rotate(obj->Trans()->Right(), -(float)(Input::GetAxisY() * Input::deltaTime / 2));
 	}
 }
 

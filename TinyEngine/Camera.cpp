@@ -6,6 +6,7 @@
 #include "Global.h"
 #include "Render.h"
 #include "glm/gtc/matrix_transform.hpp"
+#include "Transform.h"
 
 namespace TEngine {
 	using namespace glm;
@@ -85,7 +86,7 @@ namespace TEngine {
 	}
 
 	glm::mat4 Camera::GetViewMatrix() {
-		return glm::lookAt(obj->WorldPos(), obj->WorldPos() + obj->Forwward(), obj->Up());
+		return glm::lookAt(obj->Trans()->Positon(), obj->Trans()->Positon() + obj->Trans()->Forwward(), obj->Trans()->Up());
 	}
 
 	glm::mat4 Camera::GetProjectionMatrix() {

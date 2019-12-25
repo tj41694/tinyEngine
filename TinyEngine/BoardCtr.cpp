@@ -3,6 +3,7 @@
 #include "Render.h"
 #include "Standard.h"
 #include "Camera.h"
+#include "Transform.h"
 
 BoardCtr::BoardCtr() : Script()
 {
@@ -20,7 +21,7 @@ void BoardCtr::Start()
 
 void BoardCtr::Update()
 {
-	obj->RotateTo(obj->LookAt(Camera::main->obj->WorldPos() - obj->WorldPos(), vec3(0, 1, 0)));
+	obj->Trans()->RotateTo(obj->Trans()->LookAt(Camera::main->obj->Trans()->Positon() - obj->Trans()->Positon(), vec3(0, 1, 0)));
 }
 
 BoardCtr::~BoardCtr()

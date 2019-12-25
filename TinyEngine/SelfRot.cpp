@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "Input.h"
 #include "Debug.h"
+#include "Transform.h"
 
 SelfRot::SelfRot() :Script()
 {
@@ -15,7 +16,7 @@ void SelfRot::Start()
 
 void SelfRot::Update()
 {
-	obj->Rotate(vec3(0, speed * Input::deltaTime, 0));
+	obj->Trans()->Rotate(vec3(0, speed * Input::deltaTime, 0));
 }
 
 SelfRot::~SelfRot()

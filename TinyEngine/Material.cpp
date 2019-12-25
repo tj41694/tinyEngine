@@ -5,6 +5,7 @@
 #include "FileSystem.h"
 #include "glm/gtc/type_ptr.hpp"
 #include "Mesh.h"
+#include "Transform.h"
 
 namespace TEngine {
 	using namespace glm;
@@ -17,7 +18,7 @@ namespace TEngine {
 
 	void Material::Use(Camera* camera, Object* obj, DrawCmd* mesh) {
 		glUseProgram(shaderId);
-		SetMatrix("model", obj->LocalToWorldMarix());
+		SetMatrix("model", obj->Trans()->LocalToWorldMarix());
 		SetMatrix("view", camera->GetViewMatrix());
 		SetMatrix("projection", camera->GetProjectionMatrix());
 		mesh->Draw();
