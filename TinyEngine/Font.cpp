@@ -35,8 +35,8 @@ namespace TEngine {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		Character character = {
 			texture,
-			ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-			ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+			glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+			glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
 			face->glyph->advance.x
 		};
 		characters.insert(std::pair<unsigned long, Character>(characer, character));

@@ -27,7 +27,7 @@ namespace TEngine {
 		scale = vec3(1.0f);
 		rotation = quat();
 		eulerAngles = vec3(0.0f);
-		parent = 0;
+		parentId = 0;
 		name.assign(name_);
 		//DEBUGLOG("Create Object:" + name);
 	}
@@ -35,7 +35,7 @@ namespace TEngine {
 	const mat4 Object::LocalToWorldMarix() {
 		mat4 unit(1.0f);
 		mat4 molel = translate(unit, localPositon) * mat4_cast(rotation) * glm::scale(unit, scale);
-		if (parent == 0) {
+		if (parentId == 0) {
 			return molel;
 		}
 		else {
@@ -45,7 +45,7 @@ namespace TEngine {
 
 	//ÊÀ½ç×ø±ê
 	const vec3 Object::WorldPos() const {
-		if (parent == 0)
+		if (parentId == 0)
 			return localPositon;
 		else
 			return Parent()->WorldPos() + (Parent()->rotation * localPositon) * Parent()->scale;
@@ -56,7 +56,7 @@ namespace TEngine {
 	}
 
 	const quat Object::Rotation() const {
-		if (parent == 0)
+		if (parentId == 0)
 			return rotation;
 		else
 			return Parent()->Rotation() * rotation;
@@ -130,15 +130,15 @@ namespace TEngine {
 	}
 
 	Object* Object::Parent() const {
-		if (parent == 0) return nullptr;
-		return ((UserData*)context->userData)->allObjects->at(parent);
+		if (parentId == 0) return nullptr;
+		return ((UserData*)context->userData)->allObjects->at(parentId);
 	}
 
 	void Object::SetParent(Object* obj_, bool worldPositionStays) {
 		if (worldPositionStays) {
 			localPositon = localPositon - obj_->WorldPos();
 		}
-		parent = obj_->GetInstanceID();
+		parentId = obj_->GetInstanceID();
 		Parent()->childs.push_back(GetInstanceID());
 	}
 

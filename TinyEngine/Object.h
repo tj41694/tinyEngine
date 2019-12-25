@@ -9,8 +9,6 @@
 #include "glm/gtx/quaternion.hpp"
 
 namespace TEngine {
-	using namespace glm;
-
 	class Component;
 	class Script;
 	enum class Shape {
@@ -24,46 +22,45 @@ namespace TEngine {
 		static glContext* context;
 
 		std::string name;
-		vec3 scale;
+		glm::vec3 scale;
 
 	private:
 		static unsigned int instanceid;
 
 		unsigned int id = 0;
-		unsigned int parent = 0;
-		std::vector<Script*> scripts;
+		unsigned int parentId = 0;
 		std::unordered_map<size_t, Component*> compenents;
 		std::vector<unsigned int> childs;
 	protected:
-		vec3 localPositon;
-		quat rotation;
-		vec3 eulerAngles;
+		glm::vec3 localPositon;
+		glm::quat rotation;
+		glm::vec3 eulerAngles;
 
 	public:
 		Object();
 		Object(const char* name_);
-		const vec3 WorldPos() const;
-		const vec3& LocalPos() const;
-		const quat Rotation() const;
-		const quat& LocalRotation() const;
-		const vec3& EulerAngles() const;
-		const vec3 Forwward() const;
-		const vec3 Right() const;
-		const vec3 Up() const;
-		const mat4 LocalToWorldMarix();
-		const quat RotationBetweenVectors(vec3 start, vec3 dest);
-		const quat LookAt(vec3 direction, vec3 desiredUp);
-		const quat RotateTowards(quat q1, quat q2, float maxAngle);
+		const glm::vec3 WorldPos() const;
+		const glm::vec3& LocalPos() const;
+		const glm::quat Rotation() const;
+		const glm::quat& LocalRotation() const;
+		const glm::vec3& EulerAngles() const;
+		const glm::vec3 Forwward() const;
+		const glm::vec3 Right() const;
+		const glm::vec3 Up() const;
+		const glm::mat4 LocalToWorldMarix();
+		const glm::quat RotationBetweenVectors(glm::vec3 start, glm::vec3 dest);
+		const glm::quat LookAt(glm::vec3 direction, glm::vec3 desiredUp);
+		const glm::quat RotateTowards(glm::quat q1, glm::quat q2, float maxAngle);
 
 		void MoveTo(const float& x, const float& y, const float& z);
-		void MoveTo(const vec3& vec);
+		void MoveTo(const glm::vec3& vec);
 		void Move(const float& x, const float& y, const float& z);
-		void Move(const vec3& vec);
-		void RotateTo(const vec3& eulerAngles);
+		void Move(const glm::vec3& vec);
+		void RotateTo(const glm::vec3& eulerAngles);
 		void RotateTo(const float& x, const float& y, const float& z);
-		void RotateTo(const quat& q);
-		void Rotate(const vec3& eulerAngles);
-		void Rotate(const vec3& axis, const float value);
+		void RotateTo(const glm::quat& q);
+		void Rotate(const glm::vec3& eulerAngles);
+		void Rotate(const glm::vec3& axis, const float value);
 
 
 		Object* Parent() const;
