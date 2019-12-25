@@ -17,20 +17,11 @@ namespace TEngine {
 	Object::Object() :id(instanceid++) {
 		((UserData*)context->userData)->allObjects->insert(std::pair<unsigned int, Object*>(GetInstanceID(), this));
 		transform = AddComponent<Transform>();
-		//localPositon = vec3(0.0f);
-		//scale = vec3(1.0f);
-		//rotation = quat();
-		//eulerAngles = vec3(0.0f);
 	}
 
 	Object::Object(const char* name_) :id(instanceid++) {
 		((UserData*)context->userData)->allObjects->insert(std::pair<int, Object*>(GetInstanceID(), this));
 		transform = AddComponent<Transform>();
-		//localPositon = vec3(0.0f);
-		//scale = vec3(1.0f);
-		//rotation = quat();
-		//eulerAngles = vec3(0.0f);
-		//parentId = 0;
 		name.assign(name_);
 		//DEBUGLOG("Create Object:" + name);
 	}
@@ -39,126 +30,9 @@ namespace TEngine {
 		return transform;
 	}
 
-	//const mat4 Object::LocalToWorldMarix() {
-	//	mat4 unit(1.0f);
-	//	mat4 molel = translate(unit, localPositon) * mat4_cast(rotation) * glm::scale(unit, scale);
-	//	if (parentId == 0) {
-	//		return molel;
-	//	}
-	//	else {
-	//		return Parent()->LocalToWorldMarix() * molel;
-	//	}
-	//}
-
-	////世界坐标
-	//const vec3 Object::WorldPos() const {
-	//	if (parentId == 0)
-	//		return localPositon;
-	//	else
-	//		return Parent()->WorldPos() + (Parent()->rotation * localPositon) * Parent()->scale;
-	//}
-
-	//const vec3& Object::LocalPos() const {
-	//	return localPositon;
-	//}
-
-	//const quat Object::Rotation() const {
-	//	if (parentId == 0)
-	//		return rotation;
-	//	else
-	//		return Parent()->Rotation() * rotation;
-	//}
-
-	//const quat& Object::LocalRotation() const {
-	//	return rotation;
-	//}
-
-	//const vec3& Object::EulerAngles() const {
-	//	return eulerAngles;
-	//}
-
-	//const vec3 Object::Forwward() const {
-	//	return Rotation() * vec3(0, 0, 1.0f);
-	//}
-
-	//const vec3 Object::Right() const {
-	//	return Rotation() * vec3(1.0f, 0, 0);
-	//}
-
-	//const vec3 Object::Up() const {
-	//	return Rotation() * vec3(0, 1.0f, 0);
-	//}
-
 	const std::unordered_map<size_t, Component*>& Object::Components() const {
 		return compenents;
 	}
-
-	//void Object::MoveTo(const float& x, const float& y, const float& z) {
-	//	localPositon = vec3(x, y, z);
-	//}
-
-	//void Object::MoveTo(const vec3& vec) {
-	//	localPositon.x = vec.x;
-	//	localPositon.y = vec.y;
-	//	localPositon.z = vec.z;
-	//}
-
-	//void Object::Move(const float& x, const float& y, const float& z) {
-	//	localPositon += vec3(x, y, z);
-	//}
-
-	//void Object::Move(const vec3& vec) {
-	//	localPositon += vec;
-	//}
-
-	//void Object::RotateTo(const vec3& eulerAngles_) {
-	//	rotation = quat(eulerAngles_);
-	//	eulerAngles = glm::eulerAngles(rotation);
-	//}
-
-	//void Object::RotateTo(const float& x, const float& y, const float& z) {
-	//	rotation = quat(vec3(x, y, z));
-	//	eulerAngles = glm::eulerAngles(rotation);
-	//}
-
-	//void Object::RotateTo(const quat& q) {
-	//	rotation = q;
-	//	eulerAngles = glm::eulerAngles(rotation);
-	//}
-
-	//void Object::Rotate(const vec3& eulerAngles_) {
-	//	rotation = quat(eulerAngles_) * rotation;
-	//	eulerAngles = glm::eulerAngles(rotation);
-	//}
-
-	//void Object::Rotate(const vec3& axis, const float value) {
-	//	rotation = glm::angleAxis(value, axis) * rotation;
-	//	eulerAngles = glm::eulerAngles(rotation);
-	//}
-
-	//Object* Object::Parent() const {
-	//	if (parentId == 0) return nullptr;
-	//	return ((UserData*)context->userData)->allObjects->at(parentId);
-	//}
-
-	//void Object::SetParent(Object* obj_, bool worldPositionStays) {
-	//	if (worldPositionStays) {
-	//		localPositon = localPositon - obj_->WorldPos();
-	//	}
-	//	parentId = obj_->GetInstanceID();
-	//	Parent()->childs.push_back(GetInstanceID());
-	//}
-
-	//unsigned int Object::ChildCount() {
-	//	return (unsigned int)childs.size();
-	//}
-
-	//Object* Object::Child(unsigned int index) {
-	//	if (childs.size() > index) {
-	//		return ((UserData*)context->userData)->allObjects->at(childs[index]);
-	//	}
-	//	return nullptr;
-	//}
 
 	unsigned int Object::GetInstanceID() {
 		return id;
@@ -242,99 +116,6 @@ namespace TEngine {
 		obj->AddComponent<MeshFilter>()->LoadModel(scene);
 		return obj;
 	}
-
-	//const quat Object::RotationBetweenVectors(vec3 start, vec3 dest) {
-	//	start = normalize(start);
-	//	dest = normalize(dest);
-
-	//	float cosTheta = dot(start, dest);
-	//	vec3 rotationAxis;
-
-	//	if (cosTheta < -1 + 0.000001f) {
-	//		// special case when vectors in opposite directions :
-	//		// there is no "ideal" rotation axis
-	//		// So guess one; any will do as long as it's perpendicular to start
-	//		// This implementation favors a rotation around the Up axis,
-	//		// since it's often what you want to do.
-	//		rotationAxis = cross(vec3(1.0f, 0.0f, 0.0f), start);
-	//		if (length2(rotationAxis) < 0.01) // bad luck, they were parallel, try again!
-	//			rotationAxis = cross(vec3(0.0f, 0.0f, 1.0f), start);
-
-	//		rotationAxis = normalize(rotationAxis);
-	//		return angleAxis(glm::radians(180.0f), rotationAxis);
-	//	}
-
-	//	// Implementation from Stan Melax's Game Programming Gems 1 article
-	//	rotationAxis = cross(start, dest);
-
-	//	float s = sqrt((1 + cosTheta) * 2);
-	//	float invs = 1 / s;
-
-	//	return quat(
-	//		s * 0.5f,
-	//		rotationAxis.x * invs,
-	//		rotationAxis.y * invs,
-	//		rotationAxis.z * invs
-	//	);
-
-	//}
-
-	//const quat Object::LookAt(vec3 direction, vec3 desiredUp) {
-	//	if (length2(direction) < 0.0001f)
-	//		return rotation;
-	//	//重新计算目标方向
-	//	direction = Parent() == nullptr ? direction : glm::inverse(Parent()->Rotation()) * direction;
-
-	//	quat rot1 = RotationBetweenVectors(vec3(0, 0, 1), direction);
-
-	//	vec3 right = cross(direction, desiredUp);
-	//	desiredUp = cross(right, direction);
-
-	//	vec3 newUp = rot1 * vec3(0.0f, 1.0f, 0.0f);
-	//	quat rot2 = RotationBetweenVectors(newUp, desiredUp);
-
-	//	return  rot2 * rot1;
-	//}
-
-
-	//const quat Object::RotateTowards(quat q1, quat q2, float maxAngle) {
-
-	//	if (maxAngle < 0.001f) {
-	//		// No rotation allowed. Prevent dividing by 0 later.
-	//		return q1;
-	//	}
-
-	//	float cosTheta = dot(q1, q2);
-
-	//	// q1 and q2 are already equal.
-	//	// Force q2 just to be sure
-	//	if (cosTheta > 0.9999f) {
-	//		return q2;
-	//	}
-
-	//	// Avoid taking the long path around the sphere
-	//	if (cosTheta < 0) {
-	//		q1 = q1 * -1.0f;
-	//		cosTheta *= -1.0f;
-	//	}
-
-	//	float angle = acos(cosTheta);
-
-	//	// If there is only a 2° difference, and we are allowed 5°,
-	//	// then we arrived.
-	//	if (angle < maxAngle) {
-	//		return q2;
-	//	}
-
-	//	// This is just like slerp(), but with a custom t
-	//	float t = maxAngle / angle;
-	//	angle = maxAngle;
-
-	//	quat res = (sin((1.0f - t) * angle) * q1 + sin(t * angle) * q2) / sin(angle);
-	//	res = normalize(res);
-	//	return res;
-
-	//}
 
 	///
 	// Defines
