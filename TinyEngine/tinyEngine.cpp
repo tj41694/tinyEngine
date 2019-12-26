@@ -1,13 +1,14 @@
 ﻿#pragma once
-#include "Object.h"
-#include "DataDef.h"
-#include "Global.h"
-#include "Input.h"
-#include "Camera.h"
-#include "CameraCtr.h"
-#include "Text.h"
-#include "OpenglUtil.h"
-#include "Transform.h"
+#include "Engine/Object.h"
+#include "Engine/DataDef.h"
+#include "Engine/Global.h"
+#include "Engine/Input.h"
+#include "Engine/Components/Camera.h"
+#include "Scripts/CameraCtr.h"
+#include "Engine/UI/Text.h"
+#include "Engine/OpenglUtil.h"
+#include "Engine/Components/Transform.h"
+#include <Engine/Components/Script.h>
 
 namespace TEngine {
 	static Text* FPSText;

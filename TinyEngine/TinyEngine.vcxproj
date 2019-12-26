@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(SolutionDir)External\x86Debug\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)Common\Include\;$(SolutionDir)External\Include\;$(SolutionDir)GLFW_GL44\Include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Common\Include\;$(SolutionDir)External\Include\;$(SolutionDir)GLFW_GL44\Include\;$(ProjectDir);$(IncludePath)</IncludePath>
     <IntDir>$(SolutionDir)$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -145,72 +145,74 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BeltStrip.cpp" />
-    <ClCompile Include="BeltStripMat.cpp" />
-    <ClCompile Include="BoardCtr.cpp" />
-    <ClCompile Include="CameraCtr.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Debug.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="DrawCmdBelt.cpp" />
-    <ClCompile Include="DrawCmd.cpp" />
-    <ClCompile Include="FileSystem.cpp" />
-    <ClCompile Include="Font.cpp" />
-    <ClCompile Include="Global.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="MatSkyBox.cpp" />
-    <ClCompile Include="MyTif.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshFilter.cpp" />
-    <ClCompile Include="Polygon.cpp" />
-    <ClCompile Include="ReflectProb.cpp" />
-    <ClCompile Include="Render.cpp" />
-    <ClCompile Include="Script.cpp" />
-    <ClCompile Include="SelfRot.cpp" />
-    <ClCompile Include="Standard.cpp" />
-    <ClCompile Include="Terrain.cpp" />
-    <ClCompile Include="Text.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Engine\Components\Camera.cpp" />
+    <ClCompile Include="Engine\Components\Component.cpp" />
+    <ClCompile Include="Engine\Components\MeshFilter.cpp" />
+    <ClCompile Include="Engine\Components\ReflectProb.cpp" />
+    <ClCompile Include="Engine\Components\Render.cpp" />
+    <ClCompile Include="Engine\Components\Script.cpp" />
+    <ClCompile Include="Engine\Components\Transform.cpp" />
+    <ClCompile Include="Engine\DrawCommand\DrawCmd.cpp" />
+    <ClCompile Include="Engine\DrawCommand\DrawCmdBelt.cpp" />
+    <ClCompile Include="Engine\DrawCommand\Mesh.cpp" />
+    <ClCompile Include="Engine\External\MyTif.cpp" />
+    <ClCompile Include="Engine\FileSystem.cpp" />
+    <ClCompile Include="Engine\Global.cpp" />
+    <ClCompile Include="Engine\Input.cpp" />
+    <ClCompile Include="Engine\Materials\BeltStripMat.cpp" />
+    <ClCompile Include="Engine\Materials\Material.cpp" />
+    <ClCompile Include="Engine\Materials\MatSkyBox.cpp" />
+    <ClCompile Include="Engine\Materials\Standard.cpp" />
+    <ClCompile Include="Engine\Object.cpp" />
+    <ClCompile Include="Engine\Physics\Physics.cpp" />
+    <ClCompile Include="Engine\Texture.cpp" />
+    <ClCompile Include="Engine\UI\Font.cpp" />
+    <ClCompile Include="Engine\UI\Text.cpp" />
+    <ClCompile Include="Engine\UI\UI.cpp" />
+    <ClCompile Include="Scripts\BeltStrip.cpp" />
+    <ClCompile Include="Scripts\BoardCtr.cpp" />
+    <ClCompile Include="Scripts\CameraCtr.cpp" />
+    <ClCompile Include="Scripts\SelfRot.cpp" />
     <ClCompile Include="tinyEngine.cpp" />
-    <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Tools\Debug.cpp" />
+    <ClCompile Include="Tools\Polygon.cpp" />
+    <ClCompile Include="Tools\Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BeltStrip.h" />
-    <ClInclude Include="BeltStripMat.h" />
-    <ClInclude Include="BoardCtr.h" />
-    <ClInclude Include="CameraCtr.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="DataDef.h" />
-    <ClInclude Include="Debug.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="DrawCmdBelt.h" />
-    <ClInclude Include="DrawCmd.h" />
-    <ClInclude Include="FileSystem.h" />
-    <ClInclude Include="Font.h" />
-    <ClInclude Include="Global.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="MatSkyBox.h" />
-    <ClInclude Include="MyTif.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MeshFilter.h" />
-    <ClInclude Include="OpenglUtil.h" />
-    <ClInclude Include="Polygon.h" />
-    <ClInclude Include="ReflectProb.h" />
-    <ClInclude Include="Render.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="Script.h" />
-    <ClInclude Include="SelfRot.h" />
-    <ClInclude Include="Standard.h" />
-    <ClInclude Include="Terrain.h" />
-    <ClInclude Include="Text.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="UI.h" />
+    <ClInclude Include="Engine\Components\Camera.h" />
+    <ClInclude Include="Engine\Components\Component.h" />
+    <ClInclude Include="Engine\Components\MeshFilter.h" />
+    <ClInclude Include="Engine\Components\ReflectProb.h" />
+    <ClInclude Include="Engine\Components\Render.h" />
+    <ClInclude Include="Engine\Components\Script.h" />
+    <ClInclude Include="Engine\Components\Transform.h" />
+    <ClInclude Include="Engine\DataDef.h" />
+    <ClInclude Include="Engine\DrawCommand\DrawCmd.h" />
+    <ClInclude Include="Engine\DrawCommand\DrawCmdBelt.h" />
+    <ClInclude Include="Engine\DrawCommand\Mesh.h" />
+    <ClInclude Include="Engine\External\MyTif.h" />
+    <ClInclude Include="Engine\FileSystem.h" />
+    <ClInclude Include="Engine\Global.h" />
+    <ClInclude Include="Engine\Input.h" />
+    <ClInclude Include="Engine\Materials\BeltStripMat.h" />
+    <ClInclude Include="Engine\Materials\Material.h" />
+    <ClInclude Include="Engine\Materials\MatSkyBox.h" />
+    <ClInclude Include="Engine\Materials\Standard.h" />
+    <ClInclude Include="Engine\Object.h" />
+    <ClInclude Include="Engine\OpenglUtil.h" />
+    <ClInclude Include="Engine\Physics\Physics.h" />
+    <ClInclude Include="Engine\resource.h" />
+    <ClInclude Include="Engine\Texture.h" />
+    <ClInclude Include="Engine\UI\Font.h" />
+    <ClInclude Include="Engine\UI\Text.h" />
+    <ClInclude Include="Engine\UI\UI.h" />
+    <ClInclude Include="Scripts\BeltStrip.h" />
+    <ClInclude Include="Scripts\BoardCtr.h" />
+    <ClInclude Include="Scripts\CameraCtr.h" />
+    <ClInclude Include="Scripts\SelfRot.h" />
+    <ClInclude Include="Tools\Debug.h" />
+    <ClInclude Include="Tools\Polygon.h" />
+    <ClInclude Include="Tools\Terrain.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GLFW_GL44\GLFW_GL44.vcxproj">

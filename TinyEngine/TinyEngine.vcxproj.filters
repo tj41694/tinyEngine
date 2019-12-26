@@ -7,9 +7,6 @@
     <Filter Include="TEngine">
       <UniqueIdentifier>{2663bb93-7e3f-46bb-b376-f5686e8e78d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tool">
-      <UniqueIdentifier>{bc655cdb-5e7f-4776-b687-63b0269c42c6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="TEngine\Components">
       <UniqueIdentifier>{9d520516-a7b1-42bf-98c5-4206946af178}</UniqueIdentifier>
     </Filter>
@@ -19,207 +16,217 @@
     <Filter Include="TEngine\External">
       <UniqueIdentifier>{f264c2d8-87db-4825-b3f7-2846ba2608f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TEngine\Material">
-      <UniqueIdentifier>{4a62c45f-f28d-4626-b5e6-ea6fad5983df}</UniqueIdentifier>
-    </Filter>
     <Filter Include="TEngine\UI">
       <UniqueIdentifier>{fd819daa-fd66-4e18-8f9b-2974d357a19e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TEngine\Physics">
+      <UniqueIdentifier>{03a47a75-349e-48c1-a9a2-f992dce53849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TEngine\Materials">
+      <UniqueIdentifier>{4a62c45f-f28d-4626-b5e6-ea6fad5983df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{bc655cdb-5e7f-4776-b687-63b0269c42c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoardCtr.cpp">
+    <ClCompile Include="Scripts\BeltStrip.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="CameraCtr.cpp">
+    <ClCompile Include="Scripts\BoardCtr.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="SelfRot.cpp">
+    <ClCompile Include="Scripts\CameraCtr.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="BeltStrip.cpp">
+    <ClCompile Include="Scripts\SelfRot.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="Polygon.cpp">
-      <Filter>Tool</Filter>
+    <ClCompile Include="Engine\Materials\BeltStripMat.cpp">
+      <Filter>TEngine\Materials</Filter>
     </ClCompile>
-    <ClCompile Include="FileSystem.cpp">
-      <Filter>TEngine</Filter>
+    <ClCompile Include="Engine\Materials\Material.cpp">
+      <Filter>TEngine\Materials</Filter>
     </ClCompile>
-    <ClCompile Include="Global.cpp">
-      <Filter>TEngine</Filter>
+    <ClCompile Include="Engine\Materials\MatSkyBox.cpp">
+      <Filter>TEngine\Materials</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>TEngine</Filter>
+    <ClCompile Include="Engine\Materials\Standard.cpp">
+      <Filter>TEngine\Materials</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>TEngine</Filter>
+    <ClCompile Include="Tools\Debug.cpp">
+      <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>TEngine</Filter>
+    <ClCompile Include="Tools\Polygon.cpp">
+      <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="tinyEngine.cpp">
-      <Filter>TEngine</Filter>
+    <ClCompile Include="Tools\Terrain.cpp">
+      <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>TEngine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>TEngine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshFilter.cpp">
-      <Filter>TEngine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="ReflectProb.cpp">
-      <Filter>TEngine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Render.cpp">
-      <Filter>TEngine\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawCmd.cpp">
-      <Filter>TEngine\DrawCommand</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawCmdBelt.cpp">
-      <Filter>TEngine\DrawCommand</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>TEngine\DrawCommand</Filter>
-    </ClCompile>
-    <ClCompile Include="BeltStripMat.cpp">
-      <Filter>TEngine\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>TEngine\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="MatSkyBox.cpp">
-      <Filter>TEngine\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="Standard.cpp">
-      <Filter>TEngine\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="MyTif.cpp">
+    <ClCompile Include="Engine\External\MyTif.cpp">
       <Filter>TEngine\External</Filter>
     </ClCompile>
-    <ClCompile Include="Font.cpp">
-      <Filter>TEngine\UI</Filter>
+    <ClCompile Include="Engine\FileSystem.cpp">
+      <Filter>TEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>TEngine\UI</Filter>
+    <ClCompile Include="Engine\Global.cpp">
+      <Filter>TEngine</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>TEngine\UI</Filter>
+    <ClCompile Include="Engine\Input.cpp">
+      <Filter>TEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>Tool</Filter>
+    <ClCompile Include="Engine\Object.cpp">
+      <Filter>TEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Debug.cpp">
-      <Filter>Tool</Filter>
+    <ClCompile Include="Engine\Texture.cpp">
+      <Filter>TEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
+    <ClCompile Include="tinyEngine.cpp" />
+    <ClCompile Include="Engine\Components\Camera.cpp">
       <Filter>TEngine\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Script.cpp">
+    <ClCompile Include="Engine\Components\Component.cpp">
       <Filter>TEngine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\MeshFilter.cpp">
+      <Filter>TEngine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\ReflectProb.cpp">
+      <Filter>TEngine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Render.cpp">
+      <Filter>TEngine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Script.cpp">
+      <Filter>TEngine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Transform.cpp">
+      <Filter>TEngine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DrawCommand\DrawCmd.cpp">
+      <Filter>TEngine\DrawCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DrawCommand\DrawCmdBelt.cpp">
+      <Filter>TEngine\DrawCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DrawCommand\Mesh.cpp">
+      <Filter>TEngine\DrawCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Physics\Physics.cpp">
+      <Filter>TEngine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\UI\Font.cpp">
+      <Filter>TEngine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\UI\Text.cpp">
+      <Filter>TEngine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\UI\UI.cpp">
+      <Filter>TEngine\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Standard.h">
-      <Filter>TEngine\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="MatSkyBox.h">
-      <Filter>TEngine\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>TEngine\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>TEngine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>TEngine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshFilter.h">
-      <Filter>TEngine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Render.h">
-      <Filter>TEngine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectProb.h">
-      <Filter>TEngine\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>TEngine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>TEngine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>TEngine\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="BoardCtr.h">
+    <ClInclude Include="Scripts\BeltStrip.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="CameraCtr.h">
+    <ClInclude Include="Scripts\BoardCtr.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="SelfRot.h">
+    <ClInclude Include="Scripts\CameraCtr.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="MyTif.h">
+    <ClInclude Include="Scripts\SelfRot.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Materials\BeltStripMat.h">
+      <Filter>TEngine\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Materials\Material.h">
+      <Filter>TEngine\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Materials\MatSkyBox.h">
+      <Filter>TEngine\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Materials\Standard.h">
+      <Filter>TEngine\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Debug.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Polygon.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\Terrain.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\External\MyTif.h">
       <Filter>TEngine\External</Filter>
     </ClInclude>
-    <ClInclude Include="BeltStrip.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Polygon.h">
-      <Filter>Tool</Filter>
-    </ClInclude>
-    <ClInclude Include="BeltStripMat.h">
-      <Filter>TEngine\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>TEngine\DrawCommand</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawCmd.h">
-      <Filter>TEngine\DrawCommand</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawCmdBelt.h">
-      <Filter>TEngine\DrawCommand</Filter>
-    </ClInclude>
-    <ClInclude Include="DataDef.h">
+    <ClInclude Include="Engine\DataDef.h">
       <Filter>TEngine</Filter>
     </ClInclude>
-    <ClInclude Include="FileSystem.h">
+    <ClInclude Include="Engine\FileSystem.h">
       <Filter>TEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Global.h">
+    <ClInclude Include="Engine\Global.h">
       <Filter>TEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
+    <ClInclude Include="Engine\Input.h">
       <Filter>TEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
+    <ClInclude Include="Engine\Object.h">
       <Filter>TEngine</Filter>
     </ClInclude>
-    <ClInclude Include="OpenglUtil.h">
+    <ClInclude Include="Engine\OpenglUtil.h">
       <Filter>TEngine</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="Engine\resource.h">
       <Filter>TEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
+    <ClInclude Include="Engine\Texture.h">
       <Filter>TEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>Tool</Filter>
-    </ClInclude>
-    <ClInclude Include="Debug.h">
-      <Filter>Tool</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
+    <ClInclude Include="Engine\Components\Camera.h">
       <Filter>TEngine\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Script.h">
+    <ClInclude Include="Engine\Components\Component.h">
       <Filter>TEngine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Components\MeshFilter.h">
+      <Filter>TEngine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Components\ReflectProb.h">
+      <Filter>TEngine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Components\Render.h">
+      <Filter>TEngine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Components\Script.h">
+      <Filter>TEngine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Components\Transform.h">
+      <Filter>TEngine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DrawCommand\DrawCmd.h">
+      <Filter>TEngine\DrawCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DrawCommand\DrawCmdBelt.h">
+      <Filter>TEngine\DrawCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DrawCommand\Mesh.h">
+      <Filter>TEngine\DrawCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Physics\Physics.h">
+      <Filter>TEngine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\UI\Font.h">
+      <Filter>TEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\UI\Text.h">
+      <Filter>TEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\UI\UI.h">
+      <Filter>TEngine\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
