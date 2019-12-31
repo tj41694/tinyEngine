@@ -199,9 +199,10 @@ void CameraCtr::Update() {
 		obj->Trans()->Rotate(vec3(0, 1, 0), (float)(Input::GetAxisX() * Input::deltaTime / 2));
 		obj->Trans()->Rotate(obj->Trans()->Right(), -(float)(Input::GetAxisY() * Input::deltaTime / 2));
 	}
-	if(Input::GetMouseButtonUp(0))
+	if (Input::GetMouseButtonUp(0))
 	{
 		DEBUGLOG(Input::mousePosition);
+		vec3 worldPos = Camera::main->ScreenToWorldPoint(vec3(Input::mousePosition.x, Input::mousePosition.y, 0));
 	}
 }
 

@@ -94,6 +94,32 @@ namespace TEngine {
 		return glm::perspective(glm::radians(Zoom), width / (float)height, nearPlan, farPlan);
 	}
 
+	glm::vec3 Camera::ScreenToWorldPoint(const glm::vec3& screenPoint)
+	{
+		GLint viewport[4];
+		GLfloat  winY, winZ;
+		glGetIntegerv(GL_VIEWPORT, viewport);
+		winY = (float)viewport[3] - (float)screenPoint.y - 1.0f;
+		glReadBuffer(GL_BACK);
+		glReadPixels((GLint)screenPoint.x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+
+		mat4 matProjection = GetViewMatrix() * GetProjectionMatrix();
+		mat4 matInverse = inverse(matProjection);
+		float in[4];
+		in[0] = (2.0f * ((float)(screenPoint.x - 0) / (width - 0))) - 1.0f;
+		in[1] = 1.0f - (2.0f * ((float)(screenPoint.y - 0) / (height - 0)));
+		in[2] = 2.0f * winZ - 1.0f;
+		in[3] = 1.0f;
+		vec4 vIn = vec4(in[0], in[1], in[2], in[3]);
+		vec4 pos = matInverse * vIn;
+		pos.w = 1.0 / pos.w;
+
+		pos.x *= pos.w;
+		pos.y *= pos.w;
+		pos.z *= pos.w;
+		return glm::vec3(pos.x, pos.y, pos.z);
+	}
+
 	Camera::~Camera() {
 		cameras.erase(obj->GetInstanceID());
 		DEBUGLOG("~Camera");
