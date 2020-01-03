@@ -1,5 +1,5 @@
-#include "BeltStripMat.h"
 #include "../Object.h"
+#include "BeltStripMat.h"
 #include "../Texture.h"
 #include "../FileSystem.h"
 #include "Engine/DrawCommand/Mesh.h"
@@ -8,7 +8,7 @@
 namespace TEngine {
 	BeltStripMat::BeltStripMat() :Material("./resources/shaders/beltStrip/beltStrip.vs", "./resources/shaders/beltStrip/beltStrip.fs") {
 		beltWidth = 1;
-		diffuseColor = vec3(1);
+		diffuseColor = glm::vec3(1);
 		diffuseMap = nullptr;
 	}
 

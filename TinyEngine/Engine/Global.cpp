@@ -193,7 +193,7 @@ namespace TEngine {
 			Standard* matGround = new Standard();
 			matGround->diffuseMap = new Texture();
 			matGround->diffuseMap->path.assign("textures\\terrian.jpg");
-			matGround->diffuseColor = vec3(0.8f);
+			matGround->diffuseColor = glm::vec3(0.8f);
 			Object* ground = Object::CreateShape(Shape::plane, 100);
 			ground->GetComponent<Render>()->materials.push_back(matGround);
 		}
@@ -206,16 +206,16 @@ namespace TEngine {
 		float z = 15.0f;
 		vector<glm::vec3> polygon2
 		{
-			vec3(-x, 0, -z),
-			vec3(0, 0, -1.5 * z),
-			vec3(x, 0, -z),
-			vec3(1.5 * x, 0, 0),
-			vec3(x, 0, z),
-			vec3(0, 0, 1.5 * z),
-			vec3(-x, 0, z),
-			vec3(-x, 0, -z)
+			glm::vec3(-x, 0, -z),
+			glm::vec3(0, 0, -1.5 * z),
+			glm::vec3(x, 0, -z),
+			glm::vec3(1.5 * x, 0, 0),
+			glm::vec3(x, 0, z),
+			glm::vec3(0, 0, 1.5 * z),
+			glm::vec3(-x, 0, z),
+			glm::vec3(-x, 0, -z)
 		};
-		strip->DrawBeltStrip_Mesh(polygon2, 0.2f, vec2(100, 360));
+		strip->DrawBeltStrip_Mesh(polygon2, 0.2f, glm::vec2(100, 360));
 		strip->obj->Trans()->Move(150, 4, 16);
 
 
@@ -311,17 +311,17 @@ namespace TEngine {
 	void Global::InitialUI()
 	{
 		Text* text = new Text("ÄãºÃGL¡£!>?#@_");
-		text->Trans()->SetLocalScale(vec3(0.5));
-		text->color = vec3(0.3, 0.3, 0.8);
+		text->Trans()->SetLocalScale(glm::vec3(0.5));
+		text->color = glm::vec3(0.3, 0.3, 0.8);
 		text->Trans()->Move(300, 980, 0);
 		FPSText = new Text();
-		FPSText->Trans()->SetLocalScale(vec3(0.5f));
+		FPSText->Trans()->SetLocalScale(glm::vec3(0.5f));
 		FPSText->Trans()->Move(80, Camera::main->height - 30.0f, 0);
-		FPSText->color = vec3(0.1, 0.9, 0.5);
+		FPSText->color = glm::vec3(0.1, 0.9, 0.5);
 		FPSText1 = new Text("FPS:");
-		FPSText1->Trans()->SetLocalScale(vec3(0.5f));
+		FPSText1->Trans()->SetLocalScale(glm::vec3(0.5f));
 		FPSText1->Trans()->Move(10, Camera::main->height - 30.0f, 0);
-		FPSText1->color = vec3(0.1, 0.9, 0.5);
+		FPSText1->color = glm::vec3(0.1, 0.9, 0.5);
 	}
 
 	void Global::GenTerrain()
@@ -332,7 +332,7 @@ namespace TEngine {
 		Standard* matTerrain = new Standard();
 		matTerrain->diffuseMap = new Texture();
 		matTerrain->diffuseMap->path.assign("textures\\terrian.jpg");
-		matTerrain->diffuseColor = vec3(0.8f);
+		matTerrain->diffuseColor = glm::vec3(0.8f);
 		terrain->GetComponent<Render>()->materials.push_back(matTerrain);
 		terrain->Trans()->MoveTo(-200, 0, -50);
 	}

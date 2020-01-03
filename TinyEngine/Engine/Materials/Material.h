@@ -1,11 +1,9 @@
 #pragma once
 #include <string>
-#include "Engine/OpenglUtil.h"
 #include "glm/glm.hpp"
 #include <unordered_map>
 
 namespace TEngine {
-	using namespace glm;
 	class Object;
 	class DrawCmd;
 	class Camera;
@@ -13,8 +11,8 @@ namespace TEngine {
 	private:
 		static Material* defaultMaterial;
 	protected:
-		std::unordered_map<std::string, GLuint> uniformLocationsMap;
-		const GLuint shaderId;
+		std::unordered_map<std::string, unsigned int> uniformLocationsMap;
+		const unsigned int shaderId;
 	public:
 		static Material* GetDefaultMaterial();
 
@@ -22,8 +20,8 @@ namespace TEngine {
 		Material(const char* vShader, const char* gShader, const char* fShader);
 		virtual void Use(Camera* camera, Object* obj, DrawCmd* mesh);
 		void SetFloat(const char * name, const float & value);
-		void SetVector(const char* name, const vec3 & vec3);
-		void SetMatrix(const char* name, const mat4& mat4);
+		void SetVector(const char* name, const glm::vec3 & vec3);
+		void SetMatrix(const char* name, const glm::mat4& mat4);
 		virtual ~Material();
 	};
 }

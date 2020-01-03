@@ -1,5 +1,6 @@
 #pragma once
 #include "Material.h"
+#include <glm/detail/type_vec.hpp>
 
 namespace TEngine {
 	class Texture;
@@ -7,12 +8,12 @@ namespace TEngine {
 	public:
 		bool          depTest;
 		unsigned int  skybox;
-		vec3          diffuseColor;
+		glm::vec3     diffuseColor;
 		Texture*      diffuseMap;
-		vec3          specularColor;
+		glm::vec3     specularColor;
 		Texture*      specularMap;
 		Texture*      normalMap;
-		vec3          selfLuminous;
+		glm::vec3     selfLuminous;
 		float         smoothness;
 	public:
 		Standard();
@@ -20,10 +21,10 @@ namespace TEngine {
 		virtual ~Standard();
 
 	protected:
-		GLuint specularTexLoc = 0;
-		GLuint normalTexLoc = 0;
-		GLuint tskyboxTexLoc = 0;
-		GLuint diffuseTexLoc = 0;
+		unsigned int specularTexLoc = 0;
+		unsigned int normalTexLoc = 0;
+		unsigned int tskyboxTexLoc = 0;
+		unsigned int diffuseTexLoc = 0;
 	};
 
 }

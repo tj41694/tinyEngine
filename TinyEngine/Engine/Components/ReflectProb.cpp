@@ -105,8 +105,8 @@ namespace TEngine {
 		for (unsigned int i = 0; i < render->materials.size(); i++) {
 			Standard* mat = dynamic_cast<Standard*>(render->materials.at(i));
 			if (mat) {
-				mat->diffuseColor = vec3(0.0f);
-				mat->specularColor = vec3(0.8f);
+				mat->diffuseColor = glm::vec3(0.0f);
+				mat->specularColor = glm::vec3(0.8f);
 				mat->skybox = cubeMap;
 			}
 			else {

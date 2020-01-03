@@ -17,7 +17,7 @@ BeltStrip::BeltStrip() {
 	BeltStripMat* material = new BeltStripMat();
 	render->materials.push_back(material);
 	material->diffuseMap = new Texture("textures\\HmsLog.jpg");
-	material->diffuseColor = vec3(0.6f, 0.9f, 0.9f);
+	material->diffuseColor = glm::vec3(0.6f, 0.9f, 0.9f);
 }
 
 void BeltStrip::DrawBeltStrip(const std::vector<glm::vec3>& pointSrrip, float width, glm::vec2 texSize) {
@@ -48,7 +48,7 @@ void BeltStrip::DrawBeltStrip_Mesh(const std::vector<glm::vec3>& pointSrrip, flo
 	mesh->normals.count = mesh->vertices.count;
 	mesh->normals.data = new float[mesh->normals.count];
 	for (size_t i = 0; i < mesh->normals.count; i += 3) {
-		memcpy(mesh->normals.data + i, &vec3(0, 1, 0), sizeof(vec3));
+		memcpy(mesh->normals.data + i, &glm::vec3(0, 1, 0), sizeof(glm::vec3));
 	}
 
 	mesh->triangles.count = (vertexCount - 1) * 6;
@@ -80,10 +80,10 @@ void BeltStrip::DrawBeltStrip_Mesh(const std::vector<glm::vec3>& pointSrrip, flo
 		veteces[i * 4 + 2] = offsetPolygon[i];
 		veteces[i * 4 + 3] = offsetPolygon[i + 1];
 
-		uv[i * 4 + 0] = vec2(lens[i] / texSize.y, 0);
-		uv[i * 4 + 1] = vec2(lens[i + 1] / texSize.y, 0);
-		uv[i * 4 + 2] = vec2((lens[i] + dotVal[i]) / texSize.y, yTile);
-		uv[i * 4 + 3] = vec2((lens[i + 1] - dotVal[i + 1]) / texSize.y, yTile);
+		uv[i * 4 + 0] = glm::vec2(lens[i] / texSize.y, 0);
+		uv[i * 4 + 1] = glm::vec2(lens[i + 1] / texSize.y, 0);
+		uv[i * 4 + 2] = glm::vec2((lens[i] + dotVal[i]) / texSize.y, yTile);
+		uv[i * 4 + 3] = glm::vec2((lens[i + 1] - dotVal[i + 1]) / texSize.y, yTile);
 
 		indexs[index++] = 0 + count;
 		indexs[index++] = 2 + count;
