@@ -74,6 +74,7 @@
     <LibraryPath>$(SolutionDir)External\x86Debug\;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)Common\Include\;$(SolutionDir)External\Include\;$(SolutionDir)GLFW_GL44\Include\;$(ProjectDir);$(IncludePath)</IncludePath>
     <IntDir>$(SolutionDir)$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ReferencePath>$(ReferencePath)</ReferencePath>
@@ -96,6 +97,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>libEGL.lib;assimp-vc140-mt.lib;freetype.lib;tiff.lib;%(AdditionalDependencies)</AdditionalDependencies>

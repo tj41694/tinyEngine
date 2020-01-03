@@ -5,7 +5,6 @@
 #include "Engine/Input.h"
 #include "Engine/Components/Camera.h"
 #include "Scripts/CameraCtr.h"
-#include "Engine/OpenglUtil.h"
 #include <Engine/Components/Script.h>
 #include "Engine/UI/UI.h"
 
@@ -33,9 +32,8 @@ namespace TEngine {
 	void Update(glContext* esContext, double deltaTime) {
 		Input::Update(deltaTime);
 		Global::Update(deltaTime);
-		UserData* userData = (UserData*)esContext->userData;
-		for (auto it = userData->allObjects->begin(); it != userData->allObjects->end(); it++) {
-			auto components = it->second->Components();
+		for (auto& it : *((UserData*)esContext->userData)->allObjects) {
+			auto components = it.second->Components();
 			for (auto& cp : components) {
 				Script* script = dynamic_cast<Script*>(cp.second);
 				if (script) {

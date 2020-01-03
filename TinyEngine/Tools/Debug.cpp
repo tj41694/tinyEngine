@@ -1,6 +1,9 @@
 #pragma once
 #include "Debug.h"
 #include <codecvt>
+#include <stdio.h>
+#include <iostream>
+#include <stdio.h>
 
 #define DEBUG_FILE_LINE
 namespace TEngine {

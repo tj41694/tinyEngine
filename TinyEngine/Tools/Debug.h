@@ -1,9 +1,6 @@
 #pragma once
-#include <iostream>
 #include <string>
 #include "glm/gtc/matrix_transform.hpp"
-#include <stdio.h>
-
 namespace TEngine {
 	void Log(const char* file, int line, const std::string& obj);
 	void Log(const char* file, int line, const std::wstring& obj);

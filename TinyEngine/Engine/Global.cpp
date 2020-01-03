@@ -12,8 +12,8 @@
 #include <Scripts/SelfRot.h>
 #include "Engine/UI/Text.h"
 #include "Components/Camera.h"
-#include <glUtil.h>
 #include <Scripts/CameraCtr.h>
+#include <iostream>
 
 namespace TEngine {
 	using namespace std;
@@ -310,9 +310,10 @@ namespace TEngine {
 
 	void Global::InitialUI()
 	{
-		//Text* text = new Text("ÄãºÃGL¡£!>?#@_");
-		//text->color = vec3(0.3, 0.3, 0.8);
-		//text->Move(300, 500, 0);
+		Text* text = new Text("ÄãºÃGL¡£!>?#@_");
+		text->Trans()->SetLocalScale(vec3(0.5));
+		text->color = vec3(0.3, 0.3, 0.8);
+		text->Trans()->Move(300, 980, 0);
 		FPSText = new Text();
 		FPSText->Trans()->SetLocalScale(vec3(0.5f));
 		FPSText->Trans()->Move(80, Camera::main->height - 30.0f, 0);
@@ -335,5 +336,4 @@ namespace TEngine {
 		terrain->GetComponent<Render>()->materials.push_back(matTerrain);
 		terrain->Trans()->MoveTo(-200, 0, -50);
 	}
-
 }

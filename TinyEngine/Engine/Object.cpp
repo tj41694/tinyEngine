@@ -6,6 +6,7 @@
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
+#include <iostream>
 
 namespace TEngine {
 	using namespace glm;
@@ -22,7 +23,6 @@ namespace TEngine {
 		((UserData*)context->userData)->allObjects->insert(std::pair<int, Object*>(GetInstanceID(), this));
 		transform = AddComponent<Transform>();
 		name.assign(name_);
-		//DEBUGLOG("Create Object:" + name);
 	}
 
 	Transform* Object::Trans() const {

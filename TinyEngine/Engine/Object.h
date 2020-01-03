@@ -1,15 +1,14 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <vcruntime_typeinfo.h>
 #include <unordered_map>
 #include "OpenglUtil.h"
 #include "Tools/Debug.h"
 #include "Components/Transform.h"
 
 namespace TEngine {
-	class Component;
 	class Script;
-	class Transform;
 	enum class Shape {
 		cube,
 		plane,

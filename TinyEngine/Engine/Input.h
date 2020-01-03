@@ -1,7 +1,7 @@
 #pragma once
-#include "OpenglUtil.h"
 #include "glm/glm.hpp"
 
+struct GLContext;
 namespace TEngine {
 	using namespace glm;
 	class Input {

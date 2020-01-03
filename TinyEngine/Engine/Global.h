@@ -1,8 +1,5 @@
 #pragma once
-#include <string>
-#include <vector>
-#include "OpenglUtil.h"
-
+struct GLContext;
 namespace TEngine {
 	class Text;
 	class Global {

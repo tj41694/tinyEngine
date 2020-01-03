@@ -1,11 +1,11 @@
 #pragma once
+#include "Engine/Object.h"
 #include "Camera.h"
 #include "Engine/DataDef.h"
 #include "DrawCmdFilter.h"
 #include "Engine/Global.h"
 #include "Render.h"
 #include "glm/gtc/matrix_transform.hpp"
-#include "Engine/Object.h"
 
 namespace TEngine {
 	using namespace glm;
@@ -113,7 +113,8 @@ namespace TEngine {
 		DEBUGLOG(winZ);
 		mat4 matProjection = GetProjectionMatrix() * GetViewMatrix();
 		dmat4 matInverse = inverse(matProjection);
-		double in[4]; //将屏幕坐标转换为标准设备坐标
+		//将屏幕坐标转换为标准设备坐标
+		double in[4];
 		in[0] = 2.0 * ((screenPoint.x - 0.0) / (width - 0)) - 1.0;
 		in[1] = 1.0 - 2.0 * ((screenPoint.y - 0.0) / (height - 0));
 		in[2] = 2.0 * winZ - 1.0;
