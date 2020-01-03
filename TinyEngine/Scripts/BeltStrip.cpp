@@ -1,5 +1,5 @@
 #include "BeltStrip.h"
-#include "Engine/Components/MeshFilter.h"
+#include "Engine/Components/DrawCmdFilter.h"
 #include "Engine/DrawCommand/Mesh.h"
 #include "Engine/Components/Render.h"
 #include "Engine/Texture.h"
@@ -12,7 +12,7 @@ using namespace std;
 using namespace TEngine;
 BeltStrip::BeltStrip() {
 	obj = new Object("beltStrip_0");
-	MeshFilter* meshFilter = obj->AddComponent<MeshFilter>();
+	DrawCmdFilter* meshFilter = obj->AddComponent<DrawCmdFilter>();
 	Render* render = obj->AddComponent<Render>();
 	BeltStripMat* material = new BeltStripMat();
 	render->materials.push_back(material);
@@ -21,7 +21,7 @@ BeltStrip::BeltStrip() {
 }
 
 void BeltStrip::DrawBeltStrip(const std::vector<glm::vec3>& pointSrrip, float width, glm::vec2 texSize) {
-	MeshFilter* meshFilter = obj->GetComponent<MeshFilter>();
+	DrawCmdFilter* meshFilter = obj->GetComponent<DrawCmdFilter>();
 	DrawCmdBelt* cmdBelt = new DrawCmdBelt();
 	meshFilter->drawCmds.push_back(cmdBelt);
 	cmdBelt->vertices.count = pointSrrip.size() * 3;
@@ -30,7 +30,7 @@ void BeltStrip::DrawBeltStrip(const std::vector<glm::vec3>& pointSrrip, float wi
 }
 
 void BeltStrip::DrawBeltStrip_Mesh(const std::vector<glm::vec3>& pointSrrip, float width, glm::vec2 texSize) {
-	MeshFilter* meshFilter = obj->GetComponent<MeshFilter>();
+	DrawCmdFilter* meshFilter = obj->GetComponent<DrawCmdFilter>();
 	Mesh* mesh = new Mesh();
 	meshFilter->drawCmds.push_back(mesh);
 	if (mesh == nullptr) { return; }

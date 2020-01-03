@@ -1,11 +1,10 @@
 #pragma once
 #include "Camera.h"
 #include "Engine/DataDef.h"
-#include "MeshFilter.h"
+#include "DrawCmdFilter.h"
 #include "Engine/Global.h"
 #include "Render.h"
 #include "glm/gtc/matrix_transform.hpp"
-#include "Transform.h"
 #include "Engine/Object.h"
 
 namespace TEngine {
@@ -36,15 +35,14 @@ namespace TEngine {
 
 	void Camera::Rend(glContext* esContext) {
 		CameraSetGLViewPort(width, height);
-		std::unordered_map<unsigned int, Object*>* objs = ((UserData*)esContext->userData)->allObjects;
-		glBindFramebuffer(GL_FRAMEBUFFER, renderTarget);   //渲染到默认帧缓冲
+		glBindFramebuffer(GL_FRAMEBUFFER, renderTarget);   //渲染到相机默认帧缓冲
 		//glBindFramebuffer(GL_FRAMEBUFFER, Global::twoImageFramebuffer);   //渲染到预设屏幕帧缓冲
 		//GLuint attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 		//glDrawBuffers(2, attachments);
-		for (auto it = objs->begin(); it != objs->end(); it++) {
-			MeshFilter* meshFilter = it._Ptr->_Myval.second->GetComponent<MeshFilter>();
-			if (meshFilter != nullptr) {
-				meshFilter->DrawMeshes(this);
+		for (auto it = ((UserData*)esContext->userData)->allObjects->begin(); it != ((UserData*)esContext->userData)->allObjects->end(); it++) {
+			DrawCmdFilter* filter = it._Ptr->_Myval.second->GetComponent<DrawCmdFilter>();
+			if (filter != nullptr) {
+				filter->DrawCmds(this);
 			}
 		}
 
@@ -66,7 +64,7 @@ namespace TEngine {
 		//		first_iteration = false;
 		//}
 
-		//glBindFramebuffer(GL_FRAMEBUFFER, renderTarget); // 返回默认
+		//glBindFramebuffer(GL_FRAMEBUFFER, renderTarget); // 返回默认相机默认帧缓冲
 		//glUseProgram(Global::screenShader);
 		//GLuint screenTextureID = glGetUniformLocation(Global::screenShader, "screenTexture");
 		//glUniform1i(screenTextureID, 0);
@@ -89,34 +87,45 @@ namespace TEngine {
 		return glm::lookAt(obj->Trans()->Positon(), obj->Trans()->Positon() + obj->Trans()->Forwward(), obj->Trans()->Up());
 	}
 
-	glm::mat4 Camera::GetProjectionMatrix() {
+	static float _Zoom_ = 0;
+	static float _nearPlan_ = 0;
+	static float _farPlan_ = 0;
+	static GLuint _width_ = 0;
+	static GLuint _height_ = 0;
+	glm::mat4& Camera::GetProjectionMatrix() {
+		if (Zoom != _Zoom_ || nearPlan != _nearPlan_ || farPlan != _farPlan_ || width != _width_ || height != _height_) {
+			_Zoom_ = Zoom; _nearPlan_ = nearPlan; _farPlan_ = farPlan; _width_ = width; _height_ = height;
+			projectionMatrix = glm::perspective(glm::radians(Zoom), width / (float)height, nearPlan, farPlan);
+		}
+		return projectionMatrix;
 		//return  glm::ortho(-2.0f, 2.0f, -1.8f, 1.8f, nearPlan, farPlan);
-		return glm::perspective(glm::radians(Zoom), width / (float)height, nearPlan, farPlan);
 	}
 
-	glm::vec3 Camera::ScreenToWorldPoint(const glm::vec3& screenPoint)
+	glm::vec3 Camera::ScreenToWorldPoint(const glm::vec2& screenPoint)
 	{
 		GLint viewport[4];
 		GLfloat  winY, winZ;
 		glGetIntegerv(GL_VIEWPORT, viewport);
-		winY = (float)viewport[3] - (float)screenPoint.y - 1.0f;
-		glReadBuffer(GL_BACK);
-		glReadPixels((GLint)screenPoint.x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+		winY = (float)viewport[3] - screenPoint.y - 1.0f;
 
-		mat4 matProjection = GetViewMatrix() * GetProjectionMatrix();
-		mat4 matInverse = inverse(matProjection);
-		float in[4];
-		in[0] = (2.0f * ((float)(screenPoint.x - 0) / (width - 0))) - 1.0f;
-		in[1] = 1.0f - (2.0f * ((float)(screenPoint.y - 0) / (height - 0)));
-		in[2] = 2.0f * winZ - 1.0f;
-		in[3] = 1.0f;
-		vec4 vIn = vec4(in[0], in[1], in[2], in[3]);
-		vec4 pos = matInverse * vIn;
+		//glReadBuffer(GL_BACK);
+		glReadPixels((GLint)screenPoint.x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
+		DEBUGLOG(winZ);
+		mat4 matProjection = GetProjectionMatrix() * GetViewMatrix();
+		dmat4 matInverse = inverse(matProjection);
+		double in[4]; //将屏幕坐标转换为标准设备坐标
+		in[0] = 2.0 * ((screenPoint.x - 0.0) / (width - 0)) - 1.0;
+		in[1] = 1.0 - 2.0 * ((screenPoint.y - 0.0) / (height - 0));
+		in[2] = 2.0 * winZ - 1.0;
+		in[3] = 1.0;
+		dvec4 vIn = dvec4(in[0], in[1], in[2], in[3]);
+		dvec4 pos = matInverse * vIn;
 		pos.w = 1.0 / pos.w;
 
-		pos.x *= pos.w;
-		pos.y *= pos.w;
-		pos.z *= pos.w;
+		pos.x = pos.x * pos.w;
+		pos.y = pos.y * pos.w;
+		pos.z = pos.z * pos.w;
+
 		return glm::vec3(pos.x, pos.y, pos.z);
 	}
 

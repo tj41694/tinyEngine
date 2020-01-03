@@ -1,16 +1,16 @@
 #include "Terrain.h"
 #include "Engine/External/MyTif.h"
 #include "Engine/Object.h"
-#include "Engine/Components/MeshFilter.h"
+#include "Engine/Components/DrawCmdFilter.h"
 #include "Engine/Components/Render.h"
 #include "Engine/DrawCommand/Mesh.h"
 
 namespace TEngine {
 	static const float mapUnit = 92.66f;
-	static const float displayScale = 0.1f;
+	static const float displayScale = 0.001f;
 	Object* Terrain::Create(MyTif& tif) {
 		Object* obj = new Object();
-		MeshFilter* meshFilter = obj->AddComponent<MeshFilter>();
+		DrawCmdFilter* meshFilter = obj->AddComponent<DrawCmdFilter>();
 		Render* render = obj->AddComponent<Render>();
 		Mesh* mesh = new Mesh();
 		mesh->vertices.count = mesh->normals.count = tif.height * tif.width * 3;

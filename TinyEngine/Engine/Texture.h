@@ -6,6 +6,7 @@ namespace TEngine {
 	public:
 		unsigned int id;
 		std::string path;
+	public:
 		Texture();
 		Texture(const char* path_);
 		Texture(std::string path);

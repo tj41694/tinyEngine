@@ -1,12 +1,11 @@
 #include "Object.h"
 #include "Engine/Components/Render.h"
 #include "Engine/DrawCommand/Mesh.h"
-#include "Engine/Components/MeshFilter.h"
+#include "Engine/Components/DrawCmdFilter.h"
 #include "DataDef.h"
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
-#include "Engine/Components/Transform.h"
 
 namespace TEngine {
 	using namespace glm;
@@ -40,7 +39,8 @@ namespace TEngine {
 
 	Object* Object::CreateShape(Shape shape, float size, bool flip) {
 		Object* obj = new Object();
-		MeshFilter* meshFilter = obj->AddComponent<MeshFilter>();
+		obj->name = "Skybox";
+		DrawCmdFilter* meshFilter = obj->AddComponent<DrawCmdFilter>();
 		Render* render = obj->AddComponent<Render>();
 		Mesh* mesh = new Mesh();
 		meshFilter->drawCmds.push_back(mesh);
@@ -113,7 +113,7 @@ namespace TEngine {
 		}
 		Object* obj = new Object();
 		obj->AddComponent<Render>()->LoadModelMat(scene, path);
-		obj->AddComponent<MeshFilter>()->LoadModel(scene);
+		obj->AddComponent<DrawCmdFilter>()->LoadModel(scene);
 		return obj;
 	}
 

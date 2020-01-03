@@ -1,9 +1,9 @@
 #pragma once
 #include "Component.h"
 #include <vector>
-#include "assimp/Importer.hpp"
-#include "assimp/scene.h"
-#include "assimp/postprocess.h"
+#include <string>
+
+struct aiScene;
 
 namespace TEngine {
 	class Material;

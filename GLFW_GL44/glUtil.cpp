@@ -12,25 +12,15 @@ void WinLoop(GLContext* glContext) {
 		DWORD curTime = (DWORD)GetTickCount64();
 		DWORD deltaTimeD = curTime - lastTime;
 		double deltaTime = deltaTimeD / 1000.0;
-		//double fps = 1000.0 / deltaTimeD;
 		lastTime = curTime;
 		processInput(glContext->glNativeWindow);
 		glContext->updateFunc(glContext, deltaTime);
 
-		//DWORD deltaUpdata = (DWORD)GetTickCount64() - lastTime;
-
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the color buffer
 		glContext->drawFunc(glContext);
-		//DWORD deltaDraw = (DWORD)GetTickCount64() - lastTime;
 
 		glfwSwapBuffers(glContext->glNativeWindow);
 		glfwPollEvents();
-
-		//if (deltaDraw > 20 || deltaUpdata > 5 || fps < 40) {
-		//	printf("\r");
-		//	printf("deltaTime: %d fps: %.2f \t deltaUpdata: %d %.2f \t deltaDraw: %d %.2f                \n", 
-		//		deltaTimeD, fps, deltaUpdata,1000.0 / deltaUpdata, deltaDraw, 1000.0 / deltaDraw);
-		//}
 	}
 }
 

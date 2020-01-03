@@ -1,20 +1,23 @@
 #pragma once
-#include "MeshFilter.h"
+#include "DrawCmdFilter.h"
 #include "Engine/Object.h"
 #include "Engine/Materials/Material.h"
 #include "Render.h"
 #include "Engine/DrawCommand/Mesh.h"
+#include <assimp/scene.h>
+#include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
 
 
 namespace TEngine {
-	MeshFilter::MeshFilter() : Component() {}
+	DrawCmdFilter::DrawCmdFilter() : Component() {}
 
-	void MeshFilter::LoadModel(const aiScene* scene) {
+	void DrawCmdFilter::LoadModel(const aiScene* scene) {
 		if (scene == nullptr) return;
 		processNode(scene->mRootNode, scene);
 	}
 
-	void MeshFilter::processNode(aiNode* node, const aiScene* scene) {
+	void DrawCmdFilter::processNode(aiNode* node, const aiScene* scene) {
 		// 处理节点所有的网格（如果有的话）
 		for (unsigned int i = 0; i < node->mNumMeshes; i++) {
 			aiMesh* aimesh = scene->mMeshes[node->mMeshes[i]];
@@ -26,7 +29,7 @@ namespace TEngine {
 			processNode(node->mChildren[i], scene);
 	}
 
-	Mesh* MeshFilter::processMesh(aiMesh* mesh_, const aiScene* scene) {
+	Mesh* DrawCmdFilter::processMesh(aiMesh* mesh_, const aiScene* scene) {
 		Mesh* mesh = new Mesh();
 		mesh->vertices.data = new float[mesh_->mNumVertices * 3];
 		mesh->vertices.count = mesh_->mNumVertices * 3;
@@ -60,24 +63,23 @@ namespace TEngine {
 		return mesh;
 	}
 
-	void MeshFilter::DrawMeshes(Camera* camera) {
+	void DrawCmdFilter::DrawCmds(Camera* camera) {
 		if (render == nullptr) {
 			render = obj->GetComponent<Render>();
+			return;
 		}
-		else {
-			for (GLuint i = 0; i < drawCmds.size(); i++) {
-				DrawCmd* mesh = drawCmds[i];
-				Material* mat;
-				if (render->materials.size() > mesh->materialIndex)
-					mat = render->materials[mesh->materialIndex];
-				else
-					mat = Material::GetDefaultMaterial();
-				mat->Use(camera, obj, mesh);
-			}
+		for (GLuint i = 0; i < drawCmds.size(); i++) {
+			DrawCmd* cmd = drawCmds[i];
+			Material* mat;
+			if (render->materials.size() > cmd->materialIndex)
+				mat = render->materials[cmd->materialIndex];
+			else
+				mat = Material::GetDefaultMaterial();
+			mat->Use(camera, obj, cmd);
 		}
 	}
 
-	MeshFilter::~MeshFilter() {
+	DrawCmdFilter::~DrawCmdFilter() {
 		for (GLuint i = 0; i < drawCmds.size(); i++)
 			delete drawCmds[i];
 	}

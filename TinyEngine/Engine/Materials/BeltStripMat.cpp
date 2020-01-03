@@ -4,7 +4,6 @@
 #include "../FileSystem.h"
 #include "Engine/DrawCommand/Mesh.h"
 #include "Engine/Components/Camera.h"
-#include "Engine/Components/Transform.h"
 
 namespace TEngine {
 	BeltStripMat::BeltStripMat() :Material("./resources/shaders/beltStrip/beltStrip.vs", "./resources/shaders/beltStrip/beltStrip.fs") {

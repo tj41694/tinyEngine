@@ -6,7 +6,7 @@ namespace TEngine {
 	public:
 		FloatArr vertices{ 0 };
 	private:
-		GLuint vbo = 0;
+		unsigned int vbo = 0;
 	public:
 		virtual void Draw() override;
 		void Clear();

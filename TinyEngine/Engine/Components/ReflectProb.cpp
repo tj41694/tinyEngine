@@ -4,7 +4,6 @@
 #include "Engine/Materials/Standard.h"
 #include "Render.h"
 #include "Engine/Global.h"
-#include "Transform.h"
 
 namespace TEngine {
 	ReflectProb::ReflectProb() : Component() {

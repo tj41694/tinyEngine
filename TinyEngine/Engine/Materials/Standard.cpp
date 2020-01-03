@@ -6,7 +6,6 @@
 #include "../Texture.h"
 #include "Engine/DrawCommand/Mesh.h"
 #include "Engine/Global.h"
-#include "Engine/Components/Transform.h"
 
 namespace TEngine {
 	Standard::Standard() : Material("./resources/shaders/Standard.vs", "./resources/shaders/Standard.fs") {

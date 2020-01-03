@@ -35,7 +35,7 @@ namespace TEngine {
 		else
 			return parent->Positon() + (parent->localRotation * localPositon) * parent->localScale;
 	}
-	glm::vec3& Transform::LocalPos() {
+	const glm::vec3& Transform::LocalPos() const {
 		return localPositon;
 	}
 	glm::quat Transform::Rotation() const {
@@ -44,10 +44,10 @@ namespace TEngine {
 		else
 			return parent->Rotation() * localRotation;
 	}
-	glm::quat& Transform::LocalRotation() {
+	const glm::quat& Transform::LocalRotation() const {
 		return localRotation;
 	}
-	glm::vec3& Transform::LocalScale() {
+	const glm::vec3& Transform::LocalScale() const {
 		return localScale;
 	}
 	const glm::vec3& Transform::EulerAngles() const {
@@ -62,14 +62,18 @@ namespace TEngine {
 	const glm::vec3 Transform::Up() const {
 		return Rotation() * vec3(0, 1.0f, 0);
 	}
-	const glm::mat4 Transform::LocalToWorldMarix() {
-		mat4 unit(1.0f);
-		mat4 molel = translate(unit, localPositon) * mat4_cast(localRotation) * glm::scale(unit, localScale);
+	const glm::mat4& Transform::LocalToWorldMarix() {
+		if (modelMatrixDirt) {
+			modelMatrixDirt = false;
+			mat4 unit(1.0f);
+			modelMatrix = translate(unit, localPositon) * mat4_cast(localRotation) * glm::scale(unit, localScale);
+		}
 		if (parent == nullptr) {
-			return molel;
+			return modelMatrix;
 		}
 		else {
-			return parent->LocalToWorldMarix() * molel;
+			modelMatrix = parent->LocalToWorldMarix() * modelMatrix;
+			return modelMatrix;
 		}
 	}
 	const glm::quat Transform::RotationBetweenVectors(glm::vec3 start, glm::vec3 dest) {
@@ -155,42 +159,62 @@ namespace TEngine {
 	}
 	void Transform::MoveTo(const float& x, const float& y, const float& z) {
 		localPositon = vec3(x, y, z);
+		SetLocalToWorldMarixDirt();
 	}
 
 	void Transform::MoveTo(const glm::vec3& vec) {
 		localPositon = vec;
+		SetLocalToWorldMarixDirt();
 	}
 
 	void Transform::Move(const float& x, const float& y, const float& z) {
 		localPositon += vec3(x, y, z);
+		SetLocalToWorldMarixDirt();
 	}
 
 	void Transform::Move(const glm::vec3& vec) {
 		localPositon += vec;
+		SetLocalToWorldMarixDirt();
 	}
 
 	void Transform::RotateTo(const glm::vec3& eulerAngles_) {
 		localRotation = quat(eulerAngles_);
 		eulerAngles = glm::eulerAngles(localRotation);
+		SetLocalToWorldMarixDirt();
 	}
 
 	void Transform::RotateTo(const float& x, const float& y, const float& z) {
 		localRotation = quat(vec3(x, y, z));
 		eulerAngles = glm::eulerAngles(localRotation);
+		SetLocalToWorldMarixDirt();
 	}
 
 	void Transform::RotateTo(const glm::quat& q) {
 		localRotation = q;
 		eulerAngles = glm::eulerAngles(localRotation);
+		SetLocalToWorldMarixDirt();
 	}
 
 	void Transform::Rotate(const glm::vec3& eulerAngles_) {
 		localRotation = quat(eulerAngles_) * localRotation;
 		eulerAngles = glm::eulerAngles(localRotation);
+		SetLocalToWorldMarixDirt();
 	}
 
 	void Transform::Rotate(const glm::vec3& axis, const float value) {
 		localRotation = glm::angleAxis(value, axis) * localRotation;
 		eulerAngles = glm::eulerAngles(localRotation);
+		SetLocalToWorldMarixDirt();
+	}
+	void Transform::SetLocalScale(const glm::vec3& scale_) {
+		localScale = scale_;
+		SetLocalToWorldMarixDirt();
+	}
+	void Transform::SetLocalToWorldMarixDirt() {
+		modelMatrixDirt = true;
+		for (auto child : childs)
+		{
+			child->SetLocalToWorldMarixDirt();
+		}
 	}
 }

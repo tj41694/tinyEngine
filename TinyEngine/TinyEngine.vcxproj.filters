@@ -88,9 +88,6 @@
     <ClCompile Include="Engine\Components\Component.cpp">
       <Filter>TEngine\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Components\MeshFilter.cpp">
-      <Filter>TEngine\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Components\ReflectProb.cpp">
       <Filter>TEngine\Components</Filter>
     </ClCompile>
@@ -123,6 +120,9 @@
     </ClCompile>
     <ClCompile Include="Engine\UI\UI.cpp">
       <Filter>TEngine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\DrawCmdFilter.cpp">
+      <Filter>TEngine\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -192,9 +192,6 @@
     <ClInclude Include="Engine\Components\Component.h">
       <Filter>TEngine\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Components\MeshFilter.h">
-      <Filter>TEngine\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Components\ReflectProb.h">
       <Filter>TEngine\Components</Filter>
     </ClInclude>
@@ -227,6 +224,9 @@
     </ClInclude>
     <ClInclude Include="Engine\UI\UI.h">
       <Filter>TEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Components\DrawCmdFilter.h">
+      <Filter>TEngine\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

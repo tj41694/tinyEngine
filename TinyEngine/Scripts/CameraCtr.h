@@ -10,9 +10,7 @@ namespace TEngine {
 		void Update();
 		virtual ~CameraCtr();
 	private:
-		Camera* camera_;
-		Object* spheremirror;
-	private:
-		void GenTerrain();
+		Camera* camera_		 = nullptr;
+		Object* spheremirror = nullptr;
 	};
 }

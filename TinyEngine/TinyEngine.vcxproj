@@ -147,7 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Engine\Components\Camera.cpp" />
     <ClCompile Include="Engine\Components\Component.cpp" />
-    <ClCompile Include="Engine\Components\MeshFilter.cpp" />
+    <ClCompile Include="Engine\Components\DrawCmdFilter.cpp" />
     <ClCompile Include="Engine\Components\ReflectProb.cpp" />
     <ClCompile Include="Engine\Components\Render.cpp" />
     <ClCompile Include="Engine\Components\Script.cpp" />
@@ -181,7 +181,7 @@
   <ItemGroup>
     <ClInclude Include="Engine\Components\Camera.h" />
     <ClInclude Include="Engine\Components\Component.h" />
-    <ClInclude Include="Engine\Components\MeshFilter.h" />
+    <ClInclude Include="Engine\Components\DrawCmdFilter.h" />
     <ClInclude Include="Engine\Components\ReflectProb.h" />
     <ClInclude Include="Engine\Components\Render.h" />
     <ClInclude Include="Engine\Components\Script.h" />

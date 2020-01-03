@@ -1,22 +1,21 @@
 #pragma once
-#include "Engine/OpenglUtil.h"
 namespace TEngine {
 
 	struct FloatArr {
 		float* data;
-		GLuint count;
+		unsigned int count;
 	};
 
 	struct UintArr {
-		GLuint* data;
-		GLuint count;
+		unsigned int* data;
+		unsigned int count;
 	};
 
 	class DrawCmd {
 	protected:
-		GLuint VAO = 0;
+		unsigned int VAO = 0;
 	public:
-		GLuint materialIndex = 0;
+		unsigned int materialIndex = 0;
 	public:
 		virtual void Draw() = 0;
 	};

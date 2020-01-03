@@ -5,7 +5,6 @@
 #include "Engine/FileSystem.h"
 #include "glm/gtc/type_ptr.hpp"
 #include "Engine/DrawCommand/Mesh.h"
-#include "Engine/Components/Transform.h"
 
 namespace TEngine {
 	using namespace glm;
@@ -16,12 +15,12 @@ namespace TEngine {
 	Material::Material(const char* vShader, const char* gShader, const char* fShader) :
 		shaderId(esLoadProgram(FileSystem::ReadFile(vShader).c_str(), FileSystem::ReadFile(gShader).c_str(), FileSystem::ReadFile(fShader).c_str())) {}
 
-	void Material::Use(Camera* camera, Object* obj, DrawCmd* mesh) {
+	void Material::Use(Camera* camera, Object* obj, DrawCmd* cmd) {
 		glUseProgram(shaderId);
 		SetMatrix("model", obj->Trans()->LocalToWorldMarix());
 		SetMatrix("view", camera->GetViewMatrix());
 		SetMatrix("projection", camera->GetProjectionMatrix());
-		mesh->Draw();
+		cmd->Draw();
 	}
 
 	Material* Material::defaultMaterial = nullptr;
