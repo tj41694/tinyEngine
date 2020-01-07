@@ -45,7 +45,7 @@ namespace TEngine {
 		{
 			static bool flag = false;
 			flag = !flag;
-			vec3 worldPos = Camera::main->ScreenToWorldPoint(vec2(Input::mousePosition.x, Input::mousePosition.y), flag);
+			vec3 worldPos = Camera::main->ScreenToWorldPoint(Input::mousePosition, flag);
 			DEBUGLOG(worldPos);
 		}
 	}

@@ -37,19 +37,15 @@ namespace TEngine {
 	void Camera::Rend(glContext* esContext) {
 		CameraSetGLViewPort(width, height);
 		GLuint attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
-		if (useScreenFrameBuffer)
-		{
-			glBindFramebuffer(GL_FRAMEBUFFER, Global::ScreenFramebuffer);   //绑定到预设屏幕帧缓冲
-			glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			//显式告知OpenGL我们正在通过glDrawBuffers渲染到多个颜色缓冲，否则OpenGL只会渲染到帧缓冲的第一个颜色附件，而忽略所有其他的。
-			glDrawBuffers(2, attachments);
+		if (useScreenFrameBuffer) {
+			glBindFramebuffer(GL_FRAMEBUFFER, Global::ScreenFramebuffer); //绑定到预设屏幕帧缓冲
+			glDrawBuffers(2, attachments); //显式告知OpenGL我们正在通过glDrawBuffers渲染到多个颜色缓冲，否则OpenGL只会渲染到帧缓冲的第一个颜色附件，而忽略所有其他的。
 		}
-		else
-		{
+		else {
 			glBindFramebuffer(GL_FRAMEBUFFER, renderTarget);   //渲染到相机默认帧缓冲
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);  //接下来绘制3D场景，需要保证开启深度测试
 		for (auto it = ((UserData*)esContext->userData)->allObjects->begin(); it != ((UserData*)esContext->userData)->allObjects->end(); it++) {
 			DrawCmdFilter* filter = it._Ptr->_Myval.second->GetComponent<DrawCmdFilter>();
@@ -57,12 +53,10 @@ namespace TEngine {
 				filter->DrawCmds(this);
 			}
 		}
-		if (useScreenFrameBuffer)
-		{
+		if (useScreenFrameBuffer) {
+			glDisable(GL_DEPTH_TEST);
 			glDrawBuffers(1, attachments);
 			glBindFramebuffer(GL_FRAMEBUFFER, renderTarget); // 返回默认相机默认帧缓冲
-			glDisable(GL_DEPTH_TEST);
-			glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 			glUseProgram(Global::screenShader);
 			glBindVertexArray(Global::screenVAO);

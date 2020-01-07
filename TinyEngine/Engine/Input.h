@@ -6,12 +6,12 @@ struct GLFWwindow;
 namespace TEngine {
 	class Input {
 	private:
-		static glm::dvec2 lasPos;
-		static double Vertical;
-		static double Horizontal;
+		static glm::vec2 lasPos;
+		static float Vertical;
+		static float Horizontal;
 
 	public:
-		static glm::dvec2 mousePosition;
+		static glm::vec2 mousePosition;
 		static bool mouseMoving;
 		static double deltaTime;
 	public:
