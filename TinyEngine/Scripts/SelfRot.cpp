@@ -16,7 +16,7 @@ void SelfRot::Start()
 
 void SelfRot::Update()
 {
-	obj->Trans()->Rotate(vec3(0, speed * Input::deltaTime, 0));
+	//obj->Trans()->Rotate(glm::vec3(0, speed * Input::deltaTime, 0));
 }
 
 SelfRot::~SelfRot()

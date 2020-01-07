@@ -19,11 +19,11 @@ namespace TEngine {
 	using namespace std;
 
 	unsigned int Global::skyboxTexture = 0;
-	unsigned int Global::twoImageFramebuffer = 0;
+	unsigned int Global::ScreenFramebuffer = 0;
 	unsigned int Global::screenShader = 0;
 	unsigned int Global::shaderBlur = 0;
 	unsigned int Global::screenVAO = 0;
-	unsigned int Global::texColorBuffer[2] = { 0,0 };
+	unsigned int Global::screenFBTexAttachs[2] = { 0,0 };
 	unsigned int Global::pingpongFBO[2] = { 0,0 };
 	unsigned int Global::pingpongBuffer[2] = { 0,0 };
 	Text* Global::FPSText = nullptr;
@@ -33,80 +33,8 @@ namespace TEngine {
 		InitialSkybox();
 		InitialScence(glContext);
 		InitialUI();
-#pragma region screenVAO
-		float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-		//positions   // texCoords
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		-1.0f, -1.0f,  0.0f, 0.0f,
-		 1.0f, -1.0f,  1.0f, 0.0f,
-		
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		 1.0f, -1.0f,  1.0f, 0.0f,
-		 1.0f,  1.0f,  1.0f, 1.0f
-		};
-
-		unsigned int quadVBO;
-		glGenVertexArrays(1, &screenVAO);
-		glGenBuffers(1, &quadVBO);
-		glBindVertexArray(screenVAO);
-		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-		glBindVertexArray(0);
-
-#pragma endregion
-
-#pragma region FrameBuffer
-		//screenShader = esLoadProgram(FileSystem::ReadFile("./resources/shaders/screenShader/screenShader.vs").c_str(),
-		//	FileSystem::ReadFile("./resources/shaders/screenShader/screenShader.fs").c_str());
-		//shaderBlur = esLoadProgram(FileSystem::ReadFile("./resources/shaders/shaderBlur/shaderBlur.vs").c_str(),
-		//	FileSystem::ReadFile("./resources/shaders/shaderBlur/shaderBlur.fs").c_str());
-
-		//glGenFramebuffers(1, &twoImageFramebuffer);
-		//glBindFramebuffer(GL_FRAMEBUFFER, twoImageFramebuffer);
-
-		//glGenTextures(2, texColorBuffer);    //创建纹理并附加到帧缓冲对象
-		//glBindTexture(GL_TEXTURE_2D, texColorBuffer[0]);
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, Object::context->width, Object::context->height, 0, GL_RGB, GL_FLOAT, NULL);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texColorBuffer[0], 0); //附加
-		//glBindTexture(GL_TEXTURE_2D, texColorBuffer[1]);
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, Object::context->width, Object::context->height, 0, GL_RGB, GL_FLOAT, NULL);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		//glBindTexture(GL_TEXTURE_2D, 0);
-		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, texColorBuffer[1], 0); //附加
-
-		//unsigned int rbo;            //创建渲染缓冲对象并附加在帧缓冲对象
-		//glGenRenderbuffers(1, &rbo);
-		//glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-		//glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Object::context->width, Object::context->height);
-		//glBindRenderbuffer(GL_RENDERBUFFER, 0);
-		//glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);   //附加
-
-		//if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-		//	std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
-		//
-		//glGenFramebuffers(2, pingpongFBO);  //再创建两个帧缓冲用于高斯模糊
-		//glGenTextures(2, pingpongBuffer);
-		//for (GLuint i = 0; i < 2; i++) {
-		//	glBindFramebuffer(GL_FRAMEBUFFER, pingpongFBO[i]);
-		//	glBindTexture(GL_TEXTURE_2D, pingpongBuffer[i]);
-		//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, Object::context->width, Object::context->height, 0, GL_RGB, GL_FLOAT, NULL);
-		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		//	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, pingpongBuffer[i], 0);
-		//	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-		//		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
-		//}
-		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-#pragma endregion
+		InitialShader();
+		InitialFrameBuffer();
 	}
 
 	void Global::Update(double deltaTime) {
@@ -114,6 +42,11 @@ namespace TEngine {
 		if (deltaTime != 0.0 && ct++ % 10 == 0) {
 			FPSText->SetText(1.0 / deltaTime);
 		}
+	}
+
+	void Global::Exit()
+	{
+
 	}
 
 	void Global::InitialSkybox()
@@ -322,6 +255,90 @@ namespace TEngine {
 		FPSText1->Trans()->SetLocalScale(glm::vec3(0.5f));
 		FPSText1->Trans()->Move(10, Camera::main->height - 30.0f, 0);
 		FPSText1->color = glm::vec3(0.1, 0.9, 0.5);
+	}
+
+	void Global::InitialShader()
+	{
+		screenShader = esLoadProgram(FileSystem::ReadFile("./resources/shaders/screenShader/screenShader.vs").c_str(),
+			FileSystem::ReadFile("./resources/shaders/screenShader/screenShader.fs").c_str());
+#pragma region screenVAO
+		float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+		//positions   // texCoords
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		-1.0f, -1.0f,  0.0f, 0.0f,
+		 1.0f, -1.0f,  1.0f, 0.0f,
+
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		 1.0f, -1.0f,  1.0f, 0.0f,
+		 1.0f,  1.0f,  1.0f, 1.0f
+		};
+
+		unsigned int quadVBO;
+		glGenVertexArrays(1, &screenVAO);
+		glGenBuffers(1, &quadVBO);
+		glBindVertexArray(screenVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+		glBindVertexArray(0);
+#pragma endregion
+
+		//shaderBlur = esLoadProgram(FileSystem::ReadFile("./resources/shaders/shaderBlur/shaderBlur.vs").c_str(),
+		//	FileSystem::ReadFile("./resources/shaders/shaderBlur/shaderBlur.fs").c_str());
+	}
+
+	void Global::InitialFrameBuffer()
+	{
+		//1.创建并绑定屏幕帧缓冲
+		glGenFramebuffers(1, &ScreenFramebuffer);
+		glBindFramebuffer(GL_FRAMEBUFFER, ScreenFramebuffer);
+		//2.创建两个纹理
+		glGenTextures(2, screenFBTexAttachs);
+		//3.设置纹理参数
+		glBindTexture(GL_TEXTURE_2D, screenFBTexAttachs[0]);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Object::context->width, Object::context->height, 0, GL_RGBA, GL_FLOAT, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glBindTexture(GL_TEXTURE_2D, screenFBTexAttachs[1]);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, Object::context->width, Object::context->height, 0, GL_RGBA, GL_FLOAT, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		//4.加到帧缓冲对象
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, screenFBTexAttachs[0], 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, screenFBTexAttachs[1], 0);
+		//5.创建渲染缓冲对象
+		unsigned int rbo;
+		glGenRenderbuffers(1, &rbo);
+		glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, Object::context->width, Object::context->height);
+		//6.附加到帧缓冲对象
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		{
+			std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+		}
+		//glBindRenderbuffer(GL_RENDERBUFFER, 0);
+		//7.完成创建、绑定回默认帧缓冲
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		//glGenFramebuffers(2, pingpongFBO);  //再创建两个帧缓冲用于高斯模糊
+		//glGenTextures(2, pingpongBuffer);
+		//for (GLuint i = 0; i < 2; i++) {
+		//	glBindFramebuffer(GL_FRAMEBUFFER, pingpongFBO[i]);
+		//	glBindTexture(GL_TEXTURE_2D, pingpongBuffer[i]);
+		//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, Object::context->width, Object::context->height, 0, GL_RGB, GL_FLOAT, NULL);
+		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		//	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, pingpongBuffer[i], 0);
+		//	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		//		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+		//}
 	}
 
 	void Global::GenTerrain()

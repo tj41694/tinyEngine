@@ -16,7 +16,6 @@ void WinLoop(GLContext* glContext) {
 		processInput(glContext->glNativeWindow);
 		glContext->updateFunc(glContext, deltaTime);
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the color buffer
 		glContext->drawFunc(glContext);
 
 		glfwSwapBuffers(glContext->glNativeWindow);

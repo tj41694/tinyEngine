@@ -7,6 +7,7 @@
 
 namespace TEngine {
 	using namespace std;
+	using namespace glm;
 	CameraCtr::CameraCtr() :Script() {
 	}
 
@@ -42,8 +43,9 @@ namespace TEngine {
 		}
 		if (Input::GetMouseButtonUp(0))
 		{
-			//DEBUGLOG(Input::mousePosition);
-			vec3 worldPos = Camera::main->ScreenToWorldPoint(vec2(Input::mousePosition.x, Input::mousePosition.y));
+			static bool flag = false;
+			flag = !flag;
+			vec3 worldPos = Camera::main->ScreenToWorldPoint(vec2(Input::mousePosition.x, Input::mousePosition.y), flag);
 			DEBUGLOG(worldPos);
 		}
 	}

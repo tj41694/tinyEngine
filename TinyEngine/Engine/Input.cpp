@@ -3,6 +3,7 @@
 #include "Input.h"
 
 namespace TEngine {
+	using namespace glm;
 	dvec2		Input::mousePosition(0, 0);
 	dvec2		Input::lasPos(0, 0);
 	bool		Input::mouseMoving = false;
