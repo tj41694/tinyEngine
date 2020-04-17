@@ -2,16 +2,16 @@
 #include "glm/glm.hpp"
 
 struct GLContext;
+struct GLFWwindow;
 namespace TEngine {
-	using namespace glm;
 	class Input {
 	private:
-		static dvec2 lasPos;
-		static double Vertical;
-		static double Horizontal;
+		static glm::vec2 lasPos;
+		static float Vertical;
+		static float Horizontal;
 
 	public:
-		static dvec2 mousePosition;
+		static glm::vec2 mousePosition;
 		static bool mouseMoving;
 		static double deltaTime;
 	public:

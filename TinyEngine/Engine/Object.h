@@ -26,7 +26,7 @@ namespace TEngine {
 		std::unordered_map<size_t, Component*> compenents;
 		std::vector<unsigned int> childs;
 	protected:
-		Transform* transform;
+		Transform* transform = nullptr;
 
 	public:
 		Object();

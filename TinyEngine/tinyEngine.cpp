@@ -26,7 +26,7 @@ namespace TEngine {
 	}
 
 	void Shutdown(glContext* esContext) {
-
+		Global::Exit();
 	}
 
 	void Update(glContext* esContext, double deltaTime) {

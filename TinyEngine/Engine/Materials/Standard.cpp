@@ -17,12 +17,12 @@ namespace TEngine {
 		tskyboxTexLoc = glGetUniformLocation(shaderId, "skyboxTex");
 		diffuseTexLoc = glGetUniformLocation(shaderId, "diffuseTex");
 		diffuseMap = nullptr;
-		diffuseColor = vec3(0.9f);
+		diffuseColor = glm::vec3(0.9f);
 		specularMap = nullptr;
 		smoothness = 20.0f;
-		specularColor = vec3(0.1f);
+		specularColor = glm::vec3(0.1f);
 		normalMap = nullptr;
-		selfLuminous = vec3(0.0f);
+		selfLuminous = glm::vec3(0.0f);
 	}
 
 	void Standard::Use(Camera* camera, Object* obj, DrawCmd* mesh) {
@@ -31,11 +31,11 @@ namespace TEngine {
 		SetMatrix("model", obj->Trans()->LocalToWorldMarix());
 		SetMatrix("view", camera->GetViewMatrix());
 		SetMatrix("projection", camera->GetProjectionMatrix());
-		SetVector("sunPos", vec3(-3000, 20000, 6000));
-		SetVector("sunColor", vec3(1.0f, 0.889f, 0.675f) * 0.4f);
+		SetVector("sunPos", glm::vec3(-3000, 20000, 6000));
+		SetVector("sunColor", glm::vec3(1.0f, 0.889f, 0.675f) * 0.4f);
 		SetVector("diffuseColor", diffuseColor);
 		SetVector("specularColor", specularColor);
-		SetVector("ambientLighting", vec3(0.4191f, 0.6332f, 0.8980f) * 0.7f);
+		SetVector("ambientLighting", glm::vec3(0.4191f, 0.6332f, 0.8980f) * 0.7f);
 		SetVector("camPos", camera->obj->Trans()->Positon());
 		SetVector("selfLuminousColor", selfLuminous);
 		glUniform1i(specularTexLoc, 1);
@@ -116,7 +116,10 @@ namespace TEngine {
 		else {
 			glDisable(GL_DEPTH_TEST);
 		}
+
 		mesh->Draw();
+		glActiveTexture(GL_TEXTURE0);
+		//glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	Standard::~Standard() {

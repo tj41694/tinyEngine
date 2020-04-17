@@ -3,11 +3,12 @@
 #include "Input.h"
 
 namespace TEngine {
-	dvec2		Input::mousePosition(0, 0);
-	dvec2		Input::lasPos(0, 0);
+	using namespace glm;
+	vec2		Input::mousePosition(0, 0);
+	vec2		Input::lasPos(0, 0);
 	bool		Input::mouseMoving = false;
-	double	    Input::Vertical = 0;
-	double		Input::Horizontal = 0;
+	float	    Input::Vertical = 0;
+	float		Input::Horizontal = 0;
 	double	    Input::deltaTime = 0;
 
 	void Input::Initial(glContext* glContext) {
@@ -29,8 +30,8 @@ namespace TEngine {
 		glfwGetCursorPos(Object::context->glNativeWindow, &x, &y);
 
 		if (first) {
-			mousePosition.x = x;
-			mousePosition.y = y;
+			mousePosition.x = (float)x;
+			mousePosition.y = (float)y;
 			lasPos.x = mousePosition.x;
 			lasPos.y = mousePosition.y;
 			first = false;
@@ -39,8 +40,8 @@ namespace TEngine {
 		Horizontal = lasPos.x - mousePosition.x;
 		lasPos.x = mousePosition.x;
 		lasPos.y = mousePosition.y;
-		mousePosition.x = x;
-		mousePosition.y = y;
+		mousePosition.x = (float)x;
+		mousePosition.y = (float)y;
 		mouseMoving = (lasPos != mousePosition);
 	}
 
