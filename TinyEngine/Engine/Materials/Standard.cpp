@@ -8,6 +8,7 @@
 #include "Engine/Global.h"
 
 namespace TEngine {
+	using namespace glm;
 	Standard::Standard() : Material("./resources/shaders/Standard.vs", "./resources/shaders/Standard.fs") {
 		depTest = true;
 		skybox = Global::skyboxTexture;

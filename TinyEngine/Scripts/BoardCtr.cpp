@@ -5,6 +5,7 @@
 #include "Engine/Components/Camera.h"
 #include "Engine/Components/Transform.h"
 
+using namespace glm;
 BoardCtr::BoardCtr() : Script()
 {
 }
