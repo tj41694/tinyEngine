@@ -47,12 +47,14 @@ namespace TEngine {
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);  //接下来绘制3D场景，需要保证开启深度测试
+		drawFrame ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		for (auto it = ((UserData*)esContext->userData)->allObjects->begin(); it != ((UserData*)esContext->userData)->allObjects->end(); it++) {
 			DrawCmdFilter* filter = it._Ptr->_Myval.second->GetComponent<DrawCmdFilter>();
 			if (filter != nullptr) {
 				filter->DrawCmds(this);
 			}
 		}
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		if (useScreenFrameBuffer) {
 			glDisable(GL_DEPTH_TEST);
 			glDrawBuffers(1, attachments);
@@ -61,7 +63,7 @@ namespace TEngine {
 			glUseProgram(Global::screenShader);
 			glBindVertexArray(Global::screenVAO);
 			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, Global::screenFBTexAttachs[0]);
+			glBindTexture(GL_TEXTURE_2D, Global::screenFBTexAttachs[rendTextIndex]);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 		}
 	}

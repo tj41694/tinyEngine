@@ -7,7 +7,8 @@
 
 namespace TEngine {
 	static const float mapUnit = 92.66f;
-	static const float displayScale = 0.001f;
+	//static const float mapUnit = 100.0f;
+	static const float displayScale = 0.0001f;
 	Object* Terrain::Create(MyTif& tif) {
 		Object* obj = new Object();
 		DrawCmdFilter* meshFilter = obj->AddComponent<DrawCmdFilter>();
@@ -28,31 +29,31 @@ namespace TEngine {
 		GLuint uvIndex = 0;
 		GLuint indexIndex = 0;
 		for (int i = 0; i < tif.height; i++) {
-			unsigned short value = 0;
+			unsigned short altitude = 0;
 			float zPos = mapUnit * (tif.height - i - 1);
 			for (int j = 0; j < tif.width; j++) {
 				float xPos = mapUnit * j;
-				value = *(valPtr++);
+				altitude = *(valPtr++);
 				mesh->vertices.data[vIndex] = xPos * displayScale;
 				mesh->normals.data[vIndex++] = 0;
 
-				mesh->vertices.data[vIndex] = value * displayScale;
+				mesh->vertices.data[vIndex] = altitude * displayScale;
 				mesh->normals.data[vIndex++] = 1;
 
-				mesh->vertices.data[vIndex] = zPos * displayScale;
+				mesh->vertices.data[vIndex] = - zPos * displayScale;
 				mesh->normals.data[vIndex++] = 0;
 
 				mesh->uv0.data[uvIndex++] = j / (float)(tif.width - 1.0f);
-				mesh->uv0.data[uvIndex++] = (tif.height - i - 1) / (float)(tif.height - 1.0f);
+				mesh->uv0.data[uvIndex++] = i / (float)(tif.height - 1.0f);
 
 				if (j != tif.width - 1 && i != tif.height - 1) {
 
 					mesh->triangles.data[indexIndex++] = (i * tif.width) + j;
-					mesh->triangles.data[indexIndex++] = (i * tif.width) + j + 1;
 					mesh->triangles.data[indexIndex++] = (i * tif.width) + j + tif.width;
 					mesh->triangles.data[indexIndex++] = (i * tif.width) + j + 1;
+					mesh->triangles.data[indexIndex++] = (i * tif.width) + j + 1;
+					mesh->triangles.data[indexIndex++] = (i * tif.width) + j + tif.width;
 					mesh->triangles.data[indexIndex++] = (i * tif.width) + j + 1 + tif.width;
-					mesh->triangles.data[indexIndex++] = (i * tif.width) + j + tif.width;
 				}
 			}
 		}

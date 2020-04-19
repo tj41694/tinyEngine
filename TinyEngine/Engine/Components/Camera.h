@@ -13,10 +13,12 @@ namespace TEngine {
 		float			exposure = 1.0f;
 		float			Zoom = 45.0f;
 		float			nearPlan = 0.1f;
-		float			farPlan = 200.0f;
+		float			farPlan = 1000.0f;
 		unsigned int	width = 512;
 		unsigned int	height = 512;
 		bool			useScreenFrameBuffer = false;
+		int             rendTextIndex = 0;
+		bool			drawFrame = false;
 
 	private:
 		static std::map<unsigned int, Camera*> cameras;

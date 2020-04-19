@@ -134,22 +134,22 @@ namespace TEngine {
 			//地形
 			GenTerrain();
 		}
-		BeltStrip* strip = new BeltStrip();
-		float x = 10.0f;
-		float z = 15.0f;
-		vector<glm::vec3> polygon2
-		{
-			glm::vec3(-x, 0, -z),
-			glm::vec3(0, 0, -1.5 * z),
-			glm::vec3(x, 0, -z),
-			glm::vec3(1.5 * x, 0, 0),
-			glm::vec3(x, 0, z),
-			glm::vec3(0, 0, 1.5 * z),
-			glm::vec3(-x, 0, z),
-			glm::vec3(-x, 0, -z)
-		};
-		strip->DrawBeltStrip_Mesh(polygon2, 0.2f, glm::vec2(100, 360));
-		strip->obj->Trans()->Move(150, 4, 16);
+		//BeltStrip* strip = new BeltStrip();
+		//float x = 10.0f;
+		//float z = 15.0f;
+		//vector<glm::vec3> polygon2
+		//{
+		//	glm::vec3(-x, 0, -z),
+		//	glm::vec3(0, 0, -1.5 * z),
+		//	glm::vec3(x, 0, -z),
+		//	glm::vec3(1.5 * x, 0, 0),
+		//	glm::vec3(x, 0, z),
+		//	glm::vec3(0, 0, 1.5 * z),
+		//	glm::vec3(-x, 0, z),
+		//	glm::vec3(-x, 0, -z)
+		//};
+		//strip->DrawBeltStrip_Mesh(polygon2, 0.2f, glm::vec2(100, 360));
+		//strip->obj->Trans()->Move(150, 4, 16);
 
 
 #pragma region 画各种物体
@@ -196,8 +196,8 @@ namespace TEngine {
 
 		Object* nanosuit = Object::LoadModel("models/bakeTest/", "bakeTest.obj");
 		nanosuit->AddComponent<SelfRot>()->speed = 0.2f;
-		nanosuit->Trans()->MoveTo(glm::vec3(5, 1, 5));
-		nanosuit->Trans()->SetLocalScale(glm::vec3(0.1, 0.1, 0.1));
+		nanosuit->Trans()->MoveTo(glm::vec3(5, 0, 0));
+		nanosuit->Trans()->SetLocalScale(glm::vec3(0.01, 0.01, 0.01));
 
 		//Object* board1 = Object::LoadModel("./resources/models/board/", "board.obj");
 		//board1->MoveTo(glm::vec3(-15.0f, 18.0f, 0.0f));
@@ -344,13 +344,13 @@ namespace TEngine {
 	void Global::GenTerrain()
 	{
 		printf("加载地形\n");
-		MyTif myTif("resources\\textures\\out2.tif");
+		MyTif myTif("resources\\textures\\out22.tif");
 		Object* terrain = Terrain::Create(myTif);
 		Standard* matTerrain = new Standard();
 		matTerrain->diffuseMap = new Texture();
-		matTerrain->diffuseMap->path.assign("textures\\terrian.jpg");
+		matTerrain->diffuseMap->path.assign("textures\\terrian22.jpg");
 		matTerrain->diffuseColor = glm::vec3(0.8f);
 		terrain->GetComponent<Render>()->materials.push_back(matTerrain);
-		terrain->Trans()->MoveTo(-200, 0, -50);
+		terrain->Trans()->MoveTo(1135.362, 0, -333.93);
 	}
 }

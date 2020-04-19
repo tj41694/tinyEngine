@@ -54,7 +54,7 @@ namespace TEngine {
 		return eulerAngles;
 	}
 	const glm::vec3 Transform::Forwward() const {
-		return Rotation() * vec3(0, 0, 1.0f);
+		return Rotation() * vec3(0, 0, -1.0f);
 	}
 	const glm::vec3 Transform::Right() const {
 		return Rotation() * vec3(1.0f, 0, 0);
