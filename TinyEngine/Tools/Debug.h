@@ -16,11 +16,14 @@ namespace TEngine {
 	void Log(const char* file, int line, const type_info& type);
 	void Log(const char* file, int line, const glm::vec2& vec2);
 	void Log(const char* file, int line, const glm::vec3& vec3);
+	void Log(const char* file, int line, const glm::vec3& vec3);
 	void Log(const char* file, int line, const void*& ptr);
 
 #ifdef _DEBUG
 #define DEBUGLOG(info) Log(__FILE__, __LINE__, info)
+#define LOG(info)
 #else
 #define DEBUGLOG(info)
+#define LOG(info) Log(__FILE__, __LINE__, info)
 #endif
 }

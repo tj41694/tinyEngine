@@ -25,6 +25,8 @@ namespace TEngine {
 		unsigned int normalTexLoc = 0;
 		unsigned int tskyboxTexLoc = 0;
 		unsigned int diffuseTexLoc = 0;
+
+	private:
 	};
 
 }

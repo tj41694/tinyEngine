@@ -4,12 +4,14 @@
 
 namespace TEngine {
 	using namespace glm;
-	vec2		Input::mousePosition(0, 0);
-	vec2		Input::lasPos(0, 0);
-	bool		Input::mouseMoving = false;
-	float	    Input::Vertical = 0;
-	float		Input::Horizontal = 0;
-	double	    Input::deltaTime = 0;
+	vec2							Input::mousePosition(0, 0);
+	vec2							Input::lasPos(0, 0);
+	bool							Input::mouseMoving = false;
+	float							Input::Vertical = 0;
+	float							Input::Horizontal = 0;
+	double							Input::deltaTime = 0;
+	std::unordered_map<int, bool>	Input::keyPressing;
+	std::unordered_map<int, bool>	Input::keyPressed;
 
 	void Input::Initial(glContext* glContext) {
 		if (glContext == nullptr || glContext->glNativeWindow == nullptr) { return; }
@@ -24,6 +26,10 @@ namespace TEngine {
 
 	void Input::Update(double deltaTime_) {
 		deltaTime = deltaTime_;
+
+		//static bool pressing;
+		//pressing = glfwGetKey(Object::context->glNativeWindow, GLFW_KEY_F2) == GLFW_PRESS;
+		//DEBUGLOG(pressing);
 		if (GetKeyDown(GLFW_KEY_ESCAPE))
 			glfwSetWindowShouldClose(Object::context->glNativeWindow, true);
 		double x, y;
@@ -49,6 +55,20 @@ namespace TEngine {
 
 	bool Input::GetKey(int vKey) {
 		return glfwGetKey(Object::context->glNativeWindow, vKey) == GLFW_PRESS;
+	}
+
+	bool Input::GetKeyUp(int vKey)
+	{
+		if (keyPressing.find(vKey) == keyPressing.end()) { keyPressing[vKey] = false; }
+		if (keyPressed.find(vKey) == keyPressed.end()) { keyPressed[vKey] = false; }
+		bool pressing = keyPressing[vKey] = glfwGetKey(Object::context->glNativeWindow, vKey) == GLFW_PRESS;
+		if (!pressing && keyPressed[vKey])
+		{
+			keyPressed[vKey] = pressing;
+			return true;
+		}
+		keyPressed[vKey] = pressing;
+		return false;
 	}
 
 	bool Input::GetKeyDown(int vKey) {

@@ -1,8 +1,12 @@
 #include "UI.h"
 #include "Engine/FileSystem.h"
+#include "../Materials/shaders.h"
 
 
 namespace TEngine {
+
+
+
 	std::unordered_map<unsigned int, UI*> UI::UIs;
 	GLuint UI::textShader = 0;
 	GLuint UI::UIVBO = 0;
@@ -24,7 +28,7 @@ namespace TEngine {
 
 	void UI::LoadUIVAO() {
 		if (UIVAO == 0) {
-			textShader = esLoadProgram(FileSystem::ReadFile("resources/shaders/text/text.vs").c_str(), FileSystem::ReadFile("resources/shaders/text/text.fs").c_str());
+			textShader = esLoadProgram(textVs, textFs);
 			// Configure VAO/VBO for texture quads
 			glGenVertexArrays(1, &UI::UIVAO);
 			glGenBuffers(1, &UI::UIVBO);

@@ -22,7 +22,7 @@ namespace TEngine {
 
 	void Draw(glContext* esContext) {
 		Camera::RenderAll(esContext); //绘制场景
-		UI::DrawAll();                //绘制UI
+		//UI::DrawAll();                //绘制UI
 	}
 
 	void Shutdown(glContext* esContext) {
@@ -67,7 +67,7 @@ namespace TEngine {
 	extern "C" int glMain(GLContext * glContext) {
 		glContext->userData = malloc(sizeof(UserData));
 
-		if (!glCreateWindow(glContext, "Hello GL", 1920 - 1024, 0, 1024, 768)) {
+		if (!glCreateWindow(glContext, "Hello GL", 600, 40, 1024, 768)) {
 			return -1;
 		}
 		if (!Init(glContext)) { return GL_FALSE; }

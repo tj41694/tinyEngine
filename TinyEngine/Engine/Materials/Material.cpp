@@ -15,6 +15,9 @@ namespace TEngine {
 	Material::Material(const char* vShader, const char* gShader, const char* fShader) :
 		shaderId(esLoadProgram(FileSystem::ReadFile(vShader).c_str(), FileSystem::ReadFile(gShader).c_str(), FileSystem::ReadFile(fShader).c_str())) {}
 
+	Material::Material(const char* vShader, const char* fShader, int flag):
+		shaderId(esLoadProgram(vShader, fShader)){ }
+
 	void Material::Use(Camera* camera, Object* obj, DrawCmd* cmd) {
 		glUseProgram(shaderId);
 		SetMatrix("model", obj->Trans()->LocalToWorldMarix());

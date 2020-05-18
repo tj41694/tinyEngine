@@ -17,6 +17,7 @@ namespace TEngine {
 		static Material* GetDefaultMaterial();
 
 		Material(const char* vShader, const char* fShader);
+		Material(const char* vShader, const char* fShader, int flag);
 		Material(const char* vShader, const char* gShader, const char* fShader);
 		virtual void Use(Camera* camera, Object* obj, DrawCmd* mesh);
 		void SetFloat(const char * name, const float & value);

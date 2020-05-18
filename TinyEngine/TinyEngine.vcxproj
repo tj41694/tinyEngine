@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{BB39CFDE-A4CA-448E-A3D9-9C1E30A45BC9}</ProjectGuid>
     <RootNamespace>Demo03tinyEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
     <ProjectName>TinyEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -78,8 +78,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ReferencePath>$(ReferencePath)</ReferencePath>
-    <LibraryPath>D:\MyProject\glReview\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>D:\MyProject\glReview\Common\Include;D:\MyProject\glReview\External\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)External\x86Release\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Common\Include\;$(SolutionDir)External\Include\;$(SolutionDir)GLFW_GL44\Include\;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IntDir>$(SolutionDir)$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)Common\Include;$(SolutionDir)External\Include;$(IncludePath)</IncludePath>
@@ -92,7 +93,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\MyProject\glReview\External\Include;D:\MyProject\glReview\Common\Include;D:\Projects\tiny\External\Include\GDAL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -125,11 +127,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>libGLESv2.lib;libEGL.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libEGL.lib;assimp-vc140-mt.lib;freetype.lib;tiff.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -199,6 +202,7 @@
     <ClInclude Include="Engine\Materials\BeltStripMat.h" />
     <ClInclude Include="Engine\Materials\Material.h" />
     <ClInclude Include="Engine\Materials\MatSkyBox.h" />
+    <ClInclude Include="Engine\Materials\shaders.h" />
     <ClInclude Include="Engine\Materials\Standard.h" />
     <ClInclude Include="Engine\Object.h" />
     <ClInclude Include="Engine\OpenglUtil.h" />

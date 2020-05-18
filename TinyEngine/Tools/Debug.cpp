@@ -5,7 +5,7 @@
 #include <iostream>
 #include <stdio.h>
 
-#define DEBUG_FILE_LINE
+//#define DEBUG_FILE_LINE
 namespace TEngine {
 
 	using namespace std;
@@ -138,5 +138,4 @@ namespace TEngine {
 		cout << ptr << endl;
 #endif // DEBUG_FILE_LINE
 	}
-
 }

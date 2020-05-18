@@ -14,6 +14,7 @@
 #include "Components/Camera.h"
 #include <Scripts/CameraCtr.h>
 #include <iostream>
+#include "Materials/shaders.h"
 
 namespace TEngine {
 	using namespace std;
@@ -30,7 +31,7 @@ namespace TEngine {
 	Text* Global::FPSText1 = nullptr;
 
 	void Global::Initial(glContext* glContext) {
-		InitialSkybox();
+		//InitialSkybox();
 		InitialScence(glContext);
 		InitialUI();
 		InitialShader();
@@ -194,10 +195,10 @@ namespace TEngine {
 		//auto render4 = cube3->GetComponent<Render>();
 		//render4->materials.push_back(mat2);
 
-		Object* nanosuit = Object::LoadModel("models/bakeTest/", "bakeTest.obj");
-		nanosuit->AddComponent<SelfRot>()->speed = 0.2f;
-		nanosuit->Trans()->MoveTo(glm::vec3(5, 0, 0));
-		nanosuit->Trans()->SetLocalScale(glm::vec3(0.01, 0.01, 0.01));
+		//Object* nanosuit = Object::LoadModel("models/bakeTest/", "bakeTest.obj");
+		//nanosuit->AddComponent<SelfRot>()->speed = 0.2f;
+		//nanosuit->Trans()->MoveTo(glm::vec3(5, 0, 0));
+		//nanosuit->Trans()->SetLocalScale(glm::vec3(0.01, 0.01, 0.01));
 
 		//Object* board1 = Object::LoadModel("./resources/models/board/", "board.obj");
 		//board1->MoveTo(glm::vec3(-15.0f, 18.0f, 0.0f));
@@ -259,8 +260,7 @@ namespace TEngine {
 
 	void Global::InitialShader()
 	{
-		screenShader = esLoadProgram(FileSystem::ReadFile("./resources/shaders/screenShader/screenShader.vs").c_str(),
-			FileSystem::ReadFile("./resources/shaders/screenShader/screenShader.fs").c_str());
+		screenShader = esLoadProgram(screenShaderVs, screenShaderFs);
 #pragma region screenVAO
 		float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
 		//positions   // texCoords
@@ -351,6 +351,6 @@ namespace TEngine {
 		matTerrain->diffuseMap->path.assign("textures\\terrian22.jpg");
 		matTerrain->diffuseColor = glm::vec3(0.8f);
 		terrain->GetComponent<Render>()->materials.push_back(matTerrain);
-		terrain->Trans()->MoveTo(1135.362, 0, -333.93);
+		terrain->Trans()->MoveTo(1135.362f, 0, -333.93f);
 	}
 }

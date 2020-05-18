@@ -5,6 +5,10 @@
 #include "Tools/Debug.h"
 #include <cmath>
 
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
+#include <Engine/Global.h>
+
 namespace TEngine {
 	using namespace std;
 	using namespace glm;
@@ -13,7 +17,7 @@ namespace TEngine {
 
 	void CameraCtr::Start() {
 		camera_ = obj->GetComponent<Camera>();
-		obj->Trans()->MoveTo(1135.362, 3, -333.93);
+		obj->Trans()->MoveTo(1135.362f + 17.0f, 1.0f, -333.93f - 3.0f);
 	}
 
 	void CameraCtr::Update() {
@@ -36,14 +40,33 @@ namespace TEngine {
 		//if (Input::GetKey(GLFW_KEY_F1))
 		//	obj->Trans()->MoveTo(0, 0, 0);
 
-		if (Input::GetKey(GLFW_KEY_F2))
+		if (Input::GetKeyUp(GLFW_KEY_F2))
 		{
 			camera_->rendTextIndex == 0 ? camera_->rendTextIndex = 1 : camera_->rendTextIndex = 0;
 		}
 
-		if (Input::GetKey(GLFW_KEY_F3))
+		if (Input::GetKeyUp(GLFW_KEY_F3))
 		{
 			camera_->drawFrame = !camera_->drawFrame;
+		}
+
+		static float pixels[2000 * 1500];
+		static unsigned char ipixels[2000 * 1500];
+		static int index = 0;
+		char savePath[64] = { 0 };
+		if (Input::GetKeyUp(GLFW_KEY_F5))
+		{
+			sprintf(savePath, "lacationPics/image%d.jpg", index);
+			glBindFramebuffer(GL_FRAMEBUFFER, Global::ScreenFramebuffer);
+			glReadBuffer(GL_COLOR_ATTACHMENT0);
+			glReadPixels(0, 0, camera_->width, camera_->height, GL_RGB, GL_UNSIGNED_BYTE, ipixels);
+			stbi_write_jpg(savePath, camera_->width, camera_->height, 3, (void*)ipixels, 99);
+
+			sprintf(savePath, "lacationPics/lacationimage%d.hdr", index);
+			glBindFramebuffer(GL_FRAMEBUFFER, Global::ScreenFramebuffer);
+			glReadBuffer(GL_COLOR_ATTACHMENT1);
+			glReadPixels(0, 0, camera_->width, camera_->height, GL_RGB, GL_FLOAT, pixels);
+			stbi_write_hdr(savePath, camera_->width, camera_->height, 3, pixels);
 		}
 
 		//if (Input::GetKeyDown(GLFW_KEY_F2)) {
@@ -59,10 +82,11 @@ namespace TEngine {
 		}
 		if (Input::GetMouseButtonUp(0))
 		{
-			static bool flag = false;
-			flag = !flag;
+			static bool flag = true;
+			//flag = !flag;
 			vec3 worldPos = Camera::main->ScreenToWorldPoint(Input::mousePosition, flag);
 			DEBUGLOG(worldPos);
+			LOG(worldPos);
 		}
 	}
 

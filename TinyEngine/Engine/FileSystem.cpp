@@ -2,6 +2,7 @@
 #include "FileSystem.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include "stb_image_write.h"
 #include "Tools/Debug.h"
 #include <fstream>
 #include <sstream>
@@ -16,6 +17,12 @@ namespace TEngine {
 	void FileSystem::FreeTextur(unsigned char* tex) {
 		stbi_image_free(tex);
 	}
+
+	void FileSystem::SaveTexture()
+	{
+
+	}
+
 	std::string FileSystem::ReadFile(const char* path) {
 		try {
 			std::string shaderCode;

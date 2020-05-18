@@ -6,10 +6,12 @@
 #include "../Texture.h"
 #include "Engine/DrawCommand/Mesh.h"
 #include "Engine/Global.h"
+#include "shaders.h"
 
 namespace TEngine {
+
 	using namespace glm;
-	Standard::Standard() : Material("./resources/shaders/Standard.vs", "./resources/shaders/Standard.fs") {
+	Standard::Standard() : Material(stdvs, stdfs, 1) {
 		depTest = true;
 		skybox = Global::skyboxTexture;
 		specularTexLoc = glGetUniformLocation(shaderId, "specularTex");

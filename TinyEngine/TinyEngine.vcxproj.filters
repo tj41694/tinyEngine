@@ -228,5 +228,6 @@
     <ClInclude Include="Engine\Components\DrawCmdFilter.h">
       <Filter>TEngine\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Materials\shaders.h" />
   </ItemGroup>
 </Project>

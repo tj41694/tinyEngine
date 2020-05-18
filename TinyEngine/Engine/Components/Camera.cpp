@@ -69,7 +69,9 @@ namespace TEngine {
 	}
 
 	glm::mat4 Camera::GetViewMatrix() {
-		return glm::lookAt(obj->Trans()->Positon(), obj->Trans()->Positon() + obj->Trans()->Forwward(), obj->Trans()->Up());
+		auto mat1 = glm::lookAt(obj->Trans()->Positon(), obj->Trans()->Positon() + obj->Trans()->Forwward(), obj->Trans()->Up());
+		auto mat2 = glm::inverse(obj->Trans()->LocalToWorldMarix());
+		return mat2;
 	}
 
 	static float _Zoom_ = 0;
